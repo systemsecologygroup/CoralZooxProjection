@@ -19,3 +19,11 @@ The time-series for monthly temperature are included in this repository (`Monthl
 The model includes the process of bleaching (i.e. the expulsion of algae by the corals when the enviromenta temperature hits a certain threshold), which is parameterised according to literature data (listed in `S-density-bleaching.pdf`).
 
 The results of the simulation are saved in folders, corresponding to the different scenarios, e.g. `Results/RCP26/`. These folders must be created prior to running the code. 
+
+# Relevant references
+
+P. Abrams, H. Matsuda, and Y. Harada. Evolutionarily unstable fitness maxima and stable fitness minima of continuous traits. *Evolutionary Ecology*, **7**:465–487, 1993.
+
+A. Merico, J. Bruggeman, and K. Wirtz. A trait-based approach for downscaling complexity in plankton ecosystem models. *Ecological Modelling*, **220**:3001–3010, 2009.
+
+N. A. Raharinirina, G. Brandt, and A. Merico. A trait-based model for describing the adaptive dynamics of coral-algae symbiosis. *Frontiers in Ecology and Evolution*, **5**:31, 2017.
