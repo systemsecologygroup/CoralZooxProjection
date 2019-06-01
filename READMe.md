@@ -22,8 +22,8 @@ The results of the simulation are saved in folders, corresponding to the differe
 
 # Relevant references
 
-P. Abrams, H. Matsuda, and Y. Harada. Evolutionarily unstable fitness maxima and stable fitness minima of continuous traits. *Evolutionary Ecology*, **7**:465–487, 1993.
+P. Abrams, H. Matsuda, and Y. Harada. [Evolutionarily unstable fitness maxima and stable fitness minima of continuous traits](https://link.springer.com/article/10.1007/BF01237642). *Evolutionary Ecology*, **7**:465–487, 1993.
 
-A. Merico, J. Bruggeman, and K. Wirtz. A trait-based approach for downscaling complexity in plankton ecosystem models. *Ecological Modelling*, **220**:3001–3010, 2009.
+A. Merico, J. Bruggeman, and K. Wirtz. [A trait-based approach for downscaling complexity in plankton ecosystem models](https://www.sciencedirect.com/science/article/pii/S0304380009003275). *Ecological Modelling*, **220**:3001–3010, 2009.
 
-N. A. Raharinirina, G. Brandt, and A. Merico. A trait-based model for describing the adaptive dynamics of coral-algae symbiosis. *Frontiers in Ecology and Evolution*, **5**:31, 2017.
+N. A. Raharinirina, G. Brandt, and A. Merico. [A trait-based model for describing the adaptive dynamics of coral-algae symbiosis](https://www.frontiersin.org/articles/10.3389/fevo.2017.00031/full). *Frontiers in Ecology and Evolution*, **5**:31, 2017.
