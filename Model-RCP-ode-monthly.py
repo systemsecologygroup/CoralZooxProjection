@@ -32,7 +32,7 @@ Ksmax = 3e6 # healthy measure of carying capacity of symbiont per host biomass G
 
 beta = (12)*1e2
 
-gammaH = 1e6 # free param 
+gammaH = 1e6 # minimun symbiont density found on healthy coral colonie
 fsize = 18
 
 r = (12)*1e3
@@ -54,7 +54,6 @@ def SystemForcing(t, y, T0, rho, skew, N, NormCor, TempNS, K_C_Reg):
     coral = y[0]
     u = y[1]
     E = 1 - exp(-beta*u)
-    #E = max(0, E) # make sure E is not above 1, due to fast decrease of u making u<0
     symbiont = y[2]
     # Introducing temperature dependence
     #print t
@@ -101,11 +100,6 @@ CAR_N_index_orig = 250 # index in rawNum_CAR  0.0225
 rawNum_GBR = rawNum_GBR_orig
 rawNum_SEA = rawNum_SEA_orig
 rawNum_CAR = rawNum_CAR_orig
-
-# For sensitivity simulations to reduce the number of simulations (PS: also change the location of results e.g. change Results/ to Sensitivity-N/)
-#rawNum_GBR = concatenate((arange(min(rawNum_GBR_orig), rawNum_GBR_orig[GBR_N_index_orig], 0.0005), array([0.75*rawNum_GBR_orig[GBR_N_index_orig]]), array([rawNum_GBR_orig[GBR_N_index_orig]]), array([1.25*rawNum_GBR_orig[GBR_N_index_orig]]), arange(rawNum_GBR_orig[GBR_N_index_orig]+0.0005, max(rawNum_GBR_orig), 0.0005)))
-#rawNum_SEA = concatenate((arange(min(rawNum_SEA_orig), rawNum_SEA_orig[SEA_N_index_orig], 0.0005), array([0.75*rawNum_SEA_orig[SEA_N_index_orig]]), array([rawNum_SEA_orig[SEA_N_index_orig]]), array([1.25*rawNum_SEA_orig[SEA_N_index_orig]]), arange(rawNum_SEA_orig[SEA_N_index_orig]+0.0005, max(rawNum_SEA_orig), 0.0005)))
-#rawNum_CAR = concatenate((arange(min(rawNum_CAR_orig), rawNum_CAR_orig[CAR_N_index_orig], 0.0005), array([0.75*rawNum_CAR_orig[CAR_N_index_orig]]), array([rawNum_CAR_orig[CAR_N_index_orig]]), array([1.25*rawNum_CAR_orig[CAR_N_index_orig]]), arange(rawNum_CAR_orig[CAR_N_index_orig]+0.0005, max(rawNum_CAR_orig), 0.0005))) 
 
 TempList = linspace(0, 75, 1500)
 RCP_list = ["RCP26", "RCP45", "RCP85"]
@@ -268,5 +262,5 @@ for rcp_index in xrange(len(RCP_list)):
         fileTrait[str(rcp_index)+str(z)].close()
         fileSymb[str(rcp_index)+str(z)].close()
 
-plt.show()
+
 
