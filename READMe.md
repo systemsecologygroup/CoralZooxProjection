@@ -2,6 +2,7 @@
 
 A trait-based model of coral-algae symbiosis to study coral acclimation under different warming scenarios. The model is applied to three coral reef ecosystems of the Tropics: the Great Barrier Reef, the South East Asia, and the Caribbean. Coral growth is constrained by thermal tolerance curves and corals respond to changing environmental conditions via plastic phenotypic changes.
 
+![image](map.png)
 
 # Technicalities
 
