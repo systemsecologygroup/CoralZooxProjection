@@ -16,7 +16,7 @@ a = 1.0768/12 # Symbiont specific growth rate - linear growth rate
 b = 0.0633 # Exponential Growth constant of the symbiont
 
 
-alpha = 1e-3
+alpha = 1e-3 # coral investment linear cost parameter 
 
 M_C = (10/12)*1e-3 # coral mortality 
 
