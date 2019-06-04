@@ -10,7 +10,7 @@ import matplotlib
 import numpy as np
 
 
-#### Model with a dynamics on the symbiont biomass, Time in month #####
+#### Adaptive dynamics model for coral-algae symbiosis (with bleaching), Time is in month #####
 G_C = 10/12  # this is G_max in the model
 a = 1.0768/12 # Symbiont specific growth rate - linear growth rate
 b = 0.0633 # Exponential Growth constant of the symbiont
