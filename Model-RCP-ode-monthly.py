@@ -48,7 +48,7 @@ def Gradient(coral, u, symbiont, Gx1, beta, alpha, K_symb, K_C_Reg):
     return Grad
 
 # The following function defines the system of ordinary differential equation to be integrated 
-AddTime = 2000*12 # for spine up, longer time to reach a steady state
+AddTime = 2000*12 # for spine up to reach a quasi steady state
 def SystemForcing(t, y, T0, rho, skew, N, NormCor, TempNS, K_C_Reg):
     dSystem = zeros(len(y))
     coral = y[0]
