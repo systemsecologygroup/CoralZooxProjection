@@ -91,12 +91,8 @@ rawNum_GBR_orig = arange(0.01, 0.1, 0.00005)
 rawNum_SEA_orig = arange(0.01, 0.1, 0.00005)
 rawNum_CAR_orig = arange(0.01, 0.1, 0.00005) 
 
-#  Speed of adapations specific for each region 
-GBR_N_index_orig = 100 # index in rawNum_GBR  0.0145
-SEA_N_index_orig = 275 # index in rawNum_SEA  0.02375
-CAR_N_index_orig = 250 # index in rawNum_CAR  0.0225
-
-# For dynamics simulation Results/
+# Values used for simulation of dynamics in Results/ 
+# I change this part for other simulations
 rawNum_GBR = rawNum_GBR_orig
 rawNum_SEA = rawNum_SEA_orig
 rawNum_CAR = rawNum_CAR_orig
