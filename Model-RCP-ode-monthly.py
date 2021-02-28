@@ -126,11 +126,11 @@ for rcp_index in xrange(len(RCP_list)):
         sub3 = plt.subplot(3, 1, 3)
         #variable time
         file0[str(rcp_index)+str(z)] = open("Months-"+Locations[z]+"-"+rcp+"-MPI"+".dat", "r")
-        time = load(file0[str(rcp_index)+str(z)])   
+        time = load(file0[str(rcp_index)+str(z)], allow_pickle = True)   
         file0[str(rcp_index)+str(z)].close()
         #Scenarios
         file1[str(rcp_index)+str(z)] = open("SST-"+Locations[z]+"-"+rcp+"-MPI"+".dat", "r")
-        TempNSdata = load(file1[str(rcp_index)+str(z)])
+        TempNSdata = load(file1[str(rcp_index)+str(z)], allow_pickle = True)
         file1[str(rcp_index)+str(z)].close()
         
         TimeMonth = arange(0, len(time), 1.0)
