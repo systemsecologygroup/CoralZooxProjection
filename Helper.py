@@ -28,7 +28,6 @@ Locations = array(["GBR", "SEA", "CAR"])
 for Locs in Locations:
     RUN_SIM(RCP_list, Locs, N_values[Locs], folder = "Results/")
     
-    
 
 
 
