@@ -27,7 +27,7 @@ Locations = array(["GBR", "SEA", "CAR"])
 # the function RUN_SIM the result are saved in the folder Results/
 
 for Locs in Locations:
-    # Return a dictionaries with the name of RCP scenario in RCP_list as key for the corresponding scenario
+    # Returns type dictionary with the name of RCP scenario in RCP_list as key for the corresponding scenario
     Coral_scenarios, Trait_scenarios, Symb_scenarios = RUN_SIM(RCP_list, Locs, N_values[Locs], folder = "Results/")
 
     
