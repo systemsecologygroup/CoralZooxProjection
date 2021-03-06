@@ -99,7 +99,11 @@ def RUN_SIM(RCP_list, Location_value, N_values, folder):
         z = 1
     elif Location_value == "CAR":
         z = 2
-
+    
+    HostDic = {}
+    TraitDic = {}
+    SymbDic = {}
+    
     for rcp_index in xrange(len(RCP_list)):
         rcp = RCP_list[rcp_index]
         
@@ -244,6 +248,12 @@ def RUN_SIM(RCP_list, Location_value, N_values, folder):
         fileCoral.close()
         fileTrait.close()
         fileSymb.close()
+        
+        HostDic[rcp] = HOST
+        TraitDic[rcp] = TRAIT
+        SymbDic[rcp] = SYMB
+    
+    return HostDic, TraitDic, SymbDic
         
 
 

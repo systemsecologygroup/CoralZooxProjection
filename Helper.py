@@ -1,5 +1,6 @@
 ##### Simple model runs ######
 from Model_RCP_ode_monthly import*
+import pdb
 
 ##### Whole ranges for the parameter N (Used to get Figure 2 in manuscript) 
 #### Values are still rescalled by 1e-11
@@ -23,10 +24,13 @@ RCP_list = ["RCP26", "RCP45", "RCP85"]
 Locations = array(["GBR", "SEA", "CAR"])
 
 # RUN_Simulations for each locations,
-# the function RUN_SIM returns None but the result are saved in the folder Results/
+# the function RUN_SIM the result are saved in the folder Results/
 
 for Locs in Locations:
-    RUN_SIM(RCP_list, Locs, N_values[Locs], folder = "Results/")
+    # Return a dictionaries with the name of RCP scenario in RCP_list as key for the corresponding scenario
+    Coral_scenarios, Trait_scenarios, Symb_scenarios = RUN_SIM(RCP_list, Locs, N_values[Locs], folder = "Results/")
+
+    
     
 
 
