@@ -30,7 +30,7 @@ skew_list = array([0.0002, 3.82, 1.06])
 rho_list = array([1.0, 0.81, 0.89])
 
 # For model with bleaching
-##### Whole ranges for the parameter N (Used to get Figure 2 in manuscript) 
+##### Whole ranges for the parameter N (Used to get Figure 3 in manuscript) 
 
 scale = 1e-11
 rawNum_GBR = arange(0.01, 0.1, 0.00005)

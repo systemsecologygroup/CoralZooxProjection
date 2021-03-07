@@ -12,7 +12,7 @@ Acclimation is captured by assuming that the temporal dynamics of a physiologica
 
 # Technicalities
 
-User can simply use `Helper.py` to run one or more simulations for varying speed of acclimation N. The results of the simulation are saved in folders `Results/`, change to your own folder names. `Plot-Main-Monthy.py` can be used to display the main result (Figure 2 in manuscript) 
+User can simply use `Helper.py` to run one or more simulations for varying speed of acclimation N. The results of the simulation are saved in folders `Results/`, change to your own folder names. `Plot-Main-Monthy.py` can be used to display the main result (Figure 3 in manuscript) 
 
 The python code `Model_RCP_ode_monthly.py` produces times series of coral biomass, coral energy investment trait and symbiont biomass. 
 
