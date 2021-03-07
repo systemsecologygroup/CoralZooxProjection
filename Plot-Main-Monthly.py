@@ -344,16 +344,16 @@ for z in xrange(len(Locations)):
         print rcp, Locations[z], PerChange, "N = ", rawNum_CAR[N_index_true]*scale
         
         # saving time in .dat
-        time_file = open("Results/Time_in_years.dat", "wr")
+        time_file = open("Results/Time-"+rcp+"-"+Locations[z]+"-%d.dat"%reg_N_index_true[z], "wr")
         time.dump(time_file)
         time_file.flush()
         time_file.close()
         
         # saving to csv
-        np.savetxt("Results-csv/Time_in_years.csv", time, delimiter = ",")
-        np.savetxt("Results-csv/CORAL-"+rcp+"-"+Locations[z]+"%d.csv"%reg_N_index_true[z], Host, delimiter = ",")
-        np.savetxt("Results-csv/TRAIT-"+rcp+"-"+Locations[z]+"%d.csv"%reg_N_index_true[z], Trait, delimiter = ",")
-        np.savetxt("Results-csv/SYMB-"+rcp+"-"+Locations[z]+"%d.csv"%reg_N_index_true[z], Symb, delimiter = ",")
+        np.savetxt("Results-csv/Time-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], time, delimiter = ",")
+        np.savetxt("Results-csv/CORAL-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], Host, delimiter = ",")
+        np.savetxt("Results-csv/TRAIT-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], Trait, delimiter = ",")
+        np.savetxt("Results-csv/SYMB-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], Symb, delimiter = ",")
         
         if count in (3, ):
             sub1.tick_params(axis = "y", direction = "in", labelsize = fsize2)
