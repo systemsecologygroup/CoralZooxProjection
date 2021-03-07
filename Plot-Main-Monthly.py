@@ -7,6 +7,7 @@ from numpy import amin, amax, meshgrid, arange, isnan, logical_not, interp, conc
 from scipy.integrate import odeint
 from matplotlib import pyplot as plt
 from matplotlib.font_manager import FontProperties
+import numpy as np
 
 #### Plotting data collected from ode solver #####
 font = {'family' : 'normal',
@@ -227,90 +228,132 @@ for z in xrange(len(Locations)):
         else:
             sub7.text(startTime - 5, 180, Fig_lab[6+count], fontproperties=font, fontsize = fsize) # forcing
                     
-        for file_index in xrange(len(file_list)):
-            filename = file_list[file_index]
-            file2 = open("Results/CORAL-"+rcp+"-"+Locations[z]+".dat", "r")
-            HOSTSet1 = load(file2, allow_pickle = True)
-            file2.close()
+        
+        file2 = open("Results/CORAL-"+rcp+"-"+Locations[z]+".dat", "r")
+        HOSTSet1 = load(file2, allow_pickle = True)
+        file2.close()
+        
+        file3 = open("Results/TRAIT-"+rcp+"-"+Locations[z]+".dat", "r")
+        TRAITSet1 = load(file3, allow_pickle = True)
+        file3.close()
+        
+        file4 =  open("Results/SYMB-"+rcp+"-"+Locations[z]+".dat", "r")
+        SYMBSet1 = load(file4, allow_pickle = True)
+        file4.close()
+        
+        HOST = HOSTSet1
+        SYMB = SYMBSet1
+        TRAIT = TRAITSet1
+        
             
-            file3 = open("Results/TRAIT-"+rcp+"-"+Locations[z]+".dat", "r")
-            TRAITSet1 = load(file3, allow_pickle = True)
-            file3.close()
+        MeanlossCoralBiomass = []
+        
+        # in case one wants something specific from the runs in each regions, uncomment and modify
             
-            file4 =  open("Results/SYMB-"+rcp+"-"+Locations[z]+".dat", "r")
-            SYMBSet1 = load(file4, allow_pickle = True)
-            file4.close()
+        if Locations[z] == "GBR":
+            N_index = reg_N_index[z]
+            N_index_true = reg_N_index_true[z]
             
-            HOST = HOSTSet1
-            SYMB = SYMBSet1
-            TRAIT = TRAITSet1
+            """
+            Host = HOST[N_index]
+            Trait = TRAIT[N_index]
+            Symb = SYMB[N_index]  
+            compare0 = (time<=2005)*(time>=1986)
             
-            MeanlossCoralBiomass = []
-                        
-            if file_index == 0 and z == 0:
-                N_index = reg_N_index[z]
-                N_index_true = reg_N_index_true[z]
-                Host = HOST[N_index]
-                Trait = TRAIT[N_index]
-                Symb = SYMB[N_index]  
-                compare0 = (time<=2005)*(time>=1986)
-                
-                PastHost = sum(Host[compare0])/sum(compare0)
-                PastTrait = sum(Trait[compare0])/sum(compare0)
-                PastSymb = sum(Symb[compare0])/sum(compare0)
-                
-                sub1.plot(time, 100*Trait/PastTrait, linewidth = 3, color = Color_list[v]) 
-                sub4.plot(time, 100*Host/PastHost, linewidth = 3, color = Color_list[v])
-                sub7.plot(time, 100*Symb/PastSymb, linewidth = 3, color = Color_list[v], label = RCP_title[v])
-                
-                compare1 = (time<=2100)*(time>=2081)     
-                FutureHost = sum(Host[compare1])/sum(compare1)
-                MeanlossCoralBiomass.append((FutureHost-PastHost)/PastHost)
-                PerChange = mean(array(MeanlossCoralBiomass))*100
-                print rcp, Locations[z], PerChange, rawNum_GBR[N_index_true]*scale            
-            elif file_index == 0 and z == 1:
-                N_index = reg_N_index[z]                               
-                N_index_true = reg_N_index_true[z]
+            PastHost = sum(Host[compare0])/sum(compare0)
+            PastTrait = sum(Trait[compare0])/sum(compare0)
+            PastSymb = sum(Symb[compare0])/sum(compare0)
             
-                Host = HOST[N_index]
-                Trait = TRAIT[N_index]
-                Symb = SYMB[N_index]
-                compare0 = (time<=2005)*(time>=1986)
-                
-                PastHost = sum(Host[compare0])/sum(compare0)
-                PastTrait = sum(Trait[compare0])/sum(compare0)
-                PastSymb = sum(Symb[compare0])/sum(compare0)
-                
-                sub1.plot(time, 100*Trait/PastTrait, linewidth = 3, color = Color_list[v]) 
-                sub4.plot(time, 100*Host/PastHost, linewidth = 3, color = Color_list[v])
-                sub7.plot(time, 100*Symb/PastSymb, linewidth = 3, color = Color_list[v], label = RCP_title[v])
+            sub1.plot(time, 100*Trait/PastTrait, linewidth = 3, color = Color_list[v]) 
+            sub4.plot(time, 100*Host/PastHost, linewidth = 3, color = Color_list[v])
+            sub7.plot(time, 100*Symb/PastSymb, linewidth = 3, color = Color_list[v], label = RCP_title[v])
+            
+            compare1 = (time<=2100)*(time>=2081)     
+            FutureHost = sum(Host[compare1])/sum(compare1)
+            MeanlossCoralBiomass.append((FutureHost-PastHost)/PastHost)
+            PerChange = mean(array(MeanlossCoralBiomass))*100
+            
+            print rcp, Locations[z], PerChange, rawNum_GBR[N_index_true]*scale
+            """
+        elif Locations[z] == "SEA":
+            N_index = reg_N_index[z]                               
+            N_index_true = reg_N_index_true[z]
+            
+            """
+            Host = HOST[N_index]
+            Trait = TRAIT[N_index]
+            Symb = SYMB[N_index]
+            compare0 = (time<=2005)*(time>=1986)
+            
+            PastHost = sum(Host[compare0])/sum(compare0)
+            PastTrait = sum(Trait[compare0])/sum(compare0)
+            PastSymb = sum(Symb[compare0])/sum(compare0)
+            
+            sub1.plot(time, 100*Trait/PastTrait, linewidth = 3, color = Color_list[v]) 
+            sub4.plot(time, 100*Host/PastHost, linewidth = 3, color = Color_list[v])
+            sub7.plot(time, 100*Symb/PastSymb, linewidth = 3, color = Color_list[v], label = RCP_title[v])
 
-                compare1 = (time<=2100)*(time>=2081)     
-                FutureHost = sum(Host[compare1])/sum(compare1)
-                MeanlossCoralBiomass.append((FutureHost-PastHost)/PastHost)
-                PerChange = mean(array(MeanlossCoralBiomass))*100
-                print rcp, Locations[z], PerChange, rawNum_SEA[N_index_true]*scale        
-            elif file_index == 0 and z == 2:
-                N_index = reg_N_index[z]
-                N_index_true = reg_N_index_true[z]
-                Host = HOST[N_index]
-                Trait = TRAIT[N_index]
-                Symb = SYMB[N_index] 
-                compare0 = (time<=2005)*(time>=1986)
-                
-                PastHost = sum(Host[compare0])/sum(compare0)
-                PastTrait = sum(Trait[compare0])/sum(compare0)
-                PastSymb = sum(Symb[compare0])/sum(compare0)
-                
-                sub1.plot(time, 100*Trait/PastTrait, linewidth = 3, color = Color_list[v]) 
-                sub4.plot(time, 100*Host/PastHost, linewidth = 3, color = Color_list[v])
-                sub7.plot(time, 100*Symb/PastSymb, linewidth = 3, color = Color_list[v], label = RCP_title[v])
-                
-                compare1 = (time<=2100)*(time>=2081)     
-                FutureHost = sum(Host[compare1])/sum(compare1)
-                MeanlossCoralBiomass.append((FutureHost-PastHost)/PastHost)
-                PerChange = mean(array(MeanlossCoralBiomass))*100
-                print rcp, Locations[z], PerChange, "N = ", rawNum_CAR[N_index_true]*scale             
+            compare1 = (time<=2100)*(time>=2081)     
+            FutureHost = sum(Host[compare1])/sum(compare1)
+            MeanlossCoralBiomass.append((FutureHost-PastHost)/PastHost)
+            PerChange = mean(array(MeanlossCoralBiomass))*100
+            print rcp, Locations[z], PerChange, rawNum_SEA[N_index_true]*scale
+            """
+        elif Locations[z] == "CAR":
+            N_index = reg_N_index[z]
+            N_index_true = reg_N_index_true[z]
+            
+            """
+            Host = HOST[N_index]
+            Trait = TRAIT[N_index]
+            Symb = SYMB[N_index] 
+            compare0 = (time<=2005)*(time>=1986)
+            
+            PastHost = sum(Host[compare0])/sum(compare0)
+            PastTrait = sum(Trait[compare0])/sum(compare0)
+            PastSymb = sum(Symb[compare0])/sum(compare0)
+            
+            sub1.plot(time, 100*Trait/PastTrait, linewidth = 3, color = Color_list[v]) 
+            sub4.plot(time, 100*Host/PastHost, linewidth = 3, color = Color_list[v])
+            sub7.plot(time, 100*Symb/PastSymb, linewidth = 3, color = Color_list[v], label = RCP_title[v])
+            
+            compare1 = (time<=2100)*(time>=2081)     
+            FutureHost = sum(Host[compare1])/sum(compare1)
+            MeanlossCoralBiomass.append((FutureHost-PastHost)/PastHost)
+            PerChange = mean(array(MeanlossCoralBiomass))*100
+            print rcp, Locations[z], PerChange, "N = ", rawNum_CAR[N_index_true]*scale
+            """
+        # if something specific is needed, comment out lines  327 -- 344
+        Host = HOST[N_index]
+        Trait = TRAIT[N_index]
+        Symb = SYMB[N_index] 
+        compare0 = (time<=2005)*(time>=1986)
+        
+        PastHost = sum(Host[compare0])/sum(compare0)
+        PastTrait = sum(Trait[compare0])/sum(compare0)
+        PastSymb = sum(Symb[compare0])/sum(compare0)
+        
+        sub1.plot(time, 100*Trait/PastTrait, linewidth = 3, color = Color_list[v]) 
+        sub4.plot(time, 100*Host/PastHost, linewidth = 3, color = Color_list[v])
+        sub7.plot(time, 100*Symb/PastSymb, linewidth = 3, color = Color_list[v], label = RCP_title[v])
+        
+        compare1 = (time<=2100)*(time>=2081)     
+        FutureHost = sum(Host[compare1])/sum(compare1)
+        MeanlossCoralBiomass.append((FutureHost-PastHost)/PastHost)
+        PerChange = mean(array(MeanlossCoralBiomass))*100
+        print rcp, Locations[z], PerChange, "N = ", rawNum_CAR[N_index_true]*scale
+        
+        # saving time in .dat
+        time_file = open("Results/Time_in_years.dat", "wr")
+        time.dump(time_file)
+        time_file.flush()
+        time_file.close()
+        
+        # saving to csv
+        np.savetxt("Results-csv/Time_in_years.csv", time, delimiter = ",")
+        np.savetxt("Results-csv/CORAL-"+rcp+"-"+Locations[z]+"%d.csv"%reg_N_index_true[z], Host, delimiter = ",")
+        np.savetxt("Results-csv/TRAIT-"+rcp+"-"+Locations[z]+"%d.csv"%reg_N_index_true[z], Trait, delimiter = ",")
+        np.savetxt("Results-csv/SYMB-"+rcp+"-"+Locations[z]+"%d.csv"%reg_N_index_true[z], Symb, delimiter = ",")
         
         if count in (3, ):
             sub1.tick_params(axis = "y", direction = "in", labelsize = fsize2)
