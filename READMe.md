@@ -13,13 +13,13 @@ Acclimation is captured by assuming that the temporal dynamics of a physiologica
 # Technicalities
 Python 2.7 is required
 
-User can simply use `Helper.py` to run one or more simulations for varying speed of acclimation N. The results of the simulation are saved in folders `Results/`, change to your own folder names. `Plot-Main-Monthy.py` can be used to display the main result (Figure 3 in manuscript) 
+User can simply use `Helper.py` to run one or more simulations for varying speed of acclimation N. The results of the simulation are saved in the folder `Results/`, change to your own folder location. `Plot-Main-Monthy.py` can be used to display the main result (Figure 3 in manuscript) 
 
 The python code `Model_RCP_ode_monthly.py` produces times series of coral biomass, coral energy investment trait and symbiont biomass. 
 
-The simulation takes as input several parameters (which are defined within code) and are forced by time-series of monthly temperature scenarios from input files of the type `.dat`.
+The simulation takes as input several parameters (which are defined within code) and are forced by time-series of monthly temperature scenarios from input files of the type `.dat` (`allow_pickle = True` is required in `load` function).
 
-The time-series for monthly temperature are included in this repository (`Monthly-SST-scenario.zip`)
+The time-series for monthly temperature are included in this repository folder Monthly-SST-scenario.zip/
 
 The model includes the process of bleaching (i.e. the expulsion of algae by the corals when the enviromenta temperature hits a certain threshold), which is parameterised according to literature data (listed in `S-density-bleaching.pdf`).
 
