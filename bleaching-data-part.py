@@ -74,7 +74,7 @@ m0 = 10
 #color for references
 numLoc = 16
 cmx = mpl.cm
-cmapC = mpl.cm.Vega20c#Vega20c
+cmapC = mpl.cm.tab20c#Vega20c
 cNorm = mpl.colors.Normalize(vmin=1, vmax=numLoc)
 scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=cmapC)
 
@@ -82,9 +82,9 @@ colorbranching = "blue"
 colormassive = "orange"
 colorotherShape = "grey"
 
-Loc_target = ["GBR"]#, to have all use ["GBR" "SEA", "CAR"]
+Loc_target = ["GBR", "SEA", "CAR"]
 #col = [(0.827, 0.553, 0.686), (0.416, 0.071, 0.239), (0.69, 0.345, 0.514), "grey"]
-col = ["green"] #corresponding to all ["green", (0.44, 0.07, 0.20), (0.8, 0.4, 0.8), (0.9, 0.9, 0.9)]  # for region
+col = ["green",(0.44, 0.07, 0.20), (0.8, 0.4, 0.8), (0.9, 0.9, 0.9)]  
 label_unique = [] # for regions
 
 #[1] separate between those with visual signs and those with no visual signs of bleaching
@@ -128,6 +128,9 @@ S2Location = "CAR" #"Florida Keys"
 sub2.plot(T2branching-T2_initial, 100-S2branching, "o", markersize = m0, alpha = a0, color = colorbranching)
 
 sub2.plot(T2massive-T2_initial, 100-S2massive, "o", markersize = m0, alpha = a0, color = colormassive)
+
+print(1, T2branching-T2_initial)
+print(2,T2massive-T2_initial)
 
 if S2Location not in label_unique and S2Location in Loc_target:   
     sub3.plot(T2-T2_initial, 100-S2, "o", markersize = m0, alpha = a0, color = col[Loc_target.index(S2Location)], label = S2Location)
@@ -291,7 +294,7 @@ if S11Location not in label_unique and S11Location in Loc_target:
 elif S11Location in Loc_target:
     sub3.plot(T11 - T11_initial, 100-S11, "o", markersize = m0, alpha = a0, color = col[Loc_target.index(S11Location)])
 
-#[12] # directly compare with MMMax 
+#[12] # directly compare with MMMax because there was no initial temperature to compare with
 S12 = 100*array([0.5/1.1, 1/2.3, 0.35/1.2])
 T12 = (31.5)*ones(len(S12))
 T12_MMMax = 30.5
@@ -304,6 +307,17 @@ T12massive = (31.5)*ones(len(S12massive))
 
 S12Location = "CAR"
 
+sub2.plot(T12branching - T12_MMMax, S12branching, "o", markersize = m0, alpha = a0, color = colorbranching)
+sub2.plot(T12massive - T12_MMMax, S12massive, "o", markersize = m0, alpha = a0, color = colormassive)
+print(3, T12branching-T12_MMMax)
+print(4,T12massive-T12_MMMax)
+
+if S12Location not in label_unique and S12Location in Loc_target:
+    sub2.plot(T12 - T12_MMMax, S12, "o", markersize = m0, alpha = a0, color = col[Loc_target.index(S12Location)], label = S12Location)
+    label_unique.append(S12Location)
+elif S12Location in Loc_target:
+    sub2.plot(T12 - T12_MMMax, S12, "o", markersize = m0, alpha = a0, color = col[Loc_target.index(S12Location)])
+
 #[13]
 S13_init = 100*array([0.5/1.6, 0.1/1.6, 0.5/0.95, 0.1/0.95, 0.5/1.1, 0.1/1.1])
 T13 = array([32, 34, 32, 34, 32, 34])
@@ -314,15 +328,18 @@ S13_MMMax = 100*array([0.5/2, 0.1/2, 0.5/0.75, 0.1/0.75, 0.5/0.8, 0.1/0.8])
 
 T13massive = array([32, 34])
 S13massive_init = 100*array([0.5/1.6, 0.1/1.6])
-S13massive_MMMax = 100*array([0.5/2, 0.1/2])
+S13massive_MMMax = 100*array([0.5/2, 0.1/2]) # compared with MMMax, not considered
 
 T13otherShape = array([32, 34, 32, 34])
 S13otherShape_init = 100*array([0.5/0.95, 0.1/0.95, 0.5/1.1, 0.1/1.1])
-S13otherShape_MMMax = 100*array([0.5/0.75, 0.1/0.75, 0.5/0.8, 0.1/0.8])
+S13otherShape_MMMax = 100*array([0.5/0.75, 0.1/0.75, 0.5/0.8, 0.1/0.8]) # compared with MMMax, not considered
 
 S13Location = "CAR"
 sub2.plot(T13massive - T13_initial, 100-S13massive_init, "o", markersize = m0, alpha = a0, color = colormassive)
 sub2.plot(T13otherShape - T13_initial, 100-S13otherShape_init, "o", markersize = m0, alpha = a0, color = colorotherShape, label = "Others")
+
+print(5, T13massive-T13_initial)
+print(6,T13otherShape-T13_initial)
 
 if S13Location not in label_unique and S13Location in Loc_target:
     sub3.plot(T13 - T13_initial, 100-S13_init, "o", markersize = m0, alpha = a0, color = col[Loc_target.index(S13Location)], label = S13Location)
@@ -348,6 +365,8 @@ S14Location = "CAR"
 sub2.plot(T14branching - T14_initial, 100-S14branching_init, "o", markersize = m0, alpha = a0, color = colorbranching)
 DTmmmax = T14branching - T14_MMMax
 
+print(7, T14branching - T14_initial)
+
 if S14Location not in label_unique and S14Location in Loc_target:
     sub3.plot(T14 - T14_initial, 100-S14_init, "o", markersize = m0, alpha = a0, color = col[Loc_target.index(S14Location)], label = S14Location)
     label_unique.append(S14Location)
@@ -369,6 +388,9 @@ T15massive = 30.5*ones(len(S15massive))
 S15Location = "CAR" 
 sub2.plot(T15branching - T15_initial, 100-S15branching, "o", markersize = m0, alpha = a0, color = colorbranching)
 sub2.plot(T15massive - T15_initial, 100-S15massive, "o", markersize = m0, alpha = a0, color = colormassive)
+
+print(8, T15branching - T15_initial)
+print(8, T15massive - T15_initial)
 
 if S15Location not in label_unique and S15Location in Loc_target:
     sub3.plot(T15 - T15_initial, 100-S15, "o", markersize = m0, alpha = a0, color = col[Loc_target.index(S15Location)], label = S15Location)
@@ -394,6 +416,10 @@ sub2.plot(T16massive - T16_initial, 100-S16massive, "o", markersize = m0, alpha 
 
 
 S16Location = "CAR"
+
+print(10, T16branching - T16_initial)
+print(11, T15massive - T15_initial)
+    
 
 if S16Location not in label_unique and S16Location in Loc_target:
     sub3.plot(T16 - T16_initial, 100-S16, "o", markersize = m0, alpha = a0, color = col[Loc_target.index(S16Location)], label = S16Location)
@@ -441,9 +467,9 @@ elif S17Location in Loc_target:
     sub3.plot(T18 - T18_initial, 100-S18, "o", markersize = m0, alpha = a0, color = col[Loc_target.index(S18Location)])
 
 
-#sub2.legend(ncol = 1, fontsize = fsize)
+sub2.legend(ncol = 1, fontsize = fsize)
 
-#sub3.legend(ncol = 1, fontsize = fsize)
+sub3.legend(ncol = 1, fontsize = fsize)
 
                                                                                                                                                                                                                                                                                      
 plt.show()
