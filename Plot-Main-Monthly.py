@@ -418,5 +418,12 @@ for z in xrange(len(Locations)):
 figManager = plt.get_current_fig_manager()
 figManager.window.showMaximized()
 
+plt.subplots_adjust(top=0.965,
+bottom=0.095,
+left=0.065,
+right=0.81,
+hspace=0.175,
+wspace=0.175)
+
 plt.show()
 
