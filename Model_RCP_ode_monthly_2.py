@@ -9,8 +9,9 @@ from matplotlib import pyplot as plt
 import matplotlib
 import numpy as np
 import pdb
+
 """
-This code is generates our model dynamics
+This code is a modifiction of Model_RCP_ode_monthly: allowing a deactivation of acclimation from year 2010 for a particular value of the speed of acclimation
 """
 
 #### Adaptive dynamics model for coral-algae symbiosis (with bleaching), Time is in month #####
@@ -237,6 +238,13 @@ def RUN_SIM(RCP_list, Location_value, N_values, folder):
                         Dynamics[k, 1] = ode15s.y[1]
                         Dynamics[k, 2] = ode15s.y[2]
                         print rcp, Location_value, i, ode15s.t, "no reset"
+                        
+                
+                if i == 0 and ode15s.t>=2010: # deactivate acclimation for one of the runs (only Helper_2.py, with 2 simulations with the same N)
+                    N = 0
+                    ode15s.set_f_params(T0, rho, skew, N, NormCor, TempNS, K_C_Reg, NumTime)
+                    
+                
                 k+=1
             HOST.append(Dynamics[:, 0])
             TRAIT.append(Dynamics[:, 1])
