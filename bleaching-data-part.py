@@ -5,7 +5,7 @@ import matplotlib as mpl
 from matplotlib.font_manager import FontProperties
 
 """ 
-Code producing Symbiont Biomass reduction by Coral Type and by Location (First figure in the supplementary)
+Code producing Symbiont Biomass reduction by Coral Type and by Location (Appendix Figure 1)
 
 """
 

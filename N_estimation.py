@@ -10,7 +10,7 @@ import matplotlib
 import numpy as np
 
 """ 
-This code is used to estimate the speed of acclimation N, Figure 2 in Manuscript
+This code was used to estimate the speed of acclimation N, Figure 2 in Manuscript
 
 All results must first be generated for all the N values in Helper.py and then stored in the folder bellow e.g. Results_final 
 (The files are too heavy to store on github)
