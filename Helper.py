@@ -11,7 +11,7 @@ rawNum_CAR_orig = arange(0.01, 0.1, 0.00005)
 # Values used for simulation of dynamics in Results/ 
 # change this part for other simulations ### 
 # These indices are the ones producing the main results in the manuscript
-N_indexes = {"GBR":920, "SEA":330, "CAR":275}
+N_indexes = {"GBR":908, "SEA":330, "CAR":275}
 
 rawNum_GBR = array([rawNum_GBR_orig[N_indexes["GBR"]]])
 rawNum_SEA = array([rawNum_SEA_orig[N_indexes["SEA"]]])

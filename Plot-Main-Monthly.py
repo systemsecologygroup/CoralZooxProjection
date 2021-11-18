@@ -165,7 +165,7 @@ Ksmax = 3e6 # healthy measure of carying capacity of symbiont per host biomass G
 file_list = ["Results/"]
 
 #  Speed of adapations specific for each region # index in the whole N ranges
-GBR_N_index = 920 # index in rawNum_GBR  0.056
+GBR_N_index = 908 # index in rawNum_GBR  0.0554
 SEA_N_index = 330 # index in rawNum_SEA  0.0265
 CAR_N_index = 275 # index in rawNum_CAR  0.02375
 reg_N_index_true = [GBR_N_index, SEA_N_index, CAR_N_index]
