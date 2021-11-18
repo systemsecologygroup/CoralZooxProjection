@@ -200,7 +200,7 @@ for z in xrange(len(Locations)):
         sub1.set_xlim((startTime, max(time0))) 
         part1 = sub1.twinx()
         if count == 3:
-            sub1.set_ylabel("Coral trait \n (%)", fontsize = fsize)
+            sub1.set_ylabel("Coral trait \n (% change)", fontsize = fsize)
             sub1.text(startTime - 17, 102.5, Fig_lab[count], fontproperties=font, fontsize = fsize) # forcing
         else:
             sub1.text(startTime - 5, 102.5, Fig_lab[count], fontproperties=font,  fontsize = fsize)
@@ -211,7 +211,7 @@ for z in xrange(len(Locations)):
         part4 = sub4.twinx()
         hostTicks = array([0, 20, 40, 60, 80, 100, 120])       
         if count == 3:
-            sub4.set_ylabel("Coral abundance \n (%)", fontsize = fsize)
+            sub4.set_ylabel("Coral abundance \n (% change)", fontsize = fsize)
             sub4.text(startTime - 17, 120, Fig_lab[3+count],fontproperties=font, fontsize = fsize) # forcing
 
         else: 
@@ -223,7 +223,7 @@ for z in xrange(len(Locations)):
         Symbticks = array([0, 30, 60, 90, 120, 150, 180, 200])
         part7 = sub7.twinx()
         if count==3:
-            sub7.set_ylabel("Symbiont abundance \n (%)", fontsize = fsize)
+            sub7.set_ylabel("Symbiont abundance \n (% change)", fontsize = fsize)
             sub7.text(startTime - 17, 180, Fig_lab[6+count], fontproperties=font, fontsize = fsize) # forcing
         else:
             sub7.text(startTime - 5, 180, Fig_lab[6+count], fontproperties=font, fontsize = fsize) # forcing

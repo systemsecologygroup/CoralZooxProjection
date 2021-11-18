@@ -122,8 +122,8 @@ for z in xrange(len(Locations)):
             sub1.plot(time0[list(time0).index(startTime):], CummulativeBl1+CummulativeBl2+CummulativeBl3, linewidth = 3, color = Color_list[v])#, label=RCP_title[v]+r"($1 \leq \Delta T_{model}\,<\,3$)")
 
         if count == 0:
-            sub1.set_ylabel("Bleaching \n (nr)", fontsize = fsize)
-            sub1.text(startTime - 17, 800, "A", fontproperties=font, fontsize = fsize)
+            sub1.set_ylabel("Bleaching \n (nr)", fontsize = fsize + 2)
+            sub1.text(startTime - 12, 800, "A", fontproperties=font, fontsize = fsize)
             sub1.tick_params(axis = "y", direction = "in", labelsize = fsize2)
             sub1.set_yticks((0, 200, 400, 600, 800, 1000))
             part1.tick_params(axis = "y", direction = "in", labelsize = fsize2) 
@@ -202,8 +202,8 @@ for z in xrange(len(Locations)):
         sub1.set_xlim((startTime, max(time0))) 
         part1 = sub1.twinx()
         if count == 3:
-            sub1.set_ylabel("Coral trait \n (%)", fontsize = fsize)
-            sub1.text(startTime - 17, 102.5, Fig_lab[count], fontproperties=font, fontsize = fsize) # forcing
+            sub1.set_ylabel("Coral trait \n (% change)", fontsize = fsize + 2)
+            sub1.text(startTime - 12, 102.5, Fig_lab[count], fontproperties=font, fontsize = fsize) # forcing
         else:
             sub1.text(startTime - 5, 102.5, Fig_lab[count], fontproperties=font,  fontsize = fsize)
             
@@ -213,8 +213,8 @@ for z in xrange(len(Locations)):
         part4 = sub4.twinx()
         hostTicks = array([0, 20, 40, 60, 80, 100, 120])       
         if count == 3:
-            sub4.set_ylabel("Coral abundance \n (%)", fontsize = fsize)
-            sub4.text(startTime - 17, 120, Fig_lab[3+count],fontproperties=font, fontsize = fsize) # forcing
+            sub4.set_ylabel("Coral abundance \n (% change)", fontsize = fsize + 2)
+            sub4.text(startTime - 12, 120, Fig_lab[3+count],fontproperties=font, fontsize = fsize) # forcing
 
         else: 
             sub4.text(startTime - 5, 120, Fig_lab[3+count],fontproperties=font, fontsize = fsize) # forcing
@@ -225,8 +225,8 @@ for z in xrange(len(Locations)):
         Symbticks = array([0, 30, 60, 90, 120, 150, 180, 200])
         part7 = sub7.twinx()
         if count==3:
-            sub7.set_ylabel("Symbiont abundance \n (%)", fontsize = fsize)
-            sub7.text(startTime - 17, 180, Fig_lab[6+count], fontproperties=font, fontsize = fsize) # forcing
+            sub7.set_ylabel("Symbiont abundance \n (% change)", fontsize = fsize + 2)
+            sub7.text(startTime - 12, 180, Fig_lab[6+count], fontproperties=font, fontsize = fsize) # forcing
         else:
             sub7.text(startTime - 5, 180, Fig_lab[6+count], fontproperties=font, fontsize = fsize) # forcing
                     
@@ -291,10 +291,10 @@ for z in xrange(len(Locations)):
         
         # saving to csv
         """
-        np.savetxt("Results-csv/Time-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], time, delimiter = ",")
-        np.savetxt("Results-csv/CORAL-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], Host, delimiter = ",")
-        np.savetxt("Results-csv/TRAIT-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], Trait, delimiter = ",")
-        np.savetxt("Results-csv/SYMB-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], Symb, delimiter = ",")
+        np.savetxt("Results-csv_2/Time-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], time, delimiter = ",")
+        np.savetxt("Results-csv_2/CORAL-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], Host, delimiter = ",")
+        np.savetxt("Results-csv_2/TRAIT-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], Trait, delimiter = ",")
+        np.savetxt("Results-csv_2/SYMB-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], Symb, delimiter = ",")
         """
         
         if count in (3, ):
@@ -353,9 +353,8 @@ for z in xrange(len(Locations)):
         sub7.set_ylim((0, 180))
         part7.set_ylim((0, 180)) 
         sub7.set_xlim((startTime, max(time0))) 
-        sub7.set_xlabel("Years", fontsize=fsize)  
+        sub7.set_xlabel("Years", fontsize=fsize + 2)  
         
-        """
         if rcp == "RCP26":
             print "done"
              # plot "No adaptation from 2010"
@@ -372,7 +371,7 @@ for z in xrange(len(Locations)):
             sub7.plot(time, 100*Symb2/PastSymb2, linewidth = 2, color = "black")
             if z == 0:
                 sub1.legend()
-        """
+                
     count +=1 
 
 
