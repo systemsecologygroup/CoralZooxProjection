@@ -201,9 +201,9 @@ for z in xrange(len(Locations)):
         part1 = sub1.twinx()
         if count == 3:
             sub1.set_ylabel("Coral trait \n (%)", fontsize = fsize)
-            sub1.text(startTime - 17, 102, Fig_lab[count], fontproperties=font, fontsize = fsize) # forcing
+            sub1.text(startTime - 17, 102.5, Fig_lab[count], fontproperties=font, fontsize = fsize) # forcing
         else:
-            sub1.text(startTime - 5, 102, Fig_lab[count], fontproperties=font,  fontsize = fsize)
+            sub1.text(startTime - 5, 102.5, Fig_lab[count], fontproperties=font,  fontsize = fsize)
             
         sub4 = plt.subplot(4, 3, 4+count)
           
@@ -400,9 +400,9 @@ for z in xrange(len(Locations)):
             part7.set_yticks(Symbticks)
             part7.set_yticklabels([" "%d for d in Symbticks])           
         
-        sub1.set_ylim((100, 102))
+        sub1.set_ylim((100, 102.5))
         sub1.set_xlim((startTime, max(time0))) 
-        part1.set_ylim((100, 102))
+        part1.set_ylim((100, 102.5))
         part1.set_xlim((startTime, max(time0))) 
         
         sub4.set_xlim((startTime, max(time0))) 

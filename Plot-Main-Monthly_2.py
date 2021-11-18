@@ -203,9 +203,9 @@ for z in xrange(len(Locations)):
         part1 = sub1.twinx()
         if count == 3:
             sub1.set_ylabel("Coral trait \n (%)", fontsize = fsize)
-            sub1.text(startTime - 17, 102, Fig_lab[count], fontproperties=font, fontsize = fsize) # forcing
+            sub1.text(startTime - 17, 102.5, Fig_lab[count], fontproperties=font, fontsize = fsize) # forcing
         else:
-            sub1.text(startTime - 5, 102, Fig_lab[count], fontproperties=font,  fontsize = fsize)
+            sub1.text(startTime - 5, 102.5, Fig_lab[count], fontproperties=font,  fontsize = fsize)
             
         sub4 = plt.subplot(4, 3, 4+count)
           
@@ -340,9 +340,9 @@ for z in xrange(len(Locations)):
             part7.set_yticks(Symbticks)
             part7.set_yticklabels([" "%d for d in Symbticks])           
         
-        sub1.set_ylim((100-0.5, 102))
+        sub1.set_ylim((100-0.5, 102.5))
         sub1.set_xlim((startTime, max(time0))) 
-        part1.set_ylim((100-0.5, 102))
+        part1.set_ylim((100-0.5, 102.5))
         part1.set_xlim((startTime, max(time0))) 
         
         sub4.set_xlim((startTime, max(time0))) 
@@ -355,6 +355,7 @@ for z in xrange(len(Locations)):
         sub7.set_xlim((startTime, max(time0))) 
         sub7.set_xlabel("Years", fontsize=fsize)  
         
+        """
         if rcp == "RCP26":
             print "done"
              # plot "No adaptation from 2010"
@@ -371,6 +372,7 @@ for z in xrange(len(Locations)):
             sub7.plot(time, 100*Symb2/PastSymb2, linewidth = 2, color = "black")
             if z == 0:
                 sub1.legend()
+        """
     count +=1 
 
 
