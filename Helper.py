@@ -1,5 +1,5 @@
 ##### Simple model runs ######
-from Model_RCP_ode_monthly_2 import* # change this to Model_RCP_ode_monthly if all the simulations are made with acclimation
+from Model_RCP_ode_monthly_2 import* # change this to Model_RCP_ode_monthly if all the simulations are normal runs (with acclimation)
 import pdb
 
 ##### Whole ranges for the parameter N (Used to get Figure 2 in manuscript) 
@@ -13,7 +13,7 @@ rawNum_CAR_orig = arange(0.01, 0.1, 0.00005)
 # These indices are the ones producing the main results in the manuscript
 N_indexes = {"GBR":908, "SEA":330, "CAR":275}
 
-# The first run with acclimation and all other runs without acclimation from year 2010
+# The first run is without acclimation from year 2010 and all other runs are normal runs
 rawNum_GBR = array([rawNum_GBR_orig[N_indexes["GBR"]], rawNum_GBR_orig[N_indexes["GBR"]]]) 
 rawNum_SEA = array([rawNum_SEA_orig[N_indexes["SEA"]], rawNum_SEA_orig[N_indexes["SEA"]]])
 rawNum_CAR = array([rawNum_CAR_orig[N_indexes["CAR"]], rawNum_CAR_orig[N_indexes["CAR"]]])
