@@ -414,5 +414,9 @@ for z in xrange(len(Locations)):
         sub7.set_xlabel("Years", fontsize=fsize)        
     count +=1 
 
+# Plot with maximal window
+figManager = plt.get_current_fig_manager()
+figManager.window.showMaximized()
+
 plt.show()
 
