@@ -9,7 +9,7 @@ import numpy as np
 
 """
 This code can be used to visualize temporal coral cover data for specific reef location or the regional average coral cover
-The Global_Cover_1_5_10.xls data was provided to us by Bruno 2017 via e-mail.
+The Global_Cover_1_5_10.xls data was provided to us by one of the authors (Bruno & Selig 2007) via e-mail.
 """
 # Open xls file
 import pdb

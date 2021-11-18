@@ -14,7 +14,7 @@ import pdb
 
 """
 This code was used to generate Coral Cover Data in manuscript: Appendix Figure 2
-The Global_Cover_1_5_10.xls data was provided to us by Bruno 2017 via e-mail.
+The Global_Cover_1_5_10.xls data was provided to us by one of the authors (Bruno & Selig 2007) via e-mail.
 """
 # Open xls file
 data0 =   pd.read_excel('Global_Cover_1_5_10.xls', engine='xlrd')
