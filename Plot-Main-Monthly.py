@@ -122,8 +122,8 @@ for z in xrange(len(Locations)):
             sub1.plot(time0[list(time0).index(startTime):], CummulativeBl1+CummulativeBl2+CummulativeBl3, linewidth = 3, color = Color_list[v])#, label=RCP_title[v]+r"($1 \leq \Delta T_{model}\,<\,3$)")
 
         if count == 0:
-            sub1.set_ylabel("Bleaching \n (nr)", fontsize = fsize)
-            sub1.text(startTime - 17, 800, "A", fontproperties=font, fontsize = fsize)
+            sub1.set_ylabel("Bleaching \n (nr)", fontsize = fsize + 2)
+            sub1.text(startTime - 11, 800, "A", fontproperties=font, fontsize = fsize)
             sub1.tick_params(axis = "y", direction = "in", labelsize = fsize2)
             sub1.set_yticks((0, 200, 400, 600, 800, 1000))
             part1.tick_params(axis = "y", direction = "in", labelsize = fsize2) 
@@ -162,7 +162,7 @@ K_C_CAR = 190374.697987e10  # in cm^2
 
 Ksmax = 3e6 # healthy measure of carying capacity of symbiont per host biomass Gamma
 
-file_list = ["Results/"]
+file_list = ["Results_2/"]
 
 #  Speed of adapations specific for each region # index in the whole N ranges
 GBR_N_index = 908 # index in rawNum_GBR  0.0554
@@ -170,12 +170,14 @@ SEA_N_index = 330 # index in rawNum_SEA  0.0265
 CAR_N_index = 275 # index in rawNum_CAR  0.02375
 reg_N_index_true = [GBR_N_index, SEA_N_index, CAR_N_index]
 
-
 #for the simulations with the right parameters (in folder Results/)
-GBR_N_index = 0 #  0.056
-SEA_N_index = 0 #  0.0265
-CAR_N_index = 0 #  0.02375
+GBR_N_index = 1 #  0.0554
+SEA_N_index = 1 #  0.0265
+CAR_N_index = 1 #  0.02375
 reg_N_index = [GBR_N_index, SEA_N_index, CAR_N_index]
+
+import pdb
+
 
 for z in xrange(len(Locations)):
     for v in xrange(len(RCP)):
@@ -195,38 +197,39 @@ for z in xrange(len(Locations)):
         file1.close()
         
         sub1 = plt.subplot(4, 3, 1+count)
-        TraitTicks = array([100, 101, 102, 103])
+        TraitTicks = array([0, 101-100, 102-100, 103.100])
         plt.xticks([2010, 2020, 2030, 2040, 2050, 2060, 2070, 2080, 2090, 2100], ["", "", "", "", "", "", "", "", "", ""], fontsize = 10)
         sub1.set_xlim((startTime, max(time0))) 
         part1 = sub1.twinx()
         if count == 3:
-            sub1.set_ylabel("Coral trait \n (% change)", fontsize = fsize)
-            sub1.text(startTime - 17, 102.5, Fig_lab[count], fontproperties=font, fontsize = fsize) # forcing
+            sub1.set_ylabel("Coral trait \n (% change)", fontsize = fsize + 2)
+            sub1.text(startTime - 11, 102.5-100, Fig_lab[count], fontproperties=font, fontsize = fsize) # forcing
         else:
-            sub1.text(startTime - 5, 102.5, Fig_lab[count], fontproperties=font,  fontsize = fsize)
+            sub1.text(startTime - 5, 102.5-100, Fig_lab[count], fontproperties=font,  fontsize = fsize)
             
         sub4 = plt.subplot(4, 3, 4+count)
           
         plt.xticks([2010, 2020, 2030, 2040, 2050, 2060, 2070, 2080, 2090, 2100], ["", "", "", "", "", "", "", "", "", ""], fontsize = 10)
         part4 = sub4.twinx()
-        hostTicks = array([0, 20, 40, 60, 80, 100, 120])       
+        #hostTicks = array([0, 20, 40, 60, 80, 100, 120]) - 100    
+        hostTicks = array([0-100, 20-100, 40-100, 60-100, 80-100, 0, 120-100])  
         if count == 3:
-            sub4.set_ylabel("Coral abundance \n (% change)", fontsize = fsize)
-            sub4.text(startTime - 17, 120, Fig_lab[3+count],fontproperties=font, fontsize = fsize) # forcing
+            sub4.set_ylabel("Coral abundance \n (% change)", fontsize = fsize + 2)
+            sub4.text(startTime - 11, 120-100, Fig_lab[3+count],fontproperties=font, fontsize = fsize) # forcing
 
         else: 
-            sub4.text(startTime - 5, 120, Fig_lab[3+count],fontproperties=font, fontsize = fsize) # forcing
+            sub4.text(startTime - 5, 120-100, Fig_lab[3+count],fontproperties=font, fontsize = fsize) # forcing
     
         sub7 = plt.subplot(4, 3, 7+count)
         plt.xticks([2010, 2020, 2030, 2040, 2050, 2060, 2070, 2080, 2090, 2100], rotation = 45, fontsize = fsize2)
 
-        Symbticks = array([0, 30, 60, 90, 120, 150, 180, 200])
+        Symbticks = array([0, 30, 60, 90, 120, 150, 180, 200]) - 100
         part7 = sub7.twinx()
         if count==3:
-            sub7.set_ylabel("Symbiont abundance \n (% change)", fontsize = fsize)
-            sub7.text(startTime - 17, 180, Fig_lab[6+count], fontproperties=font, fontsize = fsize) # forcing
+            sub7.set_ylabel("Symbiont abundance \n (% change)", fontsize = fsize + 2)
+            sub7.text(startTime - 11, 180-100, Fig_lab[6+count], fontproperties=font, fontsize = fsize) # forcing
         else:
-            sub7.text(startTime - 5, 180, Fig_lab[6+count], fontproperties=font, fontsize = fsize) # forcing
+            sub7.text(startTime - 5, 180-100, Fig_lab[6+count], fontproperties=font, fontsize = fsize) # forcing
                     
         
         file2 = open("Results/CORAL-"+rcp+"-"+Locations[z]+".dat", "r")
@@ -253,77 +256,15 @@ for z in xrange(len(Locations)):
         if Locations[z] == "GBR":
             N_index = reg_N_index[z]
             N_index_true = reg_N_index_true[z]
-            
-            """
-            Host = HOST[N_index]
-            Trait = TRAIT[N_index]
-            Symb = SYMB[N_index]  
-            compare0 = (time<=2005)*(time>=1986)
-            
-            PastHost = sum(Host[compare0])/sum(compare0)
-            PastTrait = sum(Trait[compare0])/sum(compare0)
-            PastSymb = sum(Symb[compare0])/sum(compare0)
-            
-            sub1.plot(time, 100*Trait/PastTrait, linewidth = 3, color = Color_list[v]) 
-            sub4.plot(time, 100*Host/PastHost, linewidth = 3, color = Color_list[v])
-            sub7.plot(time, 100*Symb/PastSymb, linewidth = 3, color = Color_list[v], label = RCP_title[v])
-            
-            compare1 = (time<=2100)*(time>=2081)     
-            FutureHost = sum(Host[compare1])/sum(compare1)
-            MeanlossCoralBiomass.append((FutureHost-PastHost)/PastHost)
-            PerChange = mean(array(MeanlossCoralBiomass))*100
-            
-            print rcp, Locations[z], PerChange, rawNum_GBR[N_index_true]*scale
-            """
+
         elif Locations[z] == "SEA":
             N_index = reg_N_index[z]                               
             N_index_true = reg_N_index_true[z]
-            
-            """
-            Host = HOST[N_index]
-            Trait = TRAIT[N_index]
-            Symb = SYMB[N_index]
-            compare0 = (time<=2005)*(time>=1986)
-            
-            PastHost = sum(Host[compare0])/sum(compare0)
-            PastTrait = sum(Trait[compare0])/sum(compare0)
-            PastSymb = sum(Symb[compare0])/sum(compare0)
-            
-            sub1.plot(time, 100*Trait/PastTrait, linewidth = 3, color = Color_list[v]) 
-            sub4.plot(time, 100*Host/PastHost, linewidth = 3, color = Color_list[v])
-            sub7.plot(time, 100*Symb/PastSymb, linewidth = 3, color = Color_list[v], label = RCP_title[v])
-
-            compare1 = (time<=2100)*(time>=2081)     
-            FutureHost = sum(Host[compare1])/sum(compare1)
-            MeanlossCoralBiomass.append((FutureHost-PastHost)/PastHost)
-            PerChange = mean(array(MeanlossCoralBiomass))*100
-            print rcp, Locations[z], PerChange, rawNum_SEA[N_index_true]*scale
-            """
+    
         elif Locations[z] == "CAR":
             N_index = reg_N_index[z]
             N_index_true = reg_N_index_true[z]
-            
-            """
-            Host = HOST[N_index]
-            Trait = TRAIT[N_index]
-            Symb = SYMB[N_index] 
-            compare0 = (time<=2005)*(time>=1986)
-            
-            PastHost = sum(Host[compare0])/sum(compare0)
-            PastTrait = sum(Trait[compare0])/sum(compare0)
-            PastSymb = sum(Symb[compare0])/sum(compare0)
-            
-            sub1.plot(time, 100*Trait/PastTrait, linewidth = 3, color = Color_list[v]) 
-            sub4.plot(time, 100*Host/PastHost, linewidth = 3, color = Color_list[v])
-            sub7.plot(time, 100*Symb/PastSymb, linewidth = 3, color = Color_list[v], label = RCP_title[v])
-            
-            compare1 = (time<=2100)*(time>=2081)     
-            FutureHost = sum(Host[compare1])/sum(compare1)
-            MeanlossCoralBiomass.append((FutureHost-PastHost)/PastHost)
-            PerChange = mean(array(MeanlossCoralBiomass))*100
-            print rcp, Locations[z], PerChange, "N = ", rawNum_CAR[N_index_true]*scale
-            """
-        # if something specific is needed, comment out lines  327 -- 344
+             
         Host = HOST[N_index]
         Trait = TRAIT[N_index]
         Symb = SYMB[N_index] 
@@ -333,9 +274,9 @@ for z in xrange(len(Locations)):
         PastTrait = sum(Trait[compare0])/sum(compare0)
         PastSymb = sum(Symb[compare0])/sum(compare0)
         
-        sub1.plot(time, 100*Trait/PastTrait, linewidth = 3, color = Color_list[v]) 
-        sub4.plot(time, 100*Host/PastHost, linewidth = 3, color = Color_list[v])
-        sub7.plot(time, 100*Symb/PastSymb, linewidth = 3, color = Color_list[v], label = RCP_title[v])
+        sub1.plot(time, 100*Trait/PastTrait - 100, linewidth = 3, color = Color_list[v]) 
+        sub4.plot(time, 100*Host/PastHost - 100, linewidth = 3, color = Color_list[v])
+        sub7.plot(time, 100*Symb/PastSymb - 100, linewidth = 3, color = Color_list[v], label = RCP_title[v])
         
         compare1 = (time<=2100)*(time>=2081)     
         FutureHost = sum(Host[compare1])/sum(compare1)
@@ -367,14 +308,14 @@ for z in xrange(len(Locations)):
             
             sub4.tick_params(axis = "y", direction = "in", labelsize = fsize2)
             sub4.set_yticks(list(hostTicks))
-            sub4.set_yticklabels(["$0$"]+list(["%.d"%hostTicks[k] for k in xrange(1, len(hostTicks))]))
+            sub4.set_yticklabels(list(["%d"%hostTicks[k] for k in xrange(len(hostTicks))]))
             part4.tick_params(axis = "y", direction = "in", labelsize = fsize2) 
             part4.set_yticks(hostTicks)
             part4.set_yticklabels([" "%d for d in hostTicks])
             
             sub7.tick_params(axis = "y", direction = "in", labelsize = fsize2)
             sub7.set_yticks(list(Symbticks))
-            sub7.set_yticklabels(["$0$"]+list(["%d"%Symbticks[s] for s in xrange(1, len(Symbticks))]))
+            sub7.set_yticklabels(list(["%d"%Symbticks[s] for s in xrange(len(Symbticks))]))
             part7.tick_params(axis = "y", direction = "in", labelsize = fsize2) 
             part7.set_yticks(Symbticks)
             part7.set_yticklabels([" "%d for d in Symbticks])
@@ -400,21 +341,42 @@ for z in xrange(len(Locations)):
             part7.set_yticks(Symbticks)
             part7.set_yticklabels([" "%d for d in Symbticks])           
         
-        sub1.set_ylim((100, 102.5))
+        sub1.set_ylim((-0.5, 102.5-100))
         sub1.set_xlim((startTime, max(time0))) 
-        part1.set_ylim((100, 102.5))
+        part1.set_ylim((-0.5, 102.5-100))
         part1.set_xlim((startTime, max(time0))) 
         
         sub4.set_xlim((startTime, max(time0))) 
-        sub4.set_ylim((20, 120))
-        part4.set_ylim((20, 120))
+        sub4.set_ylim((20-100, 120-100))
+        part4.set_ylim((20-100, 120-100))
         sub4.set_xlim((startTime, max(time0))) 
         
-        sub7.set_ylim((0, 180))
-        part7.set_ylim((0, 180)) 
+        sub7.set_ylim((0-100, 180-100))
+        part7.set_ylim((0-100, 180-100)) 
         sub7.set_xlim((startTime, max(time0))) 
-        sub7.set_xlabel("Years", fontsize=fsize)        
+        sub7.set_xlabel("Years", fontsize=fsize + 2)  
+        
+        
+        ### Plot simulation without adaptation
+        if rcp == "RCP26":
+            print "done"
+             # plot "No adaptation from 2010"
+            Host2 = HOST[0]
+            Trait2 = TRAIT[0]
+            Symb2 = SYMB[0]
+            
+            PastHost2 = sum(Host2[compare0])/sum(compare0)
+            PastTrait2 = sum(Trait2[compare0])/sum(compare0)
+            PastSymb2 = sum(Symb2[compare0])/sum(compare0)
+            
+            sub1.plot(time, 100*Trait2/PastTrait2 - 100, linewidth = 2, color = "black", label = "RCP 2.6 (without acclimation)")
+            sub4.plot(time, 100*Host2/PastHost2 - 100, linewidth = 2, color = "black")
+            sub7.plot(time, 100*Symb2/PastSymb2 - 100, linewidth = 2, color = "black")
+            if z == 0:
+                sub1.legend()
+              
     count +=1 
+
 
 # Plot with maximal window
 figManager = plt.get_current_fig_manager()
@@ -428,4 +390,3 @@ hspace=0.175,
 wspace=0.175)
 
 plt.show()
-
