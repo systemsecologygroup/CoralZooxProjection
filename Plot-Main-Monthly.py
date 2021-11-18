@@ -350,10 +350,12 @@ for z in xrange(len(Locations)):
         time_file.close()
         
         # saving to csv
+        """
         np.savetxt("Results-csv/Time-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], time, delimiter = ",")
         np.savetxt("Results-csv/CORAL-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], Host, delimiter = ",")
         np.savetxt("Results-csv/TRAIT-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], Trait, delimiter = ",")
         np.savetxt("Results-csv/SYMB-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], Symb, delimiter = ",")
+        """
         
         if count in (3, ):
             sub1.tick_params(axis = "y", direction = "in", labelsize = fsize2)
