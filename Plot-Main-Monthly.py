@@ -162,7 +162,7 @@ K_C_CAR = 190374.697987e10  # in cm^2
 
 Ksmax = 3e6 # healthy measure of carying capacity of symbiont per host biomass Gamma
 
-file_list = ["Results-final/"]
+file_list = ["Results/"]
 
 #  Speed of adapations specific for each region # index in the whole N ranges
 GBR_N_index = 920 # index in rawNum_GBR  0.056
