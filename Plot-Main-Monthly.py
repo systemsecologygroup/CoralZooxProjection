@@ -347,8 +347,8 @@ for z in xrange(len(Locations)):
         part1.set_xlim((startTime, max(time0))) 
         
         sub4.set_xlim((startTime, max(time0))) 
-        sub4.set_ylim((20-100, 120-100))
-        part4.set_ylim((20-100, 120-100))
+        sub4.set_ylim((-100, 120-100))
+        part4.set_ylim((-100, 120-100))
         sub4.set_xlim((startTime, max(time0))) 
         
         sub7.set_ylim((0-100, 180-100))
@@ -356,7 +356,7 @@ for z in xrange(len(Locations)):
         sub7.set_xlim((startTime, max(time0))) 
         sub7.set_xlabel("Years", fontsize=fsize + 2)  
         
-        
+        """
         ### Plot simulation without adaptation
         if rcp == "RCP26":
             print "done"
@@ -374,7 +374,7 @@ for z in xrange(len(Locations)):
             sub7.plot(time, 100*Symb2/PastSymb2 - 100, linewidth = 2, color = "black")
             if z == 0:
                 sub1.legend()
-              
+         """     
     count +=1 
 
 
