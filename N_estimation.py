@@ -61,8 +61,8 @@ Locations = ["GBR", "SEA", "CAR"]
 Locations_title = ["Great Barrier Reef", "South East Asia", "Caribbean"]
 RCP = ["RCP26", "RCP45", "RCP85"] # for filename
 RCP_title =  ["RCP2.6", "RCP4.5", "RCP8.5"]
-Fig_lab = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"]
-#Fig_lab = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"]
+#Fig_lab = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"]
+Fig_lab = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"]
 
 # for a nice plot
 fsize = 16 #23
@@ -211,9 +211,9 @@ for z in xrange(len(Locations)):
     
     plt.title(Locations_title[z], fontsize = fsize, fontproperties = font)#fsize)
     if z == 0:
-        plt.text(1962-2, 100, Fig_lab[z], fontsize = fsize, fontproperties = font)
+        plt.text(1964, 110, Fig_lab[z], fontsize = fsize, fontproperties = font)
     else:
-        plt.text(1967, 100, Fig_lab[z], fontsize = fsize, fontproperties = font)
+        plt.text(1967, 110, Fig_lab[z], fontsize = fsize, fontproperties = font)
     part1 = part0.twinx()
     for rcp_index in xrange(1): # we only need to plot for one scenario because we plot for a time-range that doesn't include future projection
         rcp = RCP[rcp_index]
