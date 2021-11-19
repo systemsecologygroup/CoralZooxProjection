@@ -88,6 +88,9 @@ for p in xrange(len(RCP)):
         Dist = Gmax*norm.pdf(TempCORListCenter)*norm.cdf(TempCORListCenter*skew)/max(NormCor)
         maxD = max(Dist)
         T_opt = TempList[int(list(Dist).index(maxD))]
+        
+        print Location[z], T_opt
+        
         plt.plot([0, 2150],T_opt*ones(2), "--", linewidth = 1, color = Col[z])                                                                           
         plt.plot(2100+Dist*45, TempList, linewidth = 3,  color=Col[z]) 
         plt.plot(2100*ones(len(TempList)), TempList, linewidth = 0.8,  color="black")                                                 
