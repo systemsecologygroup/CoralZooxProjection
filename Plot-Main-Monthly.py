@@ -37,8 +37,8 @@ rawNum_GBR = arange(0.01, 0.1, 0.00005)
 rawNum_SEA = arange(0.01, 0.1, 0.00005)
 rawNum_CAR = arange(0.01, 0.1, 0.00005) 
 
-fsize = 12 #18 #22
-fsize2 = 11 #18
+fsize = 14 #18 #22
+fsize2 = 16 #18
 
 # Open Files and plot
 
@@ -46,8 +46,8 @@ Locations = ["GBR", "SEA", "CAR"]
 RCP = ["RCP26", "RCP45", "RCP85"] # for filename
 RCP_title =  ["RCP 2.6", "RCP 4.5", "RCP 8.5"]
 Color_list = [(0.306, 0.431+0.1, 0.545+0.3), (0.839+0.025, 0.60+0.05, 0.20), (0.839+0.16, 0.363, 0.35)]
-#Fig_lab = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"]
-Fig_lab = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"]
+Fig_lab = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"]
+#Fig_lab = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"]
 Locations_title = ["Great Barrier Reef", "South East Asia", "Caribbean"]
 
 # Colorbar setting
@@ -123,14 +123,14 @@ for z in xrange(len(Locations)):
 
         if count == 0:
             sub1.set_ylabel("Bleaching \n (nr)", fontsize = fsize + 2)
-            sub1.text(startTime - 11, 800, "A", fontproperties=font, fontsize = fsize)
+            sub1.text(startTime - 16, 800, Fig_lab[count], fontproperties=font, fontsize = fsize)
             sub1.tick_params(axis = "y", direction = "in", labelsize = fsize2)
             sub1.set_yticks((0, 200, 400, 600, 800, 1000))
             part1.tick_params(axis = "y", direction = "in", labelsize = fsize2) 
             part1.set_yticks((0, 200, 400, 600, 800, 1000))
             part1.set_yticklabels(("", "", "", "", "", ""))
         elif count == 2:
-            sub1.text(startTime - 5, 800, "C", fontproperties=font,  fontsize = fsize)
+            sub1.text(startTime - 5, 800, Fig_lab[count], fontproperties=font,  fontsize = fsize)
             sub1.tick_params(axis = "y", direction = "in", labelsize = fsize2)
             sub1.set_yticks((0, 200, 400, 600, 800, 1000))
             sub1.set_yticklabels(("", "", "", "", "", ""))
@@ -138,7 +138,7 @@ for z in xrange(len(Locations)):
             part1.set_yticks((0, 200, 400, 600, 800, 1000))
             part1.set_yticklabels(("", "", "", "", "", ""))
         else:
-            sub1.text(startTime - 5, 800 , "B", fontproperties=font, fontsize = fsize)
+            sub1.text(startTime - 5, 800 , Fig_lab[count], fontproperties=font, fontsize = fsize)
             sub1.tick_params(axis = "y", direction = "in", labelsize = fsize2)
             sub1.set_yticks((0, 200, 400, 600, 800, 1000))
             sub1.set_yticklabels(("", "", "", "", "", ""))
@@ -197,13 +197,14 @@ for z in xrange(len(Locations)):
         file1.close()
         
         sub1 = plt.subplot(4, 3, 1+count)
-        TraitTicks = array([0, 101-100, 102-100, 103.100])
+        #TraitTicks = array([-0.5, 0, 101-100, 102-100, 102.5-100])
+        TraitTicks = array([-0.5, 0, 0.5, 1, 1.5, 2, 2.5])
         plt.xticks([2010, 2020, 2030, 2040, 2050, 2060, 2070, 2080, 2090, 2100], ["", "", "", "", "", "", "", "", "", ""], fontsize = 10)
         sub1.set_xlim((startTime, max(time0))) 
         part1 = sub1.twinx()
         if count == 3:
             sub1.set_ylabel("Coral trait \n (% change)", fontsize = fsize + 2)
-            sub1.text(startTime - 11, 102.5-100, Fig_lab[count], fontproperties=font, fontsize = fsize) # forcing
+            sub1.text(startTime - 16, 102.5-100, Fig_lab[count], fontproperties=font, fontsize = fsize) # forcing
         else:
             sub1.text(startTime - 5, 102.5-100, Fig_lab[count], fontproperties=font,  fontsize = fsize)
             
@@ -215,7 +216,7 @@ for z in xrange(len(Locations)):
         hostTicks = array([0-100, 20-100, 40-100, 60-100, 80-100, 0, 120-100])  
         if count == 3:
             sub4.set_ylabel("Coral abundance \n (% change)", fontsize = fsize + 2)
-            sub4.text(startTime - 11, 120-100, Fig_lab[3+count],fontproperties=font, fontsize = fsize) # forcing
+            sub4.text(startTime - 16, 120-100, Fig_lab[3+count],fontproperties=font, fontsize = fsize) # forcing
 
         else: 
             sub4.text(startTime - 5, 120-100, Fig_lab[3+count],fontproperties=font, fontsize = fsize) # forcing
@@ -226,8 +227,8 @@ for z in xrange(len(Locations)):
         Symbticks = array([0, 30, 60, 90, 120, 150, 180, 200]) - 100
         part7 = sub7.twinx()
         if count==3:
-            sub7.set_ylabel("Symbiont abundance \n (% change)", fontsize = fsize + 2)
-            sub7.text(startTime - 11, 180-100, Fig_lab[6+count], fontproperties=font, fontsize = fsize) # forcing
+            sub7.set_ylabel("Symbiont abundance \n (% change)\n", fontsize = fsize + 2)
+            sub7.text(startTime - 16, 180-100, Fig_lab[6+count], fontproperties=font, fontsize = fsize) # forcing
         else:
             sub7.text(startTime - 5, 180-100, Fig_lab[6+count], fontproperties=font, fontsize = fsize) # forcing
                     
@@ -301,7 +302,8 @@ for z in xrange(len(Locations)):
         if count in (3, ):
             sub1.tick_params(axis = "y", direction = "in", labelsize = fsize2)
             sub1.set_yticks(list(TraitTicks)) # GBR and SEA
-            sub1.set_yticklabels(list(["%d"%TraitTicks[s] for s in xrange(len(TraitTicks))]))
+            #sub1.set_yticklabels(["-0.5"]+list(["%d"%TraitTicks[s] for s in xrange(1, len(TraitTicks)-1)])+["2.5"])
+            sub1.set_yticklabels(list(["%.1f"%TraitTicks[s] for s in xrange(len(TraitTicks))]))
             part1.tick_params(axis = "y", direction = "in", labelsize = fsize2) 
             part1.set_yticks(TraitTicks)
             part1.set_yticklabels([" "%d for d in TraitTicks])
@@ -356,7 +358,7 @@ for z in xrange(len(Locations)):
         sub7.set_xlim((startTime, max(time0))) 
         sub7.set_xlabel("Years", fontsize=fsize + 2)  
         
-        """
+        
         ### Plot simulation without adaptation
         if rcp == "RCP26":
             print "done"
@@ -374,7 +376,7 @@ for z in xrange(len(Locations)):
             sub7.plot(time, 100*Symb2/PastSymb2 - 100, linewidth = 2, color = "black")
             if z == 0:
                 sub1.legend()
-         """     
+             
     count +=1 
 
 
@@ -384,8 +386,9 @@ figManager.window.showMaximized()
 
 plt.subplots_adjust(top=0.965,
 bottom=0.095,
-left=0.065,
-right=0.81,
+left=0.080,
+#right=0.81,
+right = 0.75,
 hspace=0.175,
 wspace=0.175)
 

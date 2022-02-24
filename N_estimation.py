@@ -61,12 +61,12 @@ Locations = ["GBR", "SEA", "CAR"]
 Locations_title = ["Great Barrier Reef", "South East Asia", "Caribbean"]
 RCP = ["RCP26", "RCP45", "RCP85"] # for filename
 RCP_title =  ["RCP2.6", "RCP4.5", "RCP8.5"]
-#Fig_lab = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"]
-Fig_lab = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"]
+Fig_lab = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"]
+#Fig_lab = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"]
 
 # for a nice plot
 fsize = 16 #23
-fsize2 = 12#14 #18
+fsize2 = 14#14 #18
 
 import matplotlib.colors as mcolors
 import matplotlib as mpl
@@ -200,12 +200,14 @@ reg_N_index = [GBR_N_index, SEA_N_index, CAR_N_index]
 
 intercept_model = [125.23889, 492.368581, 259.10463]
 slope_model = [-0.04985, -0.230158, -0.11867]
+tcks = (0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110)
 
 # Parameter resp. for the different region GBR, SEA , CAR
 T_opt = array([26.76, 28.46, 27.56])
 
 AddTime = 2000*12
 
+import pdb
 for z in xrange(len(Locations)):
     part0 = plt.subplot(row, 3, count+1)
     
@@ -269,15 +271,9 @@ for z in xrange(len(Locations)):
                         #print i
                         Host = HOST[i]
                         Trait = TRAIT[i]
-                        Symb = SYMB[i]        
-                        if z == 2: 
-                            part1.set_yticks((0, 20, 40, 60, 80, 100)) 
-                            part1.set_yticklabels((0, 20, 40, 60, 80, 100), fontsize = fsize)                           
-                            part1.plot(time, 100*Host/K_C_Reg, linewidth = 0.75, color = Color_list[v], alpha = 0.35)    
-                        else: 
-                            part1.set_yticks((0, 20, 40, 60, 80, 100)) 
-                            part1.set_yticklabels(("", "", "", "", "", ""), fontsize = fsize)                           
-                            part1.plot(time, 100*Host/K_C_Reg, linewidth = 0.75, color = Color_list[v], alpha = 0.35) 
+                        Symb = SYMB[i]                                  
+                        part1.plot(time, 100*Host/K_C_Reg, linewidth = 0.75, color = Color_list[v], alpha = 0.35)    
+                        
 
             # Plot for specific speed of adaptation N
             Host = HOST[reg_N_index[z]]
@@ -290,8 +286,8 @@ for z in xrange(len(Locations)):
                 #part1.plot(time[(time >= 1970)*(time<=2010)], fit_model, linewidth = 6, color = Color_list[v], alpha = 0.75)
                 #part0.plot(0*time[(time >= 1970)*(time<=2010)], 0*fit_model, linewidth = 6, color = Color_list[v], alpha = 0.75, label="$y$ = %.2f$x$ + %.2f"%(slope_model[z], intercept_model[z]))
                 part0.legend(frameon = False, fontsize = 16)
-                part1.set_yticks((0, 20, 40, 60, 80, 100)) 
-                part1.set_yticklabels(("", "", "", "", "", ""), fontsize = fsize)  
+                part1.set_yticks(tcks) 
+                part1.set_yticklabels(["" for i in range(len(tcks))], fontsize = fsize)  
                 part0.plot(time, -(0.5)*100*Host/K_C_Reg, linewidth = 4, color = Color_list[v], alpha = 0.75, label="Best simulation") # this is only for showing label, it does not appear in figure
                 Host_i = HOST[i]
                 Trait_i = TRAIT[i]
@@ -304,8 +300,8 @@ for z in xrange(len(Locations)):
                 part1.plot(time0, 100*SST/T_opt[z], linewidth = 1, alpha= 0.4, color=(0.7, 0.7, 0.7))
                 #part1.plot(time[(time >= 1970)*(time<=2010)], fit_model, linewidth = 6, color = Color_list[v], alpha = 0.75)
                 #part0.plot(0*time[(time >= 1970)*(time<=2010)], 0*fit_model, linewidth = 6, color = Color_list[v], alpha = 0.75, label="$y$ = %.2f$x$ + %.2f"%(slope_model[z], intercept_model[z]))
-                part1.set_yticks((0, 20, 40, 60, 80, 100))  
-                part1.set_yticklabels(("", "", "", "", "", ""), fontsize = fsize)  
+                part1.set_yticks(tcks) 
+                part1.set_yticklabels(["" for i in range(len(tcks))], fontsize = fsize)    
             elif z==2:
                 fit_model = slope_model[z]*time[(time >= 1970)*(time<=2010)]+ intercept_model[z]
                 part1.plot(time, 100*Host/K_C_Reg, linewidth = 4, color = Color_list[v], alpha = 0.75)
@@ -314,42 +310,42 @@ for z in xrange(len(Locations)):
                 #part0.plot(0*time[(time >= 1970)*(time<=2010)], 0*fit_model, linewidth = 6, color = Color_list[v], alpha = 0.75, label="$y$ = %.3f$x$ + %.2f"%(slope_model[z], intercept_model[z]))
                 part0.legend(frameon = False, fontsize = fsize2)
                 
-                part1.set_yticks((0, 20, 40, 60, 80, 100)) 
-                part1.set_yticklabels((0, 20, 40, 60, 80, 100), color = Color_list[v], fontsize = fsize)                                   
+                part1.set_yticks(tcks) 
+                part1.set_yticklabels(tcks, color = Color_list[v], fontsize = fsize)                                    
         
         # Plot data or fit
         if z == 0: # GBR
-            part0.set_yticks((0, 20, 40, 60, 80, 100)) 
-            part0.set_yticklabels((0, 20, 40, 60, 80, 100), color = source2Col, fontsize = fsize)
+            part0.set_yticks(tcks) 
+            part0.set_yticklabels(tcks, color = source2Col, fontsize = fsize)
             part0.plot(GBR_Year_source2, GBR_Cover_source2, "o", markersize = 7, alpha = 0.75, color = source2Col, label="Obs. (Bruno & Selig, 2007)")
             part0.plot(GBR_Year_source1, GBR_Cover_source1, "o", markersize = 7, alpha = 0.75, color = source1Col, label="Obs. (De'ath $et$ $al.$, 2012)")
             #fit_GBR = GBR_slope*GBR_Year_source2 + GBR_intercept
             #part0.plot(GBR_Year_source2, fit_GBR, linewidth = 6, color = source2Col, alpha = 0.75, label="$y$ = %.2f$x$ - %.2f"%(GBR_slope, abs(GBR_intercept)))
             part0.set_ylabel("Observed relative \n coral abundance ($\%$)", color = source2Col, fontproperties = font, fontsize = fsize+2, labelpad = 2)
+            part0.legend(frameon = True, fontsize = fsize2, loc = (0.02,0.5))
         elif z == 1: # SEA
-            part0.set_yticks((0, 20, 40, 60, 80, 100)) 
-            part0.set_yticklabels(("", "", "", "", "", "", "", ""), fontsize = fsize)
+            part0.set_yticks(tcks) 
+            part0.set_yticklabels(["" for i in range(len(tcks))], color = source2Col, fontsize = fsize)
             #fit_SEA = SEA_slope*SEA_Year_source2 + SEA_intercept
             #part0.plot(SEA_Year_source2, fit_SEA, linewidth = 6, color = source2Col, alpha = 0.75, label="$y$ = %.2f$x$ + %.2f"%(SEA_slope, SEA_intercept))
             part0.plot(SEA_Year_source2, SEA_Cover_source2, "o", markersize = 7, alpha = 0.75, color = source2Col)#, label="Data ($\%$ Cover)")
             #part0.legend(frameon = False, fontsize = 16)
             
         elif z == 2: # CAR
-            part0.set_yticks((0, 20, 40, 60, 80, 100)) 
-            part0.set_yticklabels(("", "", "", "", "", "", "", ""), fontsize = fsize)
+            part0.set_yticks(tcks) 
+            part0.set_yticklabels(["" for i in range(len(tcks))], color = source2Col, fontsize = fsize)
             part0.plot(CAR_Year_source2, CAR_Cover_source2, "o", markersize = 7, alpha = 0.75, color = source2Col)#, label="Data ($\%$ Cover)")
             
             #fit_CAR = CAR_slope*CAR_Year_source2 + CAR_intercept
             #part0.plot(CAR_Year_source2, fit_CAR, linewidth = 6, color = source2Col, alpha = 0.75, label="$y$ = %.3f$x$ + %.2f"%(CAR_slope, CAR_intercept))
             #part0.legend(frameon = False, fontsize = fsize2)
-        
-    part0.legend(frameon = True, fontsize = fsize2, loc = (0.02,0.5))
+    
     part0.set_xlim((1970, 2010))
     part0.set_xticks(arange(1970, 2015, 5))
     part0.set_xticklabels(["%d"%k for k in arange(1970, 2015, 5)], rotation = 45, fontsize = fsize)#fontsize = fsize)
     part0.set_ylim((0,110)) 
     part1.set_ylim((0,110))
-    part0.set_xlabel("Year", fontsize = fsize+2)
+    part0.set_xlabel("Years", fontsize = fsize+2)
     
     if count == 0: 
         plt.arrow(2008, 48, 0, 10, head_width = 1, head_length = 2, color = "black") 
