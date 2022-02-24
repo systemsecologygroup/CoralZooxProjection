@@ -9,6 +9,9 @@ from matplotlib import pyplot as plt
 from matplotlib.font_manager import FontProperties
 import numpy as np
 
+
+"""File used to produce Figure 3 of manuscript"""
+
 #### Plotting data collected from ode solver #####
 font = {'family' : 'normal',
         'weight' : 'bold'}
@@ -93,7 +96,7 @@ for z in xrange(len(Locations)):
     T_opt = TempList[int(list(Dist).index(maxD))]
     for v in xrange(len(RCP)):
         rcp = RCP[v]
-        T0 = T_opt
+        T0 = T_opt # T_opt is used as a threshold for bleaching events
         file0 = open("Monthly-SST-scenarios/Months-"+Locations[z]+"-"+rcp+"-MPI"+".dat", "r")
         time0 = load(file0, allow_pickle = True)
         file0.close()
@@ -187,11 +190,12 @@ for z in xrange(len(Locations)):
         time0 = load(file0, allow_pickle = True)
         file0.close()
         
+        time = concatenate((arange(min(time0)-(AddTime+12)/12, min(time0), 1/12), time0))   # time are already given in years with months in decimals
+
         file1sst = open("Monthly-SST-scenarios/SST-"+Locations[z]+"-"+rcp+"-MPI"+".dat", "r")
         SST = load(file1sst, allow_pickle = True)
         file1sst.close()
         
-        time = concatenate((arange(min(time0)-(AddTime+12)/12, min(time0), 1/12), time0))   # time are already given in year
         file1 = open("Monthly-SST-scenarios/SST-"+Locations[z]+"-"+rcp+"-MPI"+".dat", "r")
         TempNS = load(file1, allow_pickle = True)
         file1.close()

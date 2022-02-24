@@ -67,7 +67,7 @@ def SystemForcing(t, y, T0, rho, skew, N, NormCor, TempNS, K_C_Reg, NumTime):
     else:
         Temperature1 = TempNS[NumTime+AddTime] # there are index out of range sometimes, maybe because of the integrator, so I just make sure not to get those errors
     Tcenter = (Temperature1-T0)/rho
-    Gx1Forcing = G_C*norm.pdf(Tcenter)*norm.cdf(Tcenter*skew)/max(NormCor) # divide by max(NormCor) to make sure that the maximum is G_C at T0
+    Gx1Forcing = G_C*norm.pdf(Tcenter)*norm.cdf(Tcenter*skew)/max(NormCor)
     # Computing the derivative
     K_symb = Ksmax*coral 
     symbiontH = gammaH*coral
