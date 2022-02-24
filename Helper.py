@@ -3,7 +3,7 @@ from Model_RCP_ode_monthly_2 import* # change this to Model_RCP_ode_monthly if a
 import pdb
 
 ##### Whole ranges for the parameter N (Used to get Figure 2 in manuscript) 
-#### Values are still rescalled by 1e-11
+#### Values are still scalled by 1e-11 in Model_RCP_ode_monthly or Model_RCP_ode_monthly_2
 rawNum_GBR_orig = arange(0.01, 0.1, 0.00005)
 rawNum_SEA_orig = arange(0.01, 0.1, 0.00005)
 rawNum_CAR_orig = arange(0.01, 0.1, 0.00005) 
