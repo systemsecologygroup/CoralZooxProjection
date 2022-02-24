@@ -211,8 +211,8 @@ for z in xrange(len(Locations)):
         GG = GrossG(Host, Symb, Trait, SST, T0_list[z], rho_list[z], skew_list[z], K_C_List[z])
         SC = SymbCost(Host, Symb, Trait)
         Norm = max(max(GG), max(SC))
-        sub1.plot(time0, GG/Norm, linewidth = 2, color = "blue", label = "Gross growth")
-        sub1.plot(time0, -SC/Norm, linewidth = 2, color = "orange", label = "Cost of symbiosis")
+        sub1.plot(time0, GG/Norm, linewidth = 2, color = "blue", label = "Gross growth", alpha = 0.65)
+        sub1.plot(time0, -SC/Norm, linewidth = 2, color = "orange", label = "Cost of symbiosis", alpha = 0.75)
         
         
 
