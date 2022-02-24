@@ -11,7 +11,7 @@ A trait-based model of coral-algae symbiosis to study coral acclimation under di
 Acclimation is captured by assuming that the temporal dynamics of a physiological trait, reflecting the energy that corals invest in the symbiotic relationship, is proportional to the gradient of coral fitness (assumed equal to net coral growth). The constant of proportionality reflects the speed of coral acclimation, i.e. the speed with which corals move towards an optimal trait value, one that maximises fitness, under changing environmental temperature. 
 
 # Technicalities
-Python 2.7 is required and Py2.txt is a spec file that can be used to create the suitable conda environment (for guidance, click [here](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
+Python 2.7 is required and Py2.txt is a spec file that can be used to create the suitable conda environment (for guidance, click [here](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html))
 
 User can simply use `Helper.py` to run one or more simulations for varying speed of acclimation N. The results of the simulation are saved in the folder `Results/`, change to your own folder location. `Plot-Main-Monthy.py` can be used to display the main result (Figure 3 in manuscript) 
 
