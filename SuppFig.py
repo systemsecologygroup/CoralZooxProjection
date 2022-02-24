@@ -218,7 +218,7 @@ for z in xrange(len(Locations)):
 
       
     if z == 2:
-        sub1.legend(fontsize = fsize2)
+        sub1.legend(fontsize = fsize2-2)
      
     
     tcks = np.arange(-0.5, 1.1+0.2, 0.4)
@@ -246,14 +246,13 @@ for z in xrange(len(Locations)):
 figManager = plt.get_current_fig_manager()
 figManager.window.showMaximized()
 
-"""
-plt.subplots_adjust(top=0.965,
-bottom=0.095,
-left=0.080,
-#right=0.81,
-right = 0.75,
-hspace=0.175,
-wspace=0.175)
-"""
+
+plt.subplots_adjust(top=0.88,
+bottom=0.11,
+left=0.125,
+right=0.825,
+hspace=0.2,
+wspace=0.14)
+
 
 plt.show()
