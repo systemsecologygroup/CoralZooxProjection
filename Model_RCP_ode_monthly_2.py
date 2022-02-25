@@ -171,7 +171,7 @@ def RUN_SIM(RCP_list, Location_value, N_values, folder):
         
             # Choosing an integrator choosing a solver that can deal stiff problems since the monthly temperature forcing is not smooth
             if i == 0: # adaptation is deactivated from 2010 onward
-                ode15s.set_f_params(T0, rho, skew, N, NormCor, TempNS, K_C_Reg, NumTime, (True, list(time).index(2010.)))
+                ode15s.set_f_params(T0, rho, skew, N, NormCor, TempNS, K_C_Reg, NumTime, (True, AddTime+12+list(time).index(2010.)))
             else:
                 ode15s.set_f_params(T0, rho, skew, N, NormCor, TempNS, K_C_Reg, NumTime)
                 
