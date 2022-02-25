@@ -14,6 +14,8 @@ from scipy.stats import norm
 from numpy import amin, amax, meshgrid, arange, isnan, logical_not, interp, concatenate, floor, arange
 from scipy.integrate import odeint
 from matplotlib import pyplot as plt
+plt.switch_backend('agg')
+
 from matplotlib.font_manager import FontProperties
 import numpy as np
 
@@ -66,6 +68,8 @@ error2 = 1e-2 # prevent division by zeros
 error3 = 1e-2 # prevent division by zeros
 
 # Temperature Parameter resp. for the different region GBR, SEA , CAR
+TempList = linspace(0, 75, 1500)
+
 T0_list = array([26.78, 28.13, 27.10]) 
 skew_list = array([0.0002, 3.82, 1.06])
 rho_list = array([1.0, 0.81, 0.89])
@@ -97,8 +101,8 @@ rawNum_GBR = arange(0.01, 0.1, 0.00005)
 rawNum_SEA = arange(0.01, 0.1, 0.00005)
 rawNum_CAR = arange(0.01, 0.1, 0.00005) 
 
-fsize = 14 #18 #22
-fsize2 = 16 #18
+#fsize = 14 #18 #22
+#fsize2 = 16 #18
 
 # Open Files and plot
 
@@ -133,10 +137,7 @@ scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=cmapC)
 """
 
 # Plot effect of Forcing, plot with cummulative number of bleaching
-
-TempList = linspace(0, 75, 1500)
-
-count = 0
+import pdb
 
 # Regional coral carrying capacity
 K_C_GBR = 438718.902336e10 # in cm^2
@@ -159,18 +160,26 @@ SEA_N_index = 1 #  0.0265
 CAR_N_index = 1 #  0.02375
 reg_N_index = [GBR_N_index, SEA_N_index, CAR_N_index]
 
-for z in xrange(len(Locations)):
-    sub1 = plt.subplot(4, 3, 1+count)
-    plt.title(Locations_title[z], fontsize = fsize+2, fontproperties = font)
-    part1 = sub1.twinx()
-    for v in xrange(2,3):#len(RCP)):
+
+count = 1
+
+"""
+fsize = 20 #18 #22
+fsize2 = 22 #18
+for v in xrange(len(RCP)):
+    for z in xrange(len(Locations)):
+        sub1 = plt.subplot(4, 3, count)
+        if count in (1, 2, 3):
+            plt.title(Locations_title[z], fontsize = fsize2+2, fontproperties = font)
+        part1 = sub1.twinx()
+    
         rcp = RCP[v]
         
         file0 = open("Monthly-SST-scenarios/Months-"+Locations[z]+"-"+rcp+"-MPI"+".dat", "r")
         time0 = load(file0, allow_pickle = True)
         file0.close()
         time = concatenate((arange(min(time0)-(AddTime+12)/12, min(time0), 1/12), time0))   # time are already given in years with months in decimals    
-
+    
         
         file1sst = open("Monthly-SST-scenarios/SST-"+Locations[z]+"-"+rcp+"-MPI"+".dat", "r")
         SST = load(file1sst, allow_pickle = True)
@@ -195,7 +204,7 @@ for z in xrange(len(Locations)):
         if Locations[z] == "GBR":
             N_index = reg_N_index[z]
             N_index_true = reg_N_index_true[z]
-
+    
         elif Locations[z] == "SEA":
             N_index = reg_N_index[z]                               
             N_index_true = reg_N_index_true[z]
@@ -210,41 +219,82 @@ for z in xrange(len(Locations)):
         
         GG = GrossG(Host, Symb, Trait, SST, T0_list[z], rho_list[z], skew_list[z], K_C_List[z])
         SC = SymbCost(Host, Symb, Trait)
-        Norm = max(max(GG), max(SC))
-        sub1.plot(time0, GG/Norm, linewidth = 2, color = "blue", label = "Gross growth", alpha = 0.65)
-        sub1.plot(time0, -SC/Norm, linewidth = 2, color = "orange", label = "Cost of symbiosis", alpha = 0.75)
-        
-        
+        #Norm = max(max(GG), max(SC))
+    
 
+        #GG1 = GG/Norm
+        #SC1 = SC/Norm
+        #sub1.plot(time0, GG1, linewidth = 3, color = "blue", label = "Gross growth (%s)"%RCP_title[v], alpha = 0.35)
+        #sub1.plot(time0, -SC1, linewidth = 3, color = "orange", label = "Cost of symbiosis (%s)"%RCP_title[v], alpha = 0.35)
+        
+        #sub1.plot(time0, -(M_C/Norm)*np.ones(len(time0)), linewidth = 3, color = "red", label = "Coral mortality", alpha = 0.65)
+        #moving average
+        
+        #GG1 = np.cumsum(GG1)*(1/np.cumsum(np.ones(len(GG1))))
+        #SC1 = np.cumsum(SC1)*(1/np.cumsum(np.ones(len(SC1))))
+        
+        #sub1.plot(time0, GG1, "--",linewidth = 3, color = "blue", label = "Mov. Av. Gross growth", alpha = 0.75)
+        #sub1.plot(time0, -SC1, "--", linewidth = 3, color = "orange", label = "Mov. Av. Cost of symbiosis")
       
-    if z == 2:
-        sub1.legend(fontsize = fsize2-2)
-     
+        
+        # annual means
+        GG1 = [np.mean(GG[i:i+12]) for i in np.arange(0, len(time0), dtype = int)[::12]]
+        SC1 = [np.mean(SC[i:i+12]) for i in np.arange(0, len(time0), dtype = int)[::12]]
+        
+        Norm = max(max(GG1[list(time0[::12]).index(2010.):]), max(SC1[list(time0[::12]).index(2010.):]))
+        
+        GG1 = GG1/Norm
+        SC1 = SC1/Norm
+        
+        sub1.plot(time0[::12], GG1, linewidth = 4, color = "blue", label = "Gross growth", alpha = 0.65)
+        sub1.plot(time0[::12], -SC1, linewidth = 4, color = "orange", label = "Cost of symbiosis", alpha = 0.65)
+        
+        #sub1.plot(time0, -(M_C/Norm)*np.ones(len(time0)), linewidth = 3, color = "red", label = "Coral mortality", alpha = 0.65)
+            
     
-    tcks = np.arange(-0.5, 1.1+0.2, 0.4)
+        sub1.plot(time0, np.zeros(len(time0)), color = "black", linewidth = 2)  
+        if count == 9:
+            sub1.legend(fontsize = fsize2+2)
+         
+        
+        tcks1 = np.arange(-1, 0, 0.2)
+        tcks2 = np.arange(0.2, 1+0.2, 0.2)
+        tcks = list(tcks1) + [0] + list(tcks2)
+    
+        if count in (1, 4, 7):
+            sub1.text(2010 - 12, 1, Fig_lab[count-1], fontproperties=font, fontsize = fsize2+2)
+            sub1.set_yticks(tcks)
+            sub1.set_yticklabels(["%.1f"%tc for tc in tcks1]+["0"]+["%.1f"%tc for tc in tcks2], fontsize = fsize2)
+            #sub1.set_ylabel("Magnitude \n(normalized)", fontsize = fsize+4)
+            sub1.set_ylabel(RCP_title[v]+"\n"+"Magnitude \n(normalized)", fontproperties = font, fontsize = fsize+4)
+            part1.set_yticks(tcks)
+            part1.set_yticklabels(["" for tc in tcks])
+        else:
+            sub1.text(2010 - 5, 1 , Fig_lab[count-1], fontproperties=font, fontsize = fsize2+2)
+            sub1.set_yticks(tcks)
+            sub1.set_yticklabels(["" for tc in tcks], fontsize = fsize2)
+        
+            part1.set_yticks(tcks)
+            part1.set_yticklabels(["" for tc in tcks])
+    
+        sub1.set_ylim((-1, 1))
+        part1.set_ylim((-1, 1))
+        sub1.set_xlim((2010, 2100))
+        part1.set_xlim(2010, 2100)
+        if count in (7, 8, 9):
+            sub1.set_xticks([2010, 2020, 2030, 2040, 2050, 2060, 2070, 2080, 2090, 2100])
+            sub1.set_xticklabels([2010, 2020, 2030, 2040, 2050, 2060, 2070, 2080, 2090, 2100], rotation = 45, fontsize = fsize2)
+            sub1.set_xlabel("Years", fontsize = fsize2+2)
+        else:
+            sub1.set_xticks([2010, 2020, 2030, 2040, 2050, 2060, 2070, 2080, 2090, 2100])
+            sub1.set_xticklabels(["" for ys in [2010, 2020, 2030, 2040, 2050, 2060, 2070, 2080, 2090, 2100]], rotation = 45, fontsize = fsize2)
+        
+        
+        count +=1
 
-    if z == 0:
-        sub1.set_yticks(tcks)
-        sub1.set_yticklabels(["%.1f"%tc for tc in tcks], fontsize = fsize2)
-        sub1.set_ylabel("Magnitude \n(normalized)", fontsize = fsize2)
-    else:
-        sub1.set_yticks(tcks)
-        sub1.set_yticklabels(["" for tc in tcks], fontsize = fsize2)
-    
-    part1.set_yticks(tcks)
-    part1.set_yticklabels(["" for tc in tcks], fontsize = fsize2)
-
-    sub1.set_ylim((-0.5, 1.1))
-    part1.set_ylim((-0.5, 1.1))
-    sub1.set_xticks([2010, 2020, 2030, 2040, 2050, 2060, 2070, 2080, 2090, 2100])
-    sub1.set_xticklabels([2010, 2020, 2030, 2040, 2050, 2060, 2070, 2080, 2090, 2100], rotation = 45, fontsize = fsize2)
-    plt.xlim((2010, 2100))
-    
-    plt.xlabel("Years", fontsize = fsize2)
-    count +=1
-# Plot with maximal window
-figManager = plt.get_current_fig_manager()
-figManager.window.showMaximized()
+# Plot with maximal window # This might be necessary if it works 
+#figManager = plt.get_current_fig_manager()
+#figManager.window.showMaximized() 
 
 
 plt.subplots_adjust(top=0.88,
@@ -254,5 +304,128 @@ right=0.825,
 hspace=0.2,
 wspace=0.14)
 
+#plt.savefig("GG_Cost_%s.pdf"%RCP[v], bbox_inches = 'tight')
+plt.savefig("GG_Cost_1.pdf", bbox_inches = 'tight')
 
+"""
+
+v = 0
+count = 1
+
+fsize = 20 #18 #22
+fsize2 = 22 #18
+for z in xrange(len(Locations)): 
+    sub1 = plt.subplot(4, 3, count)
+    if count in (1, 2, 3):
+        plt.title(Locations_title[z], fontsize = fsize2+2, fontproperties = font)
+    part1 = sub1.twinx()
+
+    rcp = RCP[v]
+    
+    file0 = open("Monthly-SST-scenarios/Months-"+Locations[z]+"-"+rcp+"-MPI"+".dat", "r")
+    time0 = load(file0, allow_pickle = True)
+    file0.close()
+    time = concatenate((arange(min(time0)-(AddTime+12)/12, min(time0), 1/12), time0))   # time are already given in years with months in decimals    
+
+    
+    file1sst = open("Monthly-SST-scenarios/SST-"+Locations[z]+"-"+rcp+"-MPI"+".dat", "r")
+    SST = load(file1sst, allow_pickle = True)
+    file1sst.close()
+    
+    file2 = open("Results/CORAL-"+rcp+"-"+Locations[z]+".dat", "r")
+    HOSTSet1 = load(file2, allow_pickle = True)
+    file2.close()
+    
+    file3 = open("Results/TRAIT-"+rcp+"-"+Locations[z]+".dat", "r")
+    TRAITSet1 = load(file3, allow_pickle = True)
+    file3.close()
+    
+    file4 =  open("Results/SYMB-"+rcp+"-"+Locations[z]+".dat", "r")
+    SYMBSet1 = load(file4, allow_pickle = True)
+    file4.close()
+    
+    HOST = HOSTSet1
+    SYMB = SYMBSet1
+    TRAIT = TRAITSet1
+    
+    if Locations[z] == "GBR":
+        N_index = reg_N_index[z]
+        N_index_true = reg_N_index_true[z]
+
+    elif Locations[z] == "SEA":
+        N_index = reg_N_index[z]                               
+        N_index_true = reg_N_index_true[z]
+
+    elif Locations[z] == "CAR":
+        N_index = reg_N_index[z]
+        N_index_true = reg_N_index_true[z]
+         
+    Host = HOST[N_index][list(time).index(min(time0)):]
+    Trait = TRAIT[N_index][list(time).index(min(time0)):]
+    Symb = SYMB[N_index][list(time).index(min(time0)):] 
+    
+    
+    GG = GrossG(Host, Symb, Trait, SST, T0_list[z], rho_list[z], skew_list[z], K_C_List[z])
+    SC = SymbCost(Host, Symb, Trait)
+    #Norm = max(max(GG), max(SC))
+
+
+    # annual means
+    GG1 = [np.mean(GG[i:i+12]) for i in np.arange(0, len(time0), dtype = int)[::12]]
+    SC1 = [np.mean(SC[i:i+12]) for i in np.arange(0, len(time0), dtype = int)[::12]]
+    
+    Norm = max(max(GG1[list(time0[::12]).index(2010.):]), max(SC1[list(time0[::12]).index(2010.):]))
+    
+    GG1 = GG1/Norm
+    SC1 = SC1/Norm
+    
+    sub1.plot(time0[::12], GG1, linewidth = 4, color = "blue", label = "Gross growth", alpha = 0.65)
+    sub1.plot(time0[::12], -SC1, linewidth = 4, color = "orange", label = "Cost of symbiosis", alpha = 0.65)
+    
+    #sub1.plot(time0, -(M_C/Norm)*np.ones(len(time0)), linewidth = 3, color = "red", label = "Coral mortality", alpha = 0.65)
+        
+
+    sub1.plot(time0, np.zeros(len(time0)), color = "black", linewidth = 2)  
+    if count == 1:
+        sub1.legend(fontsize = fsize2+2)
+     
+    
+    tcks1 = np.arange(-1, 0, 0.2)
+    tcks2 = np.arange(0.2, 1+0.2, 0.2)
+    tcks = list(tcks1) + [0] + list(tcks2)
+
+    if count == 1:
+        sub1.text(2010 - 12, 1, Fig_lab[count-1], fontproperties=font, fontsize = fsize2+2)
+        sub1.set_yticks(tcks)
+        sub1.set_yticklabels(["%.1f"%tc for tc in tcks1]+["0"]+["%.1f"%tc for tc in tcks2], fontsize = fsize2)
+        sub1.set_ylabel("Magnitude \n(normalized)", fontsize = fsize+4)
+        part1.set_yticks(tcks)
+        part1.set_yticklabels(["" for tc in tcks])
+    else:
+        sub1.text(2010 - 5, 1 , Fig_lab[count-1], fontproperties=font, fontsize = fsize2+2)
+        sub1.set_yticks(tcks)
+        sub1.set_yticklabels(["" for tc in tcks], fontsize = fsize2)
+    
+        part1.set_yticks(tcks)
+        part1.set_yticklabels(["" for tc in tcks])
+
+    sub1.set_ylim((-1, 1))
+    part1.set_ylim((-1, 1))
+    sub1.set_xlim((2010, 2100))
+    part1.set_xlim(2010, 2100)
+   
+    sub1.set_xticks([2010, 2020, 2030, 2040, 2050, 2060, 2070, 2080, 2090, 2100])
+    sub1.set_xticklabels([2010, 2020, 2030, 2040, 2050, 2060, 2070, 2080, 2090, 2100], rotation = 45, fontsize = fsize2)
+  
+    sub1.set_xlabel("Years", fontsize = fsize2+2)
+    count +=1
+    
+plt.subplots_adjust(top=0.88,
+bottom=0.11,
+left=0.125,
+right=0.825,
+hspace=0.2,
+wspace=0.14)
+
+plt.savefig("GG_Cost_%s.pdf"%RCP[v], bbox_inches = 'tight')    
 plt.show()

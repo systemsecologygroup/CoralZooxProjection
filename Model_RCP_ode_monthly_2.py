@@ -6,7 +6,10 @@ from scipy.stats import norm
 from numpy import amin, amax, meshgrid, arange, isnan, logical_not, interp, concatenate, arange, isnan
 from scipy.integrate import ode
 from matplotlib import pyplot as plt
+plt.switch_backend('agg')
+
 import matplotlib
+
 import numpy as np
 import pdb
 
@@ -53,7 +56,7 @@ def Gradient(coral, u, symbiont, Gx1, beta, alpha, K_symb, K_C_Reg):
 
 # The following function defines the system of ordinary differential equation to be integrated 
 AddTime = 2000*12 # for spine up to reach a quasi steady state
-def SystemForcing(t, y, T0, rho, skew, N, NormCor, TempNS, K_C_Reg, NumTime):
+def SystemForcing(t, y, T0, rho, skew, N, NormCor, TempNS, K_C_Reg, NumTime, deactN = (False, None)):
     dSystem = zeros(len(y))
     coral = y[0]
     u = y[1]
@@ -62,10 +65,13 @@ def SystemForcing(t, y, T0, rho, skew, N, NormCor, TempNS, K_C_Reg, NumTime):
     # Introducing temperature dependence
     #print t
 
-    if t<=NumTime+AddTime:
+    if t<=len(TempNS)-1:
         Temperature1 = TempNS[int(t)] # this should rather be some function of t and not index but it works here because simulation step = 1
     else:
-        Temperature1 = TempNS[NumTime+AddTime] # there are index out of range sometimes, maybe because of the integrator, so I just make sure not to get those errors
+        Temperature1 = TempNS[len(TempNS)-1] # there are index out of range sometimes, maybe because of the integrator, so I just make sure not to get those errors
+    
+    if deactN[0] and t >= deactN[1]:
+        N = 0
     Tcenter = (Temperature1-T0)/rho
     Gx1Forcing = G_C*norm.pdf(Tcenter)*norm.cdf(Tcenter*skew)/max(NormCor)
     # Computing the derivative
@@ -162,8 +168,13 @@ def RUN_SIM(RCP_list, Location_value, N_values, folder):
         for i in xrange(len(N_List)):
             N = N_List[i]
             ode15s = ode(SystemForcing)
-            ode15s.set_f_params(T0, rho, skew, N, NormCor, TempNS, K_C_Reg, NumTime)
+        
             # Choosing an integrator choosing a solver that can deal stiff problems since the monthly temperature forcing is not smooth
+            if i == 0: # adaptation is deactivated from 2010 onward
+                ode15s.set_f_params(T0, rho, skew, N, NormCor, TempNS, K_C_Reg, NumTime, (True, list(time).index(2010.)))
+            else:
+                ode15s.set_f_params(T0, rho, skew, N, NormCor, TempNS, K_C_Reg, NumTime)
+                
             ode15s.set_integrator('vode', method='bdf', order=15, nsteps=3000)
             ode15s.set_initial_value(Initial, 0)
             Dynamics = zeros((len(time)+AddTime+12, 3))  
@@ -180,7 +191,7 @@ def RUN_SIM(RCP_list, Location_value, N_values, folder):
                         Dynamics[k, 0] = ode15s.y[0]
                         Dynamics[k, 1] = ode15s.y[1]
                         Dynamics[k, 2] = ode15s.y[2]
-                        print rcp, Location_value, i, ode15s.t, "reset"
+                        #print rcp, Location_value, i, ode15s.t, "reset"
                     elif TempNS[int(ode15s.t)] >= T_opt+4:
                         random_reduction = random.uniform(1-0.95, 1-0.60)
                         ode15s.set_initial_value(array([ode15s.y[0], ode15s.y[1], (random_reduction)*ode15s.y[2]]), ode15s.t)
@@ -193,7 +204,7 @@ def RUN_SIM(RCP_list, Location_value, N_values, folder):
                         Dynamics[k, 0] = ode15s.y[0]
                         Dynamics[k, 1] = ode15s.y[1]
                         Dynamics[k, 2] = ode15s.y[2]
-                        print rcp, Location_value, i, ode15s.t, "no reset"
+                        #print rcp, Location_value, i, ode15s.t, "no reset"
                 elif Location_value == "SEA": # bleaching thresholds for the SEA
                     if TempNS[int(ode15s.t)] >= T_opt+1: # bleaching occurs symbionts are expeled and the system is reset to restart again
                         random_reduction = random.uniform(1-0.95, 1-0.25)
@@ -202,13 +213,13 @@ def RUN_SIM(RCP_list, Location_value, N_values, folder):
                         Dynamics[k, 0] = ode15s.y[0]
                         Dynamics[k, 1] = ode15s.y[1]
                         Dynamics[k, 2] = ode15s.y[2]
-                        print rcp, Location_value, i, ode15s.t, "reset"
+                        #print rcp, Location_value, i, ode15s.t, "reset"
                     else:
                         ode15s.integrate(ode15s.t+1)
                         Dynamics[k, 0] = ode15s.y[0]
                         Dynamics[k, 1] = ode15s.y[1]
                         Dynamics[k, 2] = ode15s.y[2]
-                        print rcp, Location_value, i, ode15s.t, "no reset"
+                        #print rcp, Location_value, i, ode15s.t, "no reset"
                 elif Location_value == "CAR": # bleaching thresholds for the CAR
                     if TempNS[int(ode15s.t)] >= T_opt+1 and TempNS[int(ode15s.t)] < T_opt+3: # bleaching occurs symbionts are expeled and the system is reset to restart again
                         random_reduction = random.uniform(1-0.95, 1-0.15)
@@ -217,7 +228,7 @@ def RUN_SIM(RCP_list, Location_value, N_values, folder):
                         Dynamics[k, 0] = ode15s.y[0]
                         Dynamics[k, 1] = ode15s.y[1]
                         Dynamics[k, 2] = ode15s.y[2]
-                        print rcp, Location_value, i, ode15s.t, "reset"
+                        #print rcp, Location_value, i, ode15s.t, "reset"
                     elif TempNS[int(ode15s.t)] >= T_opt+3 and TempNS[int(ode15s.t)] < T_opt+6:
                         random_reduction = random.uniform(1-0.95, 1-0.35)
                         ode15s.set_initial_value(array([ode15s.y[0], ode15s.y[1], (random_reduction)*ode15s.y[2]]), ode15s.t)
@@ -237,13 +248,7 @@ def RUN_SIM(RCP_list, Location_value, N_values, folder):
                         Dynamics[k, 0] = ode15s.y[0]
                         Dynamics[k, 1] = ode15s.y[1]
                         Dynamics[k, 2] = ode15s.y[2]
-                        print rcp, Location_value, i, ode15s.t, "no reset"
-                        
-                
-                if i == 0 and ode15s.t>=2010: # deactivate acclimation for one of the runs (only Helper_2.py, with 2 simulations with the same N)
-                    N = 0
-                    ode15s.set_f_params(T0, rho, skew, N, NormCor, TempNS, K_C_Reg, NumTime)
-                    
+                        #print rcp, Location_value, i, ode15s.t, "no reset"
                 
                 k+=1
             HOST.append(Dynamics[:, 0])

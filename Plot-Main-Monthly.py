@@ -237,15 +237,15 @@ for z in xrange(len(Locations)):
             sub7.text(startTime - 5, 180-100, Fig_lab[6+count], fontproperties=font, fontsize = fsize) # forcing
                     
         
-        file2 = open("Results/CORAL-"+rcp+"-"+Locations[z]+".dat", "r")
+        file2 = open("Results_2/CORAL-"+rcp+"-"+Locations[z]+".dat", "r")
         HOSTSet1 = load(file2, allow_pickle = True)
         file2.close()
         
-        file3 = open("Results/TRAIT-"+rcp+"-"+Locations[z]+".dat", "r")
+        file3 = open("Results_2/TRAIT-"+rcp+"-"+Locations[z]+".dat", "r")
         TRAITSet1 = load(file3, allow_pickle = True)
         file3.close()
         
-        file4 =  open("Results/SYMB-"+rcp+"-"+Locations[z]+".dat", "r")
+        file4 =  open("Results_2/SYMB-"+rcp+"-"+Locations[z]+".dat", "r")
         SYMBSet1 = load(file4, allow_pickle = True)
         file4.close()
         
@@ -290,7 +290,7 @@ for z in xrange(len(Locations)):
         print rcp, Locations[z], PerChange, "N = ", rawNum_CAR[N_index_true]*scale
         
         # saving time in .dat
-        time_file = open("Results/Time-"+rcp+"-"+Locations[z]+"-%d.dat"%reg_N_index_true[z], "wr")
+        time_file = open("Results_2/Time-"+rcp+"-"+Locations[z]+"-%d.dat"%reg_N_index_true[z], "wr")
         time.dump(time_file)
         time_file.flush()
         time_file.close()
@@ -370,6 +370,7 @@ for z in xrange(len(Locations)):
             Host2 = HOST[0]
             Trait2 = TRAIT[0]
             Symb2 = SYMB[0]
+            pdb.set_trace()
             
             PastHost2 = sum(Host2[compare0])/sum(compare0)
             PastTrait2 = sum(Trait2[compare0])/sum(compare0)
@@ -395,5 +396,8 @@ left=0.080,
 right = 0.75,
 hspace=0.175,
 wspace=0.175)
+
+#plt.savefig("Fig3.pdf", bbox_inches = 'tight')    
+
 
 plt.show()
