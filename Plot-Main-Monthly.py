@@ -347,9 +347,9 @@ for z in xrange(len(Locations)):
             part7.set_yticks(Symbticks)
             part7.set_yticklabels([" "%d for d in Symbticks])           
         
-        sub1.set_ylim((-0.5, 102.5-100))
+        sub1.set_ylim((0, 102.5-100))
         sub1.set_xlim((startTime, max(time0))) 
-        part1.set_ylim((-0.5, 102.5-100))
+        part1.set_ylim((0, 102.5-100))
         part1.set_xlim((startTime, max(time0))) 
         
         sub4.set_xlim((startTime, max(time0))) 
