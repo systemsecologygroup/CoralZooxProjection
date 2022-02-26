@@ -165,8 +165,6 @@ K_C_CAR = 190374.697987e10  # in cm^2
 
 Ksmax = 3e6 # healthy measure of carying capacity of symbiont per host biomass Gamma
 
-file_list = ["Results_2/"]
-
 #  Speed of adapations specific for each region # index in the whole N ranges
 GBR_N_index = 908 # index in rawNum_GBR  0.0554
 SEA_N_index = 330 # index in rawNum_SEA  0.0265
@@ -174,9 +172,9 @@ CAR_N_index = 275 # index in rawNum_CAR  0.02375
 reg_N_index_true = [GBR_N_index, SEA_N_index, CAR_N_index]
 
 #for the simulations with the right parameters (in folder Results/)
-GBR_N_index = 1 #  0.0554
-SEA_N_index = 1 #  0.0265
-CAR_N_index = 1 #  0.02375
+GBR_N_index = 0 #  0.0554
+SEA_N_index = 0 #  0.0265
+CAR_N_index = 0 #  0.02375
 reg_N_index = [GBR_N_index, SEA_N_index, CAR_N_index]
 
 import pdb
@@ -364,12 +362,41 @@ for z in xrange(len(Locations)):
         
         
         ### Plot simulation without adaptation
+        
         if rcp == "RCP26":
             print "done"
              # plot "No adaptation from 2010"
-            Host2 = HOST[0]
-            Trait2 = TRAIT[0]
-            Symb2 = SYMB[0]
+             
+            
+            file2 = open("Results-N-0-2010/CORAL-"+rcp+"-"+Locations[z]+".dat", "r")
+            HOSTSet1b = load(file2, allow_pickle = True)
+            file2.close()
+            
+            file3 = open("Results-N-0-2010/TRAIT-"+rcp+"-"+Locations[z]+".dat", "r")
+            TRAITSet1b = load(file3, allow_pickle = True)
+            file3.close()
+            
+            file4 =  open("Results-N-0-2010/SYMB-"+rcp+"-"+Locations[z]+".dat", "r")
+            SYMBSet1b = load(file4, allow_pickle = True)
+            file4.close()
+            
+            HOST2 = HOSTSet1b
+            SYMB2 = SYMBSet1b
+            TRAIT2 = TRAITSet1b
+            
+         
+            Host2 = HOST2[0]
+            Trait2 = TRAIT2[0]
+            Symb2 = SYMB2[0]
+            
+            pdb.set_trace()
+            
+            # save to csv
+            np.savetxt("Results-N-0-2010/Time-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], time, delimiter = ",")
+            np.savetxt("Results-N-0-2010/CORAL-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], Host2, delimiter = ",")
+            np.savetxt("Results-N-0-2010/TRAIT-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], Trait2, delimiter = ",")
+            np.savetxt("Results-N-0-2010/SYMB-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], Symb2, delimiter = ",")
+            
             #pdb.set_trace()
             
             PastHost2 = sum(Host2[compare0])/sum(compare0)

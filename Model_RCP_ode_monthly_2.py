@@ -70,7 +70,7 @@ def SystemForcing(t, y, T0, rho, skew, N, NormCor, TempNS, K_C_Reg, NumTime, dea
     else:
         Temperature1 = TempNS[len(TempNS)-1] # there are index out of range sometimes, maybe because of the integrator, so I just make sure not to get those errors
     
-    if deactN[0] and t >= deactN[1]:
+    if deactN[0] and t > deactN[1]:
         N = 0
     Tcenter = (Temperature1-T0)/rho
     Gx1Forcing = G_C*norm.pdf(Tcenter)*norm.cdf(Tcenter*skew)/max(NormCor)
@@ -170,7 +170,7 @@ def RUN_SIM(RCP_list, Location_value, N_values, folder):
             ode15s = ode(SystemForcing)
         
             # Choosing an integrator choosing a solver that can deal stiff problems since the monthly temperature forcing is not smooth
-            if i == 0: # adaptation is deactivated from 2010 onward
+            if i == 0: # adaptation is deactivated from 2010 onward (always with the first N in N_List)
                 ode15s.set_f_params(T0, rho, skew, N, NormCor, TempNS, K_C_Reg, NumTime, (True, AddTime+12+list(time).index(2010.)))
             else:
                 ode15s.set_f_params(T0, rho, skew, N, NormCor, TempNS, K_C_Reg, NumTime)
