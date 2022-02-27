@@ -185,7 +185,7 @@ for z in xrange(1):
         Trait = TRAIT[N_index]
         Symb = SYMB[N_index]
         
-        sub1.plot(time, Trait, linewidth = 2, color = "black", label = "eps = 0") 
+        sub1.plot(time, Trait, linewidth = 2, color = "black", label = "eps = 0 (used)") 
         sub4.plot(time, Host, linewidth = 2, color = "black")
         sub7.plot(time, Symb, linewidth = 2, color = "black")
     
