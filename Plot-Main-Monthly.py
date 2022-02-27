@@ -294,12 +294,12 @@ for z in xrange(len(Locations)):
         time_file.close()
         
         # saving to csv
-        
+        """
         np.savetxt("Results-csv/Time-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], time, delimiter = ",")
         np.savetxt("Results-csv/CORAL-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], Host, delimiter = ",")
         np.savetxt("Results-csv/TRAIT-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], Trait, delimiter = ",")
         np.savetxt("Results-csv/SYMB-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], Symb, delimiter = ",")
-        
+        """
         
         if count in (3, ):
             sub1.tick_params(axis = "y", direction = "in", labelsize = fsize2)
@@ -362,7 +362,7 @@ for z in xrange(len(Locations)):
         
         
         ### Plot simulation without adaptation
-        
+        """
         if rcp == "RCP26":
             print "done"
              # plot "No adaptation from 2010"
@@ -392,10 +392,10 @@ for z in xrange(len(Locations)):
             pdb.set_trace()
             
             # save to csv
-            np.savetxt("Results-N-0-2010/Time-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], time, delimiter = ",")
-            np.savetxt("Results-N-0-2010/CORAL-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], Host2, delimiter = ",")
-            np.savetxt("Results-N-0-2010/TRAIT-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], Trait2, delimiter = ",")
-            np.savetxt("Results-N-0-2010/SYMB-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], Symb2, delimiter = ",")
+            #np.savetxt("Results-N-0-2010/Time-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], time, delimiter = ",")
+            #np.savetxt("Results-N-0-2010/CORAL-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], Host2, delimiter = ",")
+            #np.savetxt("Results-N-0-2010/TRAIT-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], Trait2, delimiter = ",")
+            #np.savetxt("Results-N-0-2010/SYMB-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], Symb2, delimiter = ",")
             
             #pdb.set_trace()
             
@@ -408,7 +408,7 @@ for z in xrange(len(Locations)):
             sub7.plot(time, 100*Symb2/PastSymb2 - 100, linewidth = 2, color = "black")
             if z == 0:
                 sub1.legend()
-             
+            """ 
     count +=1 
 
 

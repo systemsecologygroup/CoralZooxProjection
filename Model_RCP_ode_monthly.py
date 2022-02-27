@@ -30,6 +30,12 @@ K_C_CAR = 190374.697987e10  # in cm^2
 
 K_C_List = [K_C_GBR, K_C_SEA, K_C_CAR]
 
+Initial_GBR = array([0.75*K_C_GBR, 0.0000005, 0.001]) 
+Initial_SEA = array([0.75*K_C_SEA, 0.0000005, 0.001]) 
+Initial_CAR = array([0.75*K_C_CAR, 0.0000005, 0.001]) 
+
+Initial_list = {"GBR":Initial_GBR, "SEA":Initial_SEA, "CAR":Initial_CAR}
+
 
 Ksmax = 3e6 # healthy measure of carying capacity of symbiont per host biomass Gamma
 
@@ -94,7 +100,7 @@ TempList = linspace(0, 75, 1500)
 
 color_list = array([(0.647*col, 0.333*col, 0.075*col) for col in xrange(2,5+2)])/5
 
-def RUN_SIM(RCP_list, Location_value, N_values, folder):
+def RUN_SIM(RCP_list, Location_value, N_values, folder, Init = Initial_list):
     if Location_value == "GBR":
         z = 0
     elif Location_value == "SEA":
@@ -149,13 +155,13 @@ def RUN_SIM(RCP_list, Location_value, N_values, folder):
         
         if Location_value == "GBR":
             N_List = (scale)*N_values
-            Initial = array([0.75*K_C_GBR, 0.0000005, 0.001]) 
+            Initial = Init["GBR"]
         elif Location_value == "SEA":
             N_List = (scale)*N_values
-            Initial = array([0.75*K_C_SEA, 0.0000005, 0.001]) 
+            Initial = Init["SEA"]
         elif Location_value== "CAR":
             N_List = (scale)*N_values
-            Initial = array([0.75*K_C_CAR, 0.0000005, 0.001]) 
+            Initial = Init["CAR"]
         else:
             print "That location is not on my list"
         for i in xrange(len(N_List)):
