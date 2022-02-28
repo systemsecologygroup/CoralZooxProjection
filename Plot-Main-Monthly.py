@@ -345,14 +345,14 @@ for z in xrange(len(Locations)):
             part7.set_yticks(Symbticks)
             part7.set_yticklabels([" "%d for d in Symbticks])           
         
-        sub1.set_ylim((0, 102.5-100))
+        sub1.set_ylim((-0.5, 102.5-100))
         sub1.set_xlim((startTime, max(time0))) 
-        part1.set_ylim((0, 102.5-100))
+        part1.set_ylim((-0.5, 102.5-100))
         part1.set_xlim((startTime, max(time0))) 
         
         sub4.set_xlim((startTime, max(time0))) 
-        sub4.set_ylim((-60, 120-100))
-        part4.set_ylim((-60, 120-100))
+        sub4.set_ylim((-100, 120-100))
+        part4.set_ylim((-100, 120-100))
         sub4.set_xlim((startTime, max(time0))) 
         
         sub7.set_ylim((0-100, 180-100))
@@ -362,21 +362,21 @@ for z in xrange(len(Locations)):
         
         
         ### Plot simulation without adaptation
-        """
+        
         if rcp == "RCP26":
             print "done"
              # plot "No adaptation from 2010"
              
             
-            file2 = open("Results-N-0-2010/CORAL-"+rcp+"-"+Locations[z]+".dat", "r")
+            file2 = open("Results-N-0/Alltime/CORAL-"+rcp+"-"+Locations[z]+".dat", "r")
             HOSTSet1b = load(file2, allow_pickle = True)
             file2.close()
             
-            file3 = open("Results-N-0-2010/TRAIT-"+rcp+"-"+Locations[z]+".dat", "r")
+            file3 = open("Results-N-0/Alltime/TRAIT-"+rcp+"-"+Locations[z]+".dat", "r")
             TRAITSet1b = load(file3, allow_pickle = True)
             file3.close()
             
-            file4 =  open("Results-N-0-2010/SYMB-"+rcp+"-"+Locations[z]+".dat", "r")
+            file4 =  open("Results-N-0/Alltime/SYMB-"+rcp+"-"+Locations[z]+".dat", "r")
             SYMBSet1b = load(file4, allow_pickle = True)
             file4.close()
             
@@ -408,7 +408,7 @@ for z in xrange(len(Locations)):
             sub7.plot(time, 100*Symb2/PastSymb2 - 100, linewidth = 2, color = "black")
             if z == 0:
                 sub1.legend()
-            """ 
+            
     count +=1 
 
 

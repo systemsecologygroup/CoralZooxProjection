@@ -1,6 +1,6 @@
 ##### Simple model runs ######
-#from Model_RCP_ode_monthly_2 import* # Model run is without acclimation from year 2010
-from Model_RCP_ode_monthly import *  # Model run normal with acclimation all years
+from Model_RCP_ode_monthly_2 import* # Model run is without acclimation from year 2010
+#from Model_RCP_ode_monthly import *  # Model run normal with acclimation all years
 
 import pdb
 
@@ -46,11 +46,11 @@ Initial_list = {"GBR":Initial_GBR, "SEA":Initial_SEA, "CAR":Initial_CAR}
 for Locs in Locations:
     # Returns type dictionary with the name of RCP scenario in RCP_list as key for the corresponding scenario
     '''Model run is without acclimation from year 2010 --- deactivate acclimation from year 2010 (i.e. N = 0)'''
-    #Coral_scenarios, Trait_scenarios, Symb_scenarios = RUN_SIM(RCP_list, Locs, N_values[Locs], folder = "Results-N-0-2010_2/") # change to appropriate folder
+    #Coral_scenarios, Trait_scenarios, Symb_scenarios = RUN_SIM(RCP_list, Locs, N_values[Locs], folder = "Results-N-0/Alltime2/") # change to appropriate folder
     
     '''Model run normal all years --- ATTENTION: change line 2 to line 3, change Model_RCP_ode_monthly_2 to Model_RCE_ode_monthly'''
-    #Coral_scenarios, Trait_scenarios, Symb_scenarios = RUN_SIM(RCP_list, Locs, N_values[Locs], folder = "Results_2/") # change to appropriate folder, default initial condition
-    Coral_scenarios, Trait_scenarios, Symb_scenarios = RUN_SIM(RCP_list, Locs, N_values[Locs], folder = "Results_2/eps+0.3/",  Init = Initial_list) # change to appropriate folder, new initial condition
+    Coral_scenarios, Trait_scenarios, Symb_scenarios = RUN_SIM(RCP_list, Locs, N_values[Locs], folder = "Results_2/") # change to appropriate folder, default initial condition
+    #Coral_scenarios, Trait_scenarios, Symb_scenarios = RUN_SIM(RCP_list, Locs, N_values[Locs], folder = "Results_2/eps+0.3/",  Init = Initial_list) # change to appropriate folder, new initial condition
     
     
 

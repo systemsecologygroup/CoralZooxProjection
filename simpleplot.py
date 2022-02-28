@@ -147,7 +147,7 @@ for z in xrange(1):
         else:
             sub7.text(startTime - 5, 180-100, Fig_lab[6+count], fontproperties=font, fontsize = fsize) # forcing
                     
-        
+        """
         file2 = open("Results/CORAL-"+rcp+"-"+Locations[z]+".dat", "r")
         HOSTSet1 = load(file2, allow_pickle = True)
         file2.close()
@@ -163,10 +163,24 @@ for z in xrange(1):
         HOST = HOSTSet1
         SYMB = SYMBSet1
         TRAIT = TRAITSet1
+        """
         
-            
-        MeanlossCoralBiomass = []
+        file2 = open("Results-N-0/Alltime/CORAL-"+rcp+"-"+Locations[z]+".dat", "r")
+        HOSTSet1b = load(file2, allow_pickle = True)
+        file2.close()
         
+        file3 = open("Results-N-0/Alltime/TRAIT-"+rcp+"-"+Locations[z]+".dat", "r")
+        TRAITSet1b = load(file3, allow_pickle = True)
+        file3.close()
+        
+        file4 =  open("Results-N-0/Alltime/SYMB-"+rcp+"-"+Locations[z]+".dat", "r")
+        SYMBSet1b = load(file4, allow_pickle = True)
+        file4.close()
+        
+        HOST = HOSTSet1b
+        SYMB = SYMBSet1b
+        TRAIT = TRAITSet1b
+    
         # in case one wants something specific from the runs in each regions, uncomment and modify
             
         if Locations[z] == "GBR":
