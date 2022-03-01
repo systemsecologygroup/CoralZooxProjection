@@ -58,7 +58,7 @@ def Gradient(coral, u, symbiont, Gx1, beta, alpha, K_symb, K_C_Reg):
 
 # The following function defines the system of ordinary differential equation to be integrated 
 AddTime = 2000*12 # for spine up to reach a quasi steady state
-def SystemForcing(t, y, T0, rho, skew, N, NormCor, TempNS, K_C_Reg, NumTime):
+def SystemForcing(t, y, T0, rho, skew, N, NormCor, TempNS, K_C_Reg):
     dSystem = zeros(len(y))
     coral = y[0]
     u = y[1]
@@ -67,10 +67,10 @@ def SystemForcing(t, y, T0, rho, skew, N, NormCor, TempNS, K_C_Reg, NumTime):
     # Introducing temperature dependence
     #print t
 
-    if t<=NumTime+AddTime:
+    if t<=len(TempNS)-1:
         Temperature1 = TempNS[int(t)] # this should rather be some function of t and not index but it works here because simulation step = 1
     else:
-        Temperature1 = TempNS[NumTime+AddTime] # there are index out of range sometimes, maybe because of the integrator, so I just make sure not to get those errors
+        Temperature1 = TempNS[len(TempNS)-1] # there are index out of range sometimes, maybe because of the integrator, so I just make sure not to get those errors
     Tcenter = (Temperature1-T0)/rho
     Gx1Forcing = G_C*norm.pdf(Tcenter)*norm.cdf(Tcenter*skew)/max(NormCor) 
     # Computing the derivative
@@ -167,7 +167,7 @@ def RUN_SIM(RCP_list, Location_value, N_values, folder, Init = Initial_list):
         for i in xrange(len(N_List)):
             N = N_List[i]
             ode15s = ode(SystemForcing)
-            ode15s.set_f_params(T0, rho, skew, N, NormCor, TempNS, K_C_Reg, NumTime)
+            ode15s.set_f_params(T0, rho, skew, N, NormCor, TempNS, K_C_Reg)
             # Choosing an integrator choosing a solver that can deal stiff problems since the monthly temperature forcing is not smooth
             ode15s.set_integrator('vode', method='bdf', order=15, nsteps=3000)
             ode15s.set_initial_value(Initial, 0)

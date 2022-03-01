@@ -56,7 +56,7 @@ def Gradient(coral, u, symbiont, Gx1, beta, alpha, K_symb, K_C_Reg):
 
 # The following function defines the system of ordinary differential equation to be integrated 
 AddTime = 2000*12 # for spine up to reach a quasi steady state
-def SystemForcing(t, y, T0, rho, skew, N, NormCor, TempNS, K_C_Reg, NumTime, deactN = (False, None)):
+def SystemForcing(t, y, T0, rho, skew, N, NormCor, TempNS, K_C_Reg, deactN = (False, None)):
     dSystem = zeros(len(y))
     coral = y[0]
     u = y[1]
@@ -173,9 +173,9 @@ def RUN_SIM(RCP_list, Location_value, N_values, folder):
         
             # Choosing an integrator choosing a solver that can deal stiff problems since the monthly temperature forcing is not smooth
             if i == 0: # adaptation is deactivated from 2010 onward (always with the first N in N_List)
-                ode15s.set_f_params(T0, rho, skew, N, NormCor, TempNS, K_C_Reg, NumTime, (True, -1)) # e.g. from 2010 onward = (True, AddTime+12+list(time).index(2010.))
+                ode15s.set_f_params(T0, rho, skew, N, NormCor, TempNS, K_C_Reg, (True, -1)) # e.g. from 2010 onward = (True, AddTime+12+list(time).index(2010.))
             else:
-                ode15s.set_f_params(T0, rho, skew, N, NormCor, TempNS, K_C_Reg, NumTime)
+                ode15s.set_f_params(T0, rho, skew, N, NormCor, TempNS, K_C_Reg)
                 
             ode15s.set_integrator('vode', method='bdf', order=15, nsteps=3000)
             ode15s.set_initial_value(Initial, 0)
