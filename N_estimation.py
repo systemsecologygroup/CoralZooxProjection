@@ -16,7 +16,7 @@ All results must first be generated for all the N values in Helper.py and then s
 (The files are too heavy to store on github)
 """
 
-file_list = ["Results-final/"]
+file_list = ["Results-monthly-many-N/"]
 
 
 #### Model with a dynamics on the symbiont biomass, Time in month #####
@@ -217,37 +217,37 @@ for z in xrange(len(Locations)):
     else:
         plt.text(1967, 110, Fig_lab[z], fontsize = fsize, fontproperties = font)
     part1 = part0.twinx()
+    
     for rcp_index in xrange(1): # we only need to plot for one scenario because we plot for a time-range that doesn't include future projection
         rcp = RCP[rcp_index]
         v = rcp_index  
                 
-        file0[str(rcp_index)+str(z)] = open("Monthly-SST-scenarios/Months-"+Locations[z]+"-"+rcp+"-MPI"+".dat", "r")
-        time0 = load(file0[str(rcp_index)+str(z)],allow_pickle = True)
-        file0[str(rcp_index)+str(z)].close()
+        file0 = open("Monthly-SST-scenarios/Months-"+Locations[z]+"-"+rcp+"-MPI"+".dat", "r")
+        time0 = load(file0,allow_pickle = True)
+        file0.close()
         
-        file1sst[str(rcp_index)+str(z)] = open("Monthly-SST-scenarios/SST-"+Locations[z]+"-"+rcp+"-MPI"+".dat", "r")
-        SST = load(file1sst[str(rcp_index)+str(z)],allow_pickle = True)
+        file1sst = open("Monthly-SST-scenarios/SST-"+Locations[z]+"-"+rcp+"-MPI"+".dat", "r")
+        SST = load(file1sst,allow_pickle = True)
         file1sst[str(rcp_index)+str(z)].close()
         
         time = concatenate((arange(min(time0)-(AddTime+12)/12, min(time0), 1/12), time0))   
-        file1[str(rcp_index)+str(z)] = open("Monthly-SST-scenarios/SST-"+Locations[z]+"-"+rcp+"-MPI"+".dat", "r")
-        TempNS = load(file1[str(rcp_index)+str(z)],allow_pickle = True)
-        file1[str(rcp_index)+str(z)].close()
-        
+        file1 = open("Monthly-SST-scenarios/SST-"+Locations[z]+"-"+rcp+"-MPI"+".dat", "r")
+        TempNS = load(file1,allow_pickle = True)
+        file1.close()
         
         for file_index in xrange(len(file_list)):
             filename = file_list[file_index]
-            file2[str(rcp_index)+str(z)] =open(filename+rcp+"/CORAL-"+rcp+"-"+Locations[z]+".dat", "r")
-            HOSTSet1 = load(file2[str(rcp_index)+str(z)],allow_pickle = True)
-            file2[str(rcp_index)+str(z)].close()
+            file2 =open(filename+rcp+"CORAL-"+rcp+"-"+Locations[z]+".dat", "r")
+            HOSTSet1 = load(file2,allow_pickle = True)
+            file2.close()
             
-            file3[str(rcp_index)+str(z)] = open(filename+rcp+"/TRAIT-"+rcp+"-"+Locations[z]+".dat", "r")
-            TRAITSet1 = load(file3[str(rcp_index)+str(z)],allow_pickle = True)
-            file3[str(rcp_index)+str(z)].close()
+            file3 = open(filename+rcp+"TRAIT-"+rcp+"-"+Locations[z]+".dat", "r")
+            TRAITSet1 = load(file3,allow_pickle = True)
+            file3.close()
             
-            file4[str(rcp_index)+str(z)] =  open(filename+rcp+"/SYMB-"+rcp+"-"+Locations[z]+".dat", "r")
-            SYMBSet1 = load(file4[str(rcp_index)+str(z)],allow_pickle = True)
-            file4[str(rcp_index)+str(z)].close()
+            file4 =  open(filename++rcp+"SYMB-"+rcp+"-"+Locations[z]+".dat", "r")
+            SYMBSet1 = load(file4,allow_pickle = True)
+            file4.close()
             
             HOST = HOSTSet1 
             SYMB = SYMBSet1
