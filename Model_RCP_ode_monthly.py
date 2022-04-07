@@ -164,7 +164,7 @@ def RUN_SIM(RCP_list, Location_value, N_values, folder, Init = Initial_list):
             Initial = Init["CAR"]
         else:
             import sys
-            sys.exit("That location is not on my list")
+            sys.exit("Location:%s is not on my list"%Location_value)
         for i in xrange(len(N_List)):
             N = N_List[i]
             ode15s = ode(SystemForcing)
