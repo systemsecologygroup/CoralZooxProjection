@@ -199,9 +199,9 @@ for ind in xrange(len(Params)):
             maxD = max(Dist)
             T_opt = TempList[int(list(Dist).index(maxD))] 
             
-            fileCoral = open(filename + RCP+"/CORAL-"+RCP+"-"+Locations[z]+"-"+Params[ind]+".dat", "wr")
-            fileTrait = open(filename + RCP+"/TRAIT-"+RCP+"-"+Locations[z]+"-"+Params[ind]+".dat", "wr")
-            fileSymb = open(filename + RCP+"/SYMB-"+RCP+"-"+Locations[z]+"-"+Params[ind]+".dat", "wr")
+            fileCoral = open(filename+"/CORAL-"+RCP+"-"+Locations[z]+"-"+Params[ind]+".dat", "wr")
+            fileTrait = open(filename+"/TRAIT-"+RCP+"-"+Locations[z]+"-"+Params[ind]+".dat", "wr")
+            fileSymb = open(filename+"/SYMB-"+RCP+"-"+Locations[z]+"-"+Params[ind]+".dat", "wr")
             if z == 0:
                 N_List = (scale)*rawNum_GBR
                 Initial = array([0.75*K_C_GBR, 0.0000005, 0.001]) 

@@ -16,7 +16,7 @@ All results must first be generated for all the N values in Helper.py and then s
 (The files are too heavy to store on github)
 """
 
-file_list = ["Results-monthly-many-N/"]
+filename = "Results-Monthly-fullRange-N/" # Contain simulations for all the values of N in the full ranges in Helper.py 
 
 
 #### Model with a dynamics on the symbiont biomass, Time in month #####
@@ -65,8 +65,8 @@ Fig_lab = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"]
 #Fig_lab = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"]
 
 # for a nice plot
-fsize = 16 #23
-fsize2 = 14#14 #18
+fsize = 16*3 #23
+fsize2 = 14*3 #14 #18
 
 import matplotlib.colors as mcolors
 import matplotlib as mpl
@@ -167,13 +167,6 @@ def make_patch_spines_invisible(ax):
     for sp in ax.spines.values():
         sp.set_visible(False)
 
-file0 = {}
-file1sst = {}
-file1 = {}
-file2 ={}
-file3 = {}
-file4 = {}
-
 
 IndReg = [(700, 900), (200, 300), (200, 300)]
 IndReg2 = [(900, 1000), (300, 400), (300, 400)]
@@ -207,6 +200,8 @@ T_opt = array([26.76, 28.46, 27.56])
 
 AddTime = 2000*12
 
+fig = plt.figure(figsize=(60, 30))
+markS = 20 # green dots size
 import pdb
 for z in xrange(len(Locations)):
     part0 = plt.subplot(row, 3, count+1)
@@ -226,120 +221,115 @@ for z in xrange(len(Locations)):
         time0 = load(file0,allow_pickle = True)
         file0.close()
         
+        time = concatenate((arange(min(time0)-(AddTime+12)/12, min(time0), 1/12), time0))   
+        
         file1sst = open("Monthly-SST-scenarios/SST-"+Locations[z]+"-"+rcp+"-MPI"+".dat", "r")
         SST = load(file1sst,allow_pickle = True)
-        file1sst[str(rcp_index)+str(z)].close()
+        file1sst.close()
         
-        time = concatenate((arange(min(time0)-(AddTime+12)/12, min(time0), 1/12), time0))   
-        file1 = open("Monthly-SST-scenarios/SST-"+Locations[z]+"-"+rcp+"-MPI"+".dat", "r")
-        TempNS = load(file1,allow_pickle = True)
-        file1.close()
+        file2 =open(filename+rcp+"/CORAL-"+rcp+"-"+Locations[z]+".dat", "r")
+        HOSTSet1 = load(file2,allow_pickle = True)
+        file2.close()
         
-        for file_index in xrange(len(file_list)):
-            filename = file_list[file_index]
-            file2 =open(filename+rcp+"CORAL-"+rcp+"-"+Locations[z]+".dat", "r")
-            HOSTSet1 = load(file2,allow_pickle = True)
-            file2.close()
-            
-            file3 = open(filename+rcp+"TRAIT-"+rcp+"-"+Locations[z]+".dat", "r")
-            TRAITSet1 = load(file3,allow_pickle = True)
-            file3.close()
-            
-            file4 =  open(filename+rcp+"SYMB-"+rcp+"-"+Locations[z]+".dat", "r")
-            SYMBSet1 = load(file4,allow_pickle = True)
-            file4.close()
-            
-            HOST = HOSTSet1 
-            SYMB = SYMBSet1
-            TRAIT = TRAITSet1        
-    
-            K_C_Reg = K_C_List[z]
-            
-            if z == 0:
-                N_List = (scale)*rawNum_GBR
-            elif z == 1:
-                N_List = (scale)*rawNum_SEA
-            else:
-                N_List = (scale)*rawNum_CAR  
-                part1.set_ylabel("Simulated relative \n coral abundance ($\%$)", color = Color_list[v], fontproperties = font, fontsize = fsize+2, labelpad = 2)
+        file3 = open(filename+rcp+"/TRAIT-"+rcp+"-"+Locations[z]+".dat", "r")
+        TRAITSet1 = load(file3,allow_pickle = True)
+        file3.close()
+        
+        file4 =  open(filename+rcp+"/SYMB-"+rcp+"-"+Locations[z]+".dat", "r")
+        SYMBSet1 = load(file4,allow_pickle = True)
+        file4.close()
+        
+        HOST = HOSTSet1 
+        SYMB = SYMBSet1
+        TRAIT = TRAITSet1        
 
-            for i in xrange(0, len(N_List)):
-                for indr in xrange(len(IndReg_List)):
-                    IndREG = IndReg_List[indr]
-                    LocREG = LocReg_List[indr]
-                    if i >= IndREG[z][0] and i <=IndREG[z][1] and i%LocREG[z] == 0:
-                        #print i
-                        Host = HOST[i]
-                        Trait = TRAIT[i]
-                        Symb = SYMB[i]                                  
-                        part1.plot(time, 100*Host/K_C_Reg, linewidth = 0.75, color = Color_list[v], alpha = 0.35)    
-                        
-
-            # Plot for specific speed of adaptation N
-            Host = HOST[reg_N_index[z]]
-            print Locations[z], reg_N_index[z], time[(time >= 1970)*(time<=2010)][::12]
-            print Locations[z], reg_N_index[z], 100*Host[(time >= 1970)*(time<=2010)][::12]/K_C_Reg
-            if z==0:
-                #fit_model = slope_model[z]*time[(time >= 1970)*(time<=2010)]+ intercept_model[z]
-                part1.plot(time, 100*Host/K_C_Reg, linewidth = 4, color = Color_list[v], alpha = 0.75)
-                part1.plot(time0, 100*SST/T_opt[z],linewidth = 1, alpha= 0.4, color=(0.7, 0.7, 0.7))
-                #part1.plot(time[(time >= 1970)*(time<=2010)], fit_model, linewidth = 6, color = Color_list[v], alpha = 0.75)
-                #part0.plot(0*time[(time >= 1970)*(time<=2010)], 0*fit_model, linewidth = 6, color = Color_list[v], alpha = 0.75, label="$y$ = %.2f$x$ + %.2f"%(slope_model[z], intercept_model[z]))
-                part0.legend(frameon = False, fontsize = 16)
-                part1.set_yticks(tcks) 
-                part1.set_yticklabels(["" for i in range(len(tcks))], fontsize = fsize)  
-                part0.plot(time, -(0.5)*100*Host/K_C_Reg, linewidth = 4, color = Color_list[v], alpha = 0.75, label="Best simulation") # this is only for showing label, it does not appear in figure
-                Host_i = HOST[i]
-                Trait_i = TRAIT[i]
-                Symb_i = SYMB[i] 
-                part0.plot(time, -(0.5)*Host_i/K_C_Reg, linewidth = 0.75, color = Color_list[v], alpha = 0.35 , label="Simulations")## this is only for showing label,it does not appear in figure
-                part0.plot(time0, -(0.5)*SST/T_opt[z],linewidth = 1, alpha= 0.4, color=(0.7, 0.7, 0.7), label = "% SST$/T^{opt}$") # this is only for showing label,it does not appear in figure
-            elif z == 1:
-                #fit_model = slope_model[z]*time[(time >= 1970)*(time<=2010)]+ intercept_model[z]
-                part1.plot(time, 100*Host/K_C_Reg, linewidth = 4, color = Color_list[v], alpha = 0.75)
-                part1.plot(time0, 100*SST/T_opt[z], linewidth = 1, alpha= 0.4, color=(0.7, 0.7, 0.7))
-                #part1.plot(time[(time >= 1970)*(time<=2010)], fit_model, linewidth = 6, color = Color_list[v], alpha = 0.75)
-                #part0.plot(0*time[(time >= 1970)*(time<=2010)], 0*fit_model, linewidth = 6, color = Color_list[v], alpha = 0.75, label="$y$ = %.2f$x$ + %.2f"%(slope_model[z], intercept_model[z]))
-                part1.set_yticks(tcks) 
-                part1.set_yticklabels(["" for i in range(len(tcks))], fontsize = fsize)    
-            elif z==2:
-                fit_model = slope_model[z]*time[(time >= 1970)*(time<=2010)]+ intercept_model[z]
-                part1.plot(time, 100*Host/K_C_Reg, linewidth = 4, color = Color_list[v], alpha = 0.75)
-                part1.plot(time0, 100*SST/T_opt[z],linewidth = 1, alpha= 0.4, color=(0.7, 0.7, 0.7))
-                #part1.plot(time[(time >= 1970)*(time<=2010)], fit_model, linewidth = 6, color = Color_list[v], alpha = 0.75)
-                #part0.plot(0*time[(time >= 1970)*(time<=2010)], 0*fit_model, linewidth = 6, color = Color_list[v], alpha = 0.75, label="$y$ = %.3f$x$ + %.2f"%(slope_model[z], intercept_model[z]))
-                part0.legend(frameon = False, fontsize = fsize2)
-                
-                part1.set_yticks(tcks) 
-                part1.set_yticklabels(tcks, color = Color_list[v], fontsize = fsize)                                    
+        K_C_Reg = K_C_List[z]
         
-        # Plot data or fit
-        if z == 0: # GBR
-            part0.set_yticks(tcks) 
-            part0.set_yticklabels(tcks, color = source2Col, fontsize = fsize)
-            part0.plot(GBR_Year_source2, GBR_Cover_source2, "o", markersize = 7, alpha = 0.75, color = source2Col, label="Obs. (Bruno & Selig, 2007)")
-            part0.plot(GBR_Year_source1, GBR_Cover_source1, "o", markersize = 7, alpha = 0.75, color = source1Col, label="Obs. (De'ath $et$ $al.$, 2012)")
-            #fit_GBR = GBR_slope*GBR_Year_source2 + GBR_intercept
-            #part0.plot(GBR_Year_source2, fit_GBR, linewidth = 6, color = source2Col, alpha = 0.75, label="$y$ = %.2f$x$ - %.2f"%(GBR_slope, abs(GBR_intercept)))
-            part0.set_ylabel("Observed relative \n coral abundance ($\%$)", color = source2Col, fontproperties = font, fontsize = fsize+2, labelpad = 2)
-            part0.legend(frameon = True, fontsize = fsize2, loc = (0.02,0.5))
-        elif z == 1: # SEA
-            part0.set_yticks(tcks) 
-            part0.set_yticklabels(["" for i in range(len(tcks))], color = source2Col, fontsize = fsize)
-            #fit_SEA = SEA_slope*SEA_Year_source2 + SEA_intercept
-            #part0.plot(SEA_Year_source2, fit_SEA, linewidth = 6, color = source2Col, alpha = 0.75, label="$y$ = %.2f$x$ + %.2f"%(SEA_slope, SEA_intercept))
-            part0.plot(SEA_Year_source2, SEA_Cover_source2, "o", markersize = 7, alpha = 0.75, color = source2Col)#, label="Data ($\%$ Cover)")
-            #part0.legend(frameon = False, fontsize = 16)
+        if z == 0:
+            N_List = (scale)*rawNum_GBR
+        elif z == 1:
+            N_List = (scale)*rawNum_SEA
+        else:
+            N_List = (scale)*rawNum_CAR  
+            part1.set_ylabel("Simulated relative \n coral abundance ($\%$)", color = Color_list[v], fontproperties = font, fontsize = fsize+2, labelpad = 2)
+
+        for i in xrange(0, len(N_List)):
+            for indr in xrange(len(IndReg_List)):
+                IndREG = IndReg_List[indr]
+                LocREG = LocReg_List[indr]
+                if i >= IndREG[z][0] and i <=IndREG[z][1] and i%LocREG[z] == 0:
+                    #print i
+                    Host = HOST[i]
+                    Trait = TRAIT[i]
+                    Symb = SYMB[i]                                  
+                    part1.plot(time, 100*Host/K_C_Reg, linewidth = 0.75, color = Color_list[v], alpha = 0.35)    
+                    
+
+        # Plot for specific speed of adaptation N
+        Host = HOST[reg_N_index[z]]
+        print Locations[z], reg_N_index[z], time[(time >= 1970)*(time<=2010)][::12]
+        print Locations[z], reg_N_index[z], 100*Host[(time >= 1970)*(time<=2010)][::12]/K_C_Reg
+        if z==0:
+            #fit_model = slope_model[z]*time[(time >= 1970)*(time<=2010)]+ intercept_model[z]
+            part1.plot(time, 100*Host/K_C_Reg, linewidth = 15, color = Color_list[v], alpha = 0.75)
+            part1.plot(time0, 100*SST/T_opt[z],linewidth = 3, alpha= 0.4, color=(0.7, 0.7, 0.7))
+            #part1.plot(time[(time >= 1970)*(time<=2010)], fit_model, linewidth = 6, color = Color_list[v], alpha = 0.75)
+            #part0.plot(0*time[(time >= 1970)*(time<=2010)], 0*fit_model, linewidth = 6, color = Color_list[v], alpha = 0.75, label="$y$ = %.2f$x$ + %.2f"%(slope_model[z], intercept_model[z]))
+            #part0.legend(frameon = True, fontsize = 16)
+            part1.set_yticks(tcks) 
+            part1.set_yticklabels(["" for i in range(len(tcks))], fontsize = fsize)  
+            part0.plot(time, -(0.5)*100*Host/K_C_Reg, linewidth = 15, color = Color_list[v], alpha = 0.75, label="Best simulation") # this is only for showing label, it does not appear in figure
+            Host_i = HOST[i]
+            Trait_i = TRAIT[i]
+            Symb_i = SYMB[i] 
+            part0.plot(time, -(0.5)*Host_i/K_C_Reg, linewidth = 0.75, color = Color_list[v], alpha = 0.35 , label="Simulations")## this is only for showing label,it does not appear in figure
+            part0.plot(time0, -(0.5)*SST/T_opt[z],linewidth = 3, alpha= 0.4, color=(0.7, 0.7, 0.7), label = "% SST$/T^{opt}$") # this is only for showing label,it does not appear in figure
+        elif z == 1:
+            #fit_model = slope_model[z]*time[(time >= 1970)*(time<=2010)]+ intercept_model[z]
+            part1.plot(time, 100*Host/K_C_Reg, linewidth = 15, color = Color_list[v], alpha = 0.75)
+            part1.plot(time0, 100*SST/T_opt[z], linewidth = 3, alpha= 0.4, color=(0.7, 0.7, 0.7))
+            #part1.plot(time[(time >= 1970)*(time<=2010)], fit_model, linewidth = 6, color = Color_list[v], alpha = 0.75)
+            #part0.plot(0*time[(time >= 1970)*(time<=2010)], 0*fit_model, linewidth = 6, color = Color_list[v], alpha = 0.75, label="$y$ = %.2f$x$ + %.2f"%(slope_model[z], intercept_model[z]))
+            part1.set_yticks(tcks) 
+            part1.set_yticklabels(["" for i in range(len(tcks))], fontsize = fsize)    
+        elif z==2:
+            fit_model = slope_model[z]*time[(time >= 1970)*(time<=2010)]+ intercept_model[z]
+            part1.plot(time, 100*Host/K_C_Reg, linewidth = 15, color = Color_list[v], alpha = 0.75)
+            part1.plot(time0, 100*SST/T_opt[z],linewidth = 2, alpha= 0.4, color=(0.7, 0.7, 0.7))
+            #part1.plot(time[(time >= 1970)*(time<=2010)], fit_model, linewidth = 6, color = Color_list[v], alpha = 0.75)
+            #part0.plot(0*time[(time >= 1970)*(time<=2010)], 0*fit_model, linewidth = 6, color = Color_list[v], alpha = 0.75, label="$y$ = %.3f$x$ + %.2f"%(slope_model[z], intercept_model[z]))
+            #part0.legend(frameon = True, fontsize = fsize2, facecolor = "white")
             
-        elif z == 2: # CAR
-            part0.set_yticks(tcks) 
-            part0.set_yticklabels(["" for i in range(len(tcks))], color = source2Col, fontsize = fsize)
-            part0.plot(CAR_Year_source2, CAR_Cover_source2, "o", markersize = 7, alpha = 0.75, color = source2Col)#, label="Data ($\%$ Cover)")
-            
-            #fit_CAR = CAR_slope*CAR_Year_source2 + CAR_intercept
-            #part0.plot(CAR_Year_source2, fit_CAR, linewidth = 6, color = source2Col, alpha = 0.75, label="$y$ = %.3f$x$ + %.2f"%(CAR_slope, CAR_intercept))
-            #part0.legend(frameon = False, fontsize = fsize2)
+            part1.set_yticks(tcks) 
+            part1.set_yticklabels(tcks, color = Color_list[v], fontsize = fsize)                                    
     
+    # Plot data or fit
+    if z == 0: # GBR
+        part0.set_yticks(tcks) 
+        part0.set_yticklabels(tcks, color = source2Col, fontsize = fsize)
+        part0.plot(GBR_Year_source2, GBR_Cover_source2, "o", markersize = markS, alpha = 0.75, color = source2Col, label="Obs. (Bruno & Selig, 2007)")
+        part0.plot(GBR_Year_source1, GBR_Cover_source1, "o", markersize = markS, alpha = 0.75, color = source1Col, label="Obs. (De'ath $et$ $al.$, 2012)")
+        #fit_GBR = GBR_slope*GBR_Year_source2 + GBR_intercept
+        #part0.plot(GBR_Year_source2, fit_GBR, linewidth = 6, color = source2Col, alpha = 0.75, label="$y$ = %.2f$x$ - %.2f"%(GBR_slope, abs(GBR_intercept)))
+        #part0.legend(frameon = True, fontsize = fsize2, loc = (0.02,0.5), facecolor = "white", framealpha = 1)
+        part0.legend(frameon = True, fontsize = fsize2+2, loc = (0.2,-0.3), ncol = 5, facecolor = "white", framealpha = 1)
+        part0.set_ylabel("Observed relative \n coral abundance ($\%$)", color = source2Col, fontproperties = font, fontsize = fsize+2, labelpad = 2)
+    elif z == 1: # SEA
+        part0.set_yticks(tcks) 
+        part0.set_yticklabels(["" for i in range(len(tcks))], color = source2Col, fontsize = fsize)
+        #fit_SEA = SEA_slope*SEA_Year_source2 + SEA_intercept
+        #part0.plot(SEA_Year_source2, fit_SEA, linewidth = 6, color = source2Col, alpha = 0.75, label="$y$ = %.2f$x$ + %.2f"%(SEA_slope, SEA_intercept))
+        part0.plot(SEA_Year_source2, SEA_Cover_source2, "o", markersize = markS, alpha = 0.75, color = source2Col)#, label="Data ($\%$ Cover)")
+        #part0.legend(frameon = False, fontsize = 16)
+
+    elif z == 2: # CAR
+        part0.set_yticks(tcks) 
+        part0.set_yticklabels(["" for i in range(len(tcks))], color = source2Col, fontsize = fsize)
+        part0.plot(CAR_Year_source2, CAR_Cover_source2, "o", markersize = markS, alpha = 0.75, color = source2Col)#, label="Data ($\%$ Cover)")
+
+        #fit_CAR = CAR_slope*CAR_Year_source2 + CAR_intercept
+        #part0.plot(CAR_Year_source2, fit_CAR, linewidth = 6, color = source2Col, alpha = 0.75, label="$y$ = %.3f$x$ + %.2f"%(CAR_slope, CAR_intercept))
+
     part0.set_xlim((1970, 2010))
     part0.set_xticks(arange(1970, 2015, 5))
     part0.set_xticklabels(["%d"%k for k in arange(1970, 2015, 5)], rotation = 45, fontsize = fsize)#fontsize = fsize)
@@ -362,6 +352,8 @@ figManager.window.showMaximized()
 # Adjust margins
 plt.subplots_adjust(bottom = 0.47, right = 0.91, left = 0.10, top = 0.91, wspace = 0.14, hspace = 0.20)
 
-plt.savefig("Figure2.pdf", bbox_inches = 'tight')
-plt.show()
+plt.savefig("Figures/EPS/Fig2.eps", dpi= 600, bbox_inches = 'tight') 
+plt.savefig("Figures/PDF/Fig2.pdf", dpi= 600, bbox_inches = 'tight')
+
+#plt.show()
 

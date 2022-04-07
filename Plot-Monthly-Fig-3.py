@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import division
 
-from scipy import exp, linspace, array, zeros, e, sqrt, mean,var, ones, cumsum, random, sin, pi, load, std, log
+from scipy import exp, e, sqrt, mean,var, ones, cumsum, random, sin, pi, std, log
 from scipy.stats import norm
-from numpy import amin, amax, meshgrid, arange, isnan, logical_not, interp, concatenate, floor, arange
+from numpy import amin, amax, meshgrid, arange, isnan, logical_not, interp, concatenate, floor, linspace, array, zeros, load
 from scipy.integrate import odeint
 from matplotlib import pyplot as plt
 from matplotlib.font_manager import FontProperties
@@ -40,8 +40,8 @@ rawNum_GBR = arange(0.01, 0.1, 0.00005)
 rawNum_SEA = arange(0.01, 0.1, 0.00005)
 rawNum_CAR = arange(0.01, 0.1, 0.00005) 
 
-fsize = 14 #18 #22
-fsize2 = 16 #18
+fsize = (14+4) #18 #22
+fsize2 = (16+4) #18
 
 # Open Files and plot
 
@@ -57,7 +57,7 @@ Locations_title = ["Great Barrier Reef", "South East Asia", "Caribbean"]
 import matplotlib.colors as mcolors
 import matplotlib as mpl
  
-fig =plt.figure(figsize=(40, 40))  # (14, 20)
+fig =plt.figure(figsize=(25, 12))  # (14, 20)
 ax = plt.subplot(1, 1, 1)
 
     
@@ -82,7 +82,7 @@ TempList = linspace(0, 75, 1500)
 count = 0
 
 startTime = 2010 #1970
-for z in xrange(len(Locations)):
+for z in range(len(Locations)):
     sub1 = plt.subplot(4, 3, count+1)
     part1 = sub1.twinx()
     plt.title(Locations_title[z], fontsize = fsize+2, fontproperties = font)
@@ -94,7 +94,7 @@ for z in xrange(len(Locations)):
     Dist = norm.pdf(TempCORListCenter)*norm.cdf(TempCORListCenter*skew)/max(NormCor)
     maxD = max(Dist)
     T_opt = TempList[int(list(Dist).index(maxD))]
-    for v in xrange(len(RCP)):
+    for v in range(len(RCP)):
         rcp = RCP[v]
         T0 = T_opt # T_opt is used as a threshold for bleaching events
         file0 = open("Monthly-SST-scenarios/Months-"+Locations[z]+"-"+rcp+"-MPI"+".dat", "r")
@@ -180,8 +180,8 @@ reg_N_index = [GBR_N_index, SEA_N_index, CAR_N_index]
 import pdb
 
 
-for z in xrange(len(Locations)):
-    for v in xrange(len(RCP)):
+for z in range(len(Locations)):
+    for v in range(len(RCP)):
         rcp = RCP[v]
     
         file0 = open("Monthly-SST-scenarios/Months-"+Locations[z]+"-"+rcp+"-MPI"+".dat", "r")
@@ -285,7 +285,7 @@ for z in xrange(len(Locations)):
         FutureHost = sum(Host[compare1])/sum(compare1)
         MeanlossCoralBiomass.append((FutureHost-PastHost)/PastHost)
         PerChange = mean(array(MeanlossCoralBiomass))*100
-        print rcp, Locations[z], PerChange, "N = ", rawNum_CAR[N_index_true]*scale
+        print(rcp, Locations[z], PerChange, "N = ", rawNum_CAR[N_index_true]*scale)
         
         # saving time in .dat
         time_file = open("Results/Time-"+rcp+"-"+Locations[z]+"-%d.dat"%reg_N_index_true[z], "wr")
@@ -304,43 +304,43 @@ for z in xrange(len(Locations)):
         if count in (3, ):
             sub1.tick_params(axis = "y", direction = "in", labelsize = fsize2)
             sub1.set_yticks(list(TraitTicks)) # GBR and SEA
-            #sub1.set_yticklabels(["-0.5"]+list(["%d"%TraitTicks[s] for s in xrange(1, len(TraitTicks)-1)])+["2.5"])
-            sub1.set_yticklabels(list(["%.1f"%TraitTicks[s] for s in xrange(len(TraitTicks))]))
+            #sub1.set_yticklabels(["-0.5"]+list(["%d"%TraitTicks[s] for s in range(1, len(TraitTicks)-1)])+["2.5"])
+            sub1.set_yticklabels(list(["%.1f"%TraitTicks[s] for s in range(len(TraitTicks))]))
             part1.tick_params(axis = "y", direction = "in", labelsize = fsize2) 
             part1.set_yticks(TraitTicks)
             part1.set_yticklabels([" "%d for d in TraitTicks])
             
             sub4.tick_params(axis = "y", direction = "in", labelsize = fsize2)
             sub4.set_yticks(list(hostTicks))
-            sub4.set_yticklabels(list(["%d"%hostTicks[k] for k in xrange(len(hostTicks))]))
+            sub4.set_yticklabels(list(["%d"%hostTicks[k] for k in range(len(hostTicks))]))
             part4.tick_params(axis = "y", direction = "in", labelsize = fsize2) 
             part4.set_yticks(hostTicks)
             part4.set_yticklabels([" "%d for d in hostTicks])
             
             sub7.tick_params(axis = "y", direction = "in", labelsize = fsize2)
             sub7.set_yticks(list(Symbticks))
-            sub7.set_yticklabels(list(["%d"%Symbticks[s] for s in xrange(len(Symbticks))]))
+            sub7.set_yticklabels(list(["%d"%Symbticks[s] for s in range(len(Symbticks))]))
             part7.tick_params(axis = "y", direction = "in", labelsize = fsize2) 
             part7.set_yticks(Symbticks)
             part7.set_yticklabels([" "%d for d in Symbticks])
         else:
             sub1.tick_params(axis = "y", direction = "in", labelsize = fsize2)
             sub1.set_yticks(list(TraitTicks))
-            sub1.set_yticklabels([" "]+list([" " for s in xrange(1, len(TraitTicks))]))
+            sub1.set_yticklabels([" "]+list([" " for s in range(1, len(TraitTicks))]))
             part1.tick_params(axis = "y", direction = "in", labelsize = fsize2) 
             part1.set_yticks(TraitTicks)
             part1.set_yticklabels([" "%d for d in TraitTicks])
             
             sub4.tick_params(axis = "y", direction = "in", labelsize = fsize2)
             sub4.set_yticks(list(hostTicks))
-            sub4.set_yticklabels([" "]+list([" " for k in xrange(1, len(hostTicks))]))
+            sub4.set_yticklabels([" "]+list([" " for k in range(1, len(hostTicks))]))
             part4.tick_params(axis = "y", direction = "in", labelsize = fsize2) 
             part4.set_yticks(hostTicks)
             part4.set_yticklabels([" "%d for d in hostTicks])
             
             sub7.tick_params(axis = "y", direction = "in", labelsize = fsize2)
             sub7.set_yticks(list(Symbticks))
-            sub7.set_yticklabels([" "]+list([" " for s in xrange(1, len(Symbticks))]))
+            sub7.set_yticklabels([" "]+list([" " for s in range(1, len(Symbticks))]))
             part7.tick_params(axis = "y", direction = "in", labelsize = fsize2) 
             part7.set_yticks(Symbticks)
             part7.set_yticklabels([" "%d for d in Symbticks])           
@@ -364,7 +364,7 @@ for z in xrange(len(Locations)):
         ### Plot simulation without adaptation
         
         if rcp == "RCP26":
-            print "done"
+            print("done")
              # plot "No adaptation from 2010"
              
             
@@ -413,7 +413,6 @@ for z in xrange(len(Locations)):
 figManager = plt.get_current_fig_manager()
 figManager.window.showMaximized()
 
-
 plt.subplots_adjust(top=0.965,
 bottom=0.095,
 left=0.080,
@@ -422,7 +421,6 @@ right = 0.75,
 hspace=0.175,
 wspace=0.175)
 
-
-plt.savefig("Fig3.eps", dpi= 600, bbox_inches = 'tight') # does not save what is shown on screen    
-
-plt.show()
+plt.savefig("Figures/EPS/Fig3.eps", dpi= 600, bbox_inches = 'tight') 
+plt.savefig("Figures/PDF/Fig3.pdf", dpi= 600, bbox_inches = 'tight')    
+#plt.show()

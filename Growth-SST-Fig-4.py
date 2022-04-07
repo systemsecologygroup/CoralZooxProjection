@@ -61,8 +61,8 @@ AddTime = 2000*12
 count = 1
 Col = [(0.827, 0.553, 0.686), (0.416, 0.071, 0.239), (0.69, 0.345, 0.514)]
 
-fsize = 20
-fsize2 = 16
+fsize = 20*2.5
+fsize2 = 16*2.5
 
 MinYear = 1955
 count = 1
@@ -72,7 +72,7 @@ Gmax = 10./12
 matplotlib.rc('ytick', labelsize=fsize2)
 matplotlib.rc('xtick', labelsize=fsize2)
 
-fig = plt.figure()
+fig = plt.figure(figsize=(50, 24)) 
 for p in xrange(len(RCP)):
     for z in xrange(len(Locations)):
         sub1 = plt.subplot(3, 3, count)  
@@ -157,5 +157,8 @@ figManager = plt.get_current_fig_manager()
 figManager.window.showMaximized()
     
 plt.subplots_adjust(bottom = 0.10, right = 0.90, left = 0.20, top = 0.95, wspace = 0.15, hspace = 0.17)      
-plt.show()
+
+plt.savefig("Figures/EPS/Fig4.eps", dpi= 600, bbox_inches = 'tight') 
+plt.savefig("Figures/PDF/Fig4.pdf", dpi= 600, bbox_inches = 'tight')  
+#plt.show()
  
