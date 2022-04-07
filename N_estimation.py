@@ -245,7 +245,7 @@ for z in xrange(len(Locations)):
             TRAITSet1 = load(file3,allow_pickle = True)
             file3.close()
             
-            file4 =  open(filename++rcp+"SYMB-"+rcp+"-"+Locations[z]+".dat", "r")
+            file4 =  open(filename+rcp+"SYMB-"+rcp+"-"+Locations[z]+".dat", "r")
             SYMBSet1 = load(file4,allow_pickle = True)
             file4.close()
             

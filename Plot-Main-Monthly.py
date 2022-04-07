@@ -383,14 +383,11 @@ for z in xrange(len(Locations)):
             HOST2 = HOSTSet1b
             SYMB2 = SYMBSet1b
             TRAIT2 = TRAITSet1b
-            
-         
+
             Host2 = HOST2[0]
             Trait2 = TRAIT2[0]
             Symb2 = SYMB2[0]
-            
-            pdb.set_trace()
-            
+                        
             # save to csv
             #np.savetxt("Results-N-0-2010/Time-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], time, delimiter = ",")
             #np.savetxt("Results-N-0-2010/CORAL-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], Host2, delimiter = ",")
@@ -416,6 +413,7 @@ for z in xrange(len(Locations)):
 figManager = plt.get_current_fig_manager()
 figManager.window.showMaximized()
 
+
 plt.subplots_adjust(top=0.965,
 bottom=0.095,
 left=0.080,
@@ -424,7 +422,7 @@ right = 0.75,
 hspace=0.175,
 wspace=0.175)
 
-#plt.savefig("Fig3.pdf", bbox_inches = 'tight')    
 
+plt.savefig("Fig3.eps", dpi= 600, bbox_inches = 'tight') # does not save what is shown on screen    
 
 plt.show()
