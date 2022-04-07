@@ -5,6 +5,8 @@ from scipy.stats import norm
 from matplotlib import pyplot as plt
 from matplotlib.font_manager import FontProperties
 import matplotlib
+plt.switch_backend('agg')
+
 
 """
 This code is used to generate Figure 4 in Manuscript
@@ -153,8 +155,8 @@ for p in xrange(len(RCP)):
           
         count +=1
 # Plot with maximal window
-figManager = plt.get_current_fig_manager()
-figManager.window.showMaximized()
+#figManager = plt.get_current_fig_manager()
+#figManager.window.showMaximized()
     
 plt.subplots_adjust(bottom = 0.10, right = 0.90, left = 0.20, top = 0.95, wspace = 0.15, hspace = 0.17)      
 

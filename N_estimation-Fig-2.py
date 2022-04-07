@@ -8,6 +8,8 @@ from scipy.integrate import ode
 from matplotlib import pyplot as plt
 import matplotlib
 import numpy as np
+plt.switch_backend('agg')
+
 
 """ 
 This code was used to estimate the speed of acclimation N, Figure 2 in Manuscript
@@ -40,7 +42,6 @@ Ksmax = 3e6 # healthy measure of carying capacity of symbiont per host biomass G
 beta = (12)*1e2
 
 gammaH = 0.25e6 # free param 
-fsize = 18
 
 r = (12)*1e3
 
@@ -65,8 +66,8 @@ Fig_lab = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"]
 #Fig_lab = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"]
 
 # for a nice plot
-fsize = 16*3 #23
-fsize2 = 14*3 #14 #18
+fsize = 16*3.5 + 2 #23
+fsize2 = 14*3.5 +2 #14 #18
 
 import matplotlib.colors as mcolors
 import matplotlib as mpl
@@ -201,7 +202,7 @@ T_opt = array([26.76, 28.46, 27.56])
 AddTime = 2000*12
 
 fig = plt.figure(figsize=(60, 30))
-markS = 20 # green dots size
+markS = 30 # green dots size
 import pdb
 for z in xrange(len(Locations)):
     part0 = plt.subplot(row, 3, count+1)
@@ -271,8 +272,8 @@ for z in xrange(len(Locations)):
         print Locations[z], reg_N_index[z], 100*Host[(time >= 1970)*(time<=2010)][::12]/K_C_Reg
         if z==0:
             #fit_model = slope_model[z]*time[(time >= 1970)*(time<=2010)]+ intercept_model[z]
-            part1.plot(time, 100*Host/K_C_Reg, linewidth = 15, color = Color_list[v], alpha = 0.75)
-            part1.plot(time0, 100*SST/T_opt[z],linewidth = 3, alpha= 0.4, color=(0.7, 0.7, 0.7))
+            part1.plot(time, 100*Host/K_C_Reg, linewidth = 16, color = Color_list[v], alpha = 0.75)
+            part1.plot(time0, 100*SST/T_opt[z],linewidth = 2, alpha= 0.3, color=(0.7, 0.7, 0.7))
             #part1.plot(time[(time >= 1970)*(time<=2010)], fit_model, linewidth = 6, color = Color_list[v], alpha = 0.75)
             #part0.plot(0*time[(time >= 1970)*(time<=2010)], 0*fit_model, linewidth = 6, color = Color_list[v], alpha = 0.75, label="$y$ = %.2f$x$ + %.2f"%(slope_model[z], intercept_model[z]))
             #part0.legend(frameon = True, fontsize = 16)
@@ -283,19 +284,19 @@ for z in xrange(len(Locations)):
             Trait_i = TRAIT[i]
             Symb_i = SYMB[i] 
             part0.plot(time, -(0.5)*Host_i/K_C_Reg, linewidth = 0.75, color = Color_list[v], alpha = 0.35 , label="Simulations")## this is only for showing label,it does not appear in figure
-            part0.plot(time0, -(0.5)*SST/T_opt[z],linewidth = 3, alpha= 0.4, color=(0.7, 0.7, 0.7), label = "% SST$/T^{opt}$") # this is only for showing label,it does not appear in figure
+            part0.plot(time0, -(0.5)*SST/T_opt[z],linewidth = 2, alpha= 0.3, color=(0.7, 0.7, 0.7), label = "% SST$/T^{opt}$") # this is only for showing label,it does not appear in figure
         elif z == 1:
             #fit_model = slope_model[z]*time[(time >= 1970)*(time<=2010)]+ intercept_model[z]
-            part1.plot(time, 100*Host/K_C_Reg, linewidth = 15, color = Color_list[v], alpha = 0.75)
-            part1.plot(time0, 100*SST/T_opt[z], linewidth = 3, alpha= 0.4, color=(0.7, 0.7, 0.7))
+            part1.plot(time, 100*Host/K_C_Reg, linewidth = 16, color = Color_list[v], alpha = 0.75)
+            part1.plot(time0, 100*SST/T_opt[z], linewidth = 2, alpha= 0.3, color=(0.7, 0.7, 0.7))
             #part1.plot(time[(time >= 1970)*(time<=2010)], fit_model, linewidth = 6, color = Color_list[v], alpha = 0.75)
             #part0.plot(0*time[(time >= 1970)*(time<=2010)], 0*fit_model, linewidth = 6, color = Color_list[v], alpha = 0.75, label="$y$ = %.2f$x$ + %.2f"%(slope_model[z], intercept_model[z]))
             part1.set_yticks(tcks) 
             part1.set_yticklabels(["" for i in range(len(tcks))], fontsize = fsize)    
         elif z==2:
             fit_model = slope_model[z]*time[(time >= 1970)*(time<=2010)]+ intercept_model[z]
-            part1.plot(time, 100*Host/K_C_Reg, linewidth = 15, color = Color_list[v], alpha = 0.75)
-            part1.plot(time0, 100*SST/T_opt[z],linewidth = 2, alpha= 0.4, color=(0.7, 0.7, 0.7))
+            part1.plot(time, 100*Host/K_C_Reg, linewidth = 16, color = Color_list[v], alpha = 0.75)
+            part1.plot(time0, 100*SST/T_opt[z],linewidth = 2, alpha= 0.3, color=(0.7, 0.7, 0.7))
             #part1.plot(time[(time >= 1970)*(time<=2010)], fit_model, linewidth = 6, color = Color_list[v], alpha = 0.75)
             #part0.plot(0*time[(time >= 1970)*(time<=2010)], 0*fit_model, linewidth = 6, color = Color_list[v], alpha = 0.75, label="$y$ = %.3f$x$ + %.2f"%(slope_model[z], intercept_model[z]))
             #part0.legend(frameon = True, fontsize = fsize2, facecolor = "white")
@@ -312,7 +313,7 @@ for z in xrange(len(Locations)):
         #fit_GBR = GBR_slope*GBR_Year_source2 + GBR_intercept
         #part0.plot(GBR_Year_source2, fit_GBR, linewidth = 6, color = source2Col, alpha = 0.75, label="$y$ = %.2f$x$ - %.2f"%(GBR_slope, abs(GBR_intercept)))
         #part0.legend(frameon = True, fontsize = fsize2, loc = (0.02,0.5), facecolor = "white", framealpha = 1)
-        part0.legend(frameon = True, fontsize = fsize2+2, loc = (0.2,-0.3), ncol = 5, facecolor = "white", framealpha = 1)
+        part0.legend(frameon = True, fontsize = fsize2+2, loc = (-0.02,-0.35), ncol = 5, facecolor = "white", framealpha = 1)
         part0.set_ylabel("Observed relative \n coral abundance ($\%$)", color = source2Col, fontproperties = font, fontsize = fsize+2, labelpad = 2)
     elif z == 1: # SEA
         part0.set_yticks(tcks) 
@@ -346,8 +347,8 @@ for z in xrange(len(Locations)):
     count +=1
 
 # Plot with maximal window
-figManager = plt.get_current_fig_manager()
-figManager.window.showMaximized()
+#figManager = plt.get_current_fig_manager()
+#figManager.window.showMaximized()
 
 # Adjust margins
 plt.subplots_adjust(bottom = 0.47, right = 0.91, left = 0.10, top = 0.91, wspace = 0.14, hspace = 0.20)

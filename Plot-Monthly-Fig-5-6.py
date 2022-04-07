@@ -40,8 +40,8 @@ rawNum_GBR = arange(0.01, 0.1, 0.00005)
 rawNum_SEA = arange(0.01, 0.1, 0.00005)
 rawNum_CAR = arange(0.01, 0.1, 0.00005) 
 
-fsize = 12*3.5 #18 #22
-fsize2 = 11*3.5 #18
+fsize = 12*4 #18 #22
+fsize2 = 11*4 + 5 #18
 
 # Open Files and plot
 
@@ -57,7 +57,7 @@ Locations_title = ["Great Barrier Reef", "South East Asia", "Caribbean"]
 import matplotlib.colors as mcolors
 import matplotlib as mpl
  
-fig =plt.figure(figsize=(48, 20))  # (14, 20)
+fig =plt.figure(figsize=(50, 22))  # (14, 20)
 ax = plt.subplot(1, 1, 1)
 
     
@@ -228,14 +228,14 @@ for z in xrange(len(Locations)):
                 
         if count in (1, 4, 7):
             if z == 0:
-                plt.text(min(N_List) - 0.2e-12, 0.45, Locations_title[z], fontsize = fsize, fontproperties = font,  rotation = "vertical")
+                plt.text(min(N_List) - 0.25e-12, 0.52, Locations_title[z], fontsize = fsize, fontproperties = font,  rotation = "vertical")
             if z == 1:
-                plt.text(min(N_List) - 0.2e-12, 0.42, Locations_title[z], fontsize = fsize, fontproperties = font,  rotation = "vertical")
+                plt.text(min(N_List) - 0.25e-12, 0.42, Locations_title[z], fontsize = fsize, fontproperties = font,  rotation = "vertical")
             if z == 2:
-                plt.text(min(N_List) - 0.2e-12, 0.35, Locations_title[z], fontsize = fsize, fontproperties = font,  rotation = "vertical")    
+                plt.text(min(N_List) - 0.25e-12, 0.35, Locations_title[z], fontsize = fsize, fontproperties = font,  rotation = "vertical")    
             sub.text(min(N_List) - 0.1e-12, 0.5, Fig_lab[count-1], fontsize = fsize, fontproperties = font)
             hostTicks = array([0., 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.8, 1.0])
-            plt.ylabel("Scaled mean\ncoral biomass", horizontalalignment="center", fontsize = fsize2)
+            plt.ylabel("Scaled mean\n coral abundance \n", horizontalalignment="center", fontsize = fsize2)
         else:
             plt.text(min(N_List) - 0.035e-12, 0.5, Fig_lab[count-1], fontsize = fsize, fontproperties = font)
             plt.yticks(list(hostTicks), [" "]+list([" " for k in xrange(1, len(hostTicks))]), fontsize = fsize2)

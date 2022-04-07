@@ -8,7 +8,7 @@ from scipy.integrate import odeint
 from matplotlib import pyplot as plt
 from matplotlib.font_manager import FontProperties
 import numpy as np
-
+plt.switch_backend('agg')
 
 """File used to produce Figure 3 of manuscript"""
 
@@ -40,8 +40,8 @@ rawNum_GBR = arange(0.01, 0.1, 0.00005)
 rawNum_SEA = arange(0.01, 0.1, 0.00005)
 rawNum_CAR = arange(0.01, 0.1, 0.00005) 
 
-fsize = (14+4) #18 #22
-fsize2 = (16+4) #18
+fsize = (16+10) #18 #22
+fsize2 = (16+10+2) #18
 
 # Open Files and plot
 
@@ -57,7 +57,7 @@ Locations_title = ["Great Barrier Reef", "South East Asia", "Caribbean"]
 import matplotlib.colors as mcolors
 import matplotlib as mpl
  
-fig =plt.figure(figsize=(25, 12))  # (14, 20)
+fig =plt.figure(figsize=(29, 13))  # (14, 20)
 ax = plt.subplot(1, 1, 1)
 
     
@@ -109,11 +109,11 @@ for z in range(len(Locations)):
             CummulativeBl2 = cumsum(SST[list(time0).index(startTime):] >= T0+4)    # Cummulaticve number of bleaching since 2016
             #sub1.plot(time0[list(time0).index(startTime):][CummulativeBl1 != 0], CummulativeBl1[CummulativeBl1 != 0], linewidth = 3, color = Color_list[v], label=RCP_title[v])#+r"($2 \leq \Delta T_{model}\,<\,4$)")
             #sub1.plot(time0[list(time0).index(startTime):][CummulativeBl2 != 0], CummulativeBl2[CummulativeBl2 != 0], "--", linewidth = 3, color = Color_list[v])#, label=RCP_title[v]+r"($\Delta T_{model} \geq 4$)")
-            sub1.plot(time0[list(time0).index(startTime):], CummulativeBl1 + CummulativeBl2, linewidth = 3, color = Color_list[v], label=RCP_title[v])#+r"($2 \leq \Delta T_{model}\,<\,4$)")
+            sub1.plot(time0[list(time0).index(startTime):], CummulativeBl1 + CummulativeBl2, linewidth = 4, color = Color_list[v], label=RCP_title[v])#+r"($2 \leq \Delta T_{model}\,<\,4$)")
         elif z == 1:
             CummulativeBl = cumsum(SST[list(time0).index(startTime):] >= T0+1)    # Cummulative number of bleaching since 2016
             #sub1.plot(time0[list(time0).index(startTime):][CummulativeBl != 0], CummulativeBl[CummulativeBl != 0], linewidth = 3, color = Color_list[v])# label=RCP_title[v]+r"($\Delta T_{model} \geq 1$)")
-            sub1.plot(time0[list(time0).index(startTime):], CummulativeBl, linewidth = 3, color = Color_list[v])# label=RCP_title[v]+r"($\Delta T_{model} \geq 1$)")
+            sub1.plot(time0[list(time0).index(startTime):], CummulativeBl, linewidth = 4, color = Color_list[v])# label=RCP_title[v]+r"($\Delta T_{model} \geq 1$)")
         else:
             CummulativeBl1 = cumsum((SST[list(time0).index(startTime):] >= T0+1)*(SST[list(time0).index(startTime):] < T0+3))    # Cummulaticve number of bleaching since 2016
             CummulativeBl2 = cumsum((SST[list(time0).index(startTime):] >= T0+3)*(SST[list(time0).index(startTime):] < T0+6))    # Cummulaticve number of bleaching since 2016
@@ -122,7 +122,7 @@ for z in range(len(Locations)):
             #sub1.plot(time0[list(time0).index(startTime):][CummulativeBl1 != 0], CummulativeBl1[CummulativeBl1 != 0], linewidth = 3, color = Color_list[v])#, label=RCP_title[v]+r"($1 \leq \Delta T_{model}\,<\,3$)")
             #sub1.plot(time0[list(time0).index(startTime):][CummulativeBl2 != 0], CummulativeBl2[CummulativeBl2 != 0], "--",linewidth = 3, color = Color_list[v])#, label=RCP_title[v])#+ r"($3 \leq \Delta T_{model}\,<\,6$)")
             #sub1.plot(time0[list(time0).index(startTime):][CummulativeBl3 != 0], CummulativeBl3[CummulativeBl3 != 0], ".", markersize = 3 ,color = Color_list[v])#, label=RCP_title[v])#+r"($\Delta T_{model} \geq 6$)")
-            sub1.plot(time0[list(time0).index(startTime):], CummulativeBl1+CummulativeBl2+CummulativeBl3, linewidth = 3, color = Color_list[v])#, label=RCP_title[v]+r"($1 \leq \Delta T_{model}\,<\,3$)")
+            sub1.plot(time0[list(time0).index(startTime):], CummulativeBl1+CummulativeBl2+CummulativeBl3, linewidth = 4, color = Color_list[v])#, label=RCP_title[v]+r"($1 \leq \Delta T_{model}\,<\,3$)")
 
         if count == 0:
             sub1.set_ylabel("Bleaching \n (nr)", fontsize = fsize + 2)
@@ -229,7 +229,7 @@ for z in range(len(Locations)):
         Symbticks = array([0, 30, 60, 90, 120, 150, 180, 200]) - 100
         part7 = sub7.twinx()
         if count==3:
-            sub7.set_ylabel("Symbiont abundance \n (% change)\n", fontsize = fsize + 2)
+            sub7.set_ylabel("Symbiont abundance \n \n (% change)", fontsize = fsize + 2)
             sub7.text(startTime - 16, 180-100, Fig_lab[6+count], fontproperties=font, fontsize = fsize) # forcing
         else:
             sub7.text(startTime - 5, 180-100, Fig_lab[6+count], fontproperties=font, fontsize = fsize) # forcing
@@ -277,9 +277,9 @@ for z in range(len(Locations)):
         PastTrait = sum(Trait[compare0])/sum(compare0)
         PastSymb = sum(Symb[compare0])/sum(compare0)
         
-        sub1.plot(time, 100*Trait/PastTrait - 100, linewidth = 3, color = Color_list[v]) 
-        sub4.plot(time, 100*Host/PastHost - 100, linewidth = 3, color = Color_list[v])
-        sub7.plot(time, 100*Symb/PastSymb - 100, linewidth = 3, color = Color_list[v], label = RCP_title[v])
+        sub1.plot(time, 100*Trait/PastTrait - 100, linewidth = 4, color = Color_list[v]) 
+        sub4.plot(time, 100*Host/PastHost - 100, linewidth = 4, color = Color_list[v])
+        sub7.plot(time, 100*Symb/PastSymb - 100, linewidth = 4, color = Color_list[v], label = RCP_title[v])
         
         compare1 = (time<=2100)*(time>=2081)     
         FutureHost = sum(Host[compare1])/sum(compare1)
@@ -358,7 +358,7 @@ for z in range(len(Locations)):
         sub7.set_ylim((0-100, 180-100))
         part7.set_ylim((0-100, 180-100)) 
         sub7.set_xlim((startTime, max(time0))) 
-        sub7.set_xlabel("Years", fontsize=fsize + 2)  
+        sub7.set_xlabel("Years", fontsize=fsize2)  
         
         
         ### Plot simulation without adaptation
@@ -410,8 +410,8 @@ for z in range(len(Locations)):
 
 
 # Plot with maximal window
-figManager = plt.get_current_fig_manager()
-figManager.window.showMaximized()
+#figManager = plt.get_current_fig_manager()
+#figManager.window.showMaximized()
 
 plt.subplots_adjust(top=0.965,
 bottom=0.095,
