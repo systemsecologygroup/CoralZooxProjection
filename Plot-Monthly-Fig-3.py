@@ -1,3 +1,13 @@
+from __future__ import division
+from scipy import array, load, arange, linspace, ones, cumsum, concatenate, mean
+from scipy.stats import norm
+
+from matplotlib import pyplot as plt
+from matplotlib.font_manager import FontProperties
+import matplotlib
+plt.switch_backend('agg')
+
+
 """File used to produce Figure 3 of manuscript"""
 
 #### Plotting data collected from ode solver #####
@@ -223,15 +233,15 @@ for z in range(len(Locations)):
             sub7.text(startTime - 5, 180-100, Fig_lab[6+count], fontproperties=font, fontsize = fsize) # forcing
                     
         
-        file2 = open("Results_2/CORAL-"+rcp+"-"+Locations[z]+".dat", "r")
+        file2 = open("Results/CORAL-"+rcp+"-"+Locations[z]+".dat", "r")
         HOSTSet1 = load(file2, allow_pickle = True)
         file2.close()
         
-        file3 = open("Results_2/TRAIT-"+rcp+"-"+Locations[z]+".dat", "r")
+        file3 = open("Results/TRAIT-"+rcp+"-"+Locations[z]+".dat", "r")
         TRAITSet1 = load(file3, allow_pickle = True)
         file3.close()
         
-        file4 =  open("Results_2/SYMB-"+rcp+"-"+Locations[z]+".dat", "r")
+        file4 =  open("Results/SYMB-"+rcp+"-"+Locations[z]+".dat", "r")
         SYMBSet1 = load(file4, allow_pickle = True)
         file4.close()
         
