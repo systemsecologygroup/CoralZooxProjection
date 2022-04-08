@@ -383,9 +383,9 @@ for z in range(len(Locations)):
             TRAIT2 = TRAITSet1b
             
             
-            Host2 = HOST[0]
-            Trait2 = TRAIT[0]
-            Symb2 = SYMB[0]
+            Host2 = HOST2[0]
+            Trait2 = TRAIT2[0]
+            Symb2 = SYMB2[0]
                         
             # save to csv
             #np.savetxt("Results-N-0-2010/Time-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], time, delimiter = ",")
