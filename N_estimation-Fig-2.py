@@ -312,8 +312,10 @@ for z in xrange(len(Locations)):
         part0.plot(GBR_Year_source1, GBR_Cover_source1, "o", markersize = markS, alpha = 0.75, color = source1Col, label="Obs. (De'ath $et$ $al.$, 2012)")
         #fit_GBR = GBR_slope*GBR_Year_source2 + GBR_intercept
         #part0.plot(GBR_Year_source2, fit_GBR, linewidth = 6, color = source2Col, alpha = 0.75, label="$y$ = %.2f$x$ - %.2f"%(GBR_slope, abs(GBR_intercept)))
-        #part0.legend(frameon = True, fontsize = fsize2, loc = (0.02,0.5), facecolor = "white", framealpha = 1)
-        part0.legend(frameon = True, fontsize = fsize2+2, loc = (-0.02,-0.35), ncol = 5, facecolor = "white", framealpha = 1)
+        #part0.legend(frameon = True, fontsize = fsize2, loc = (0.02,0.5), facecolor = "white", framealpha = 1) # in figure pannel a
+        part0.legend(frameon = True, fontsize = fsize2+2, loc = (-0.02,-0.35), ncol = 5, facecolor = "white", framealpha = 1) # bottom of figure
+        part0.legend(frameon = True, fontsize = fsize2+2, loc = (-0.02,1+0.1), ncol = 5, facecolor = "white", framealpha = 1) # top of figure
+
         part0.set_ylabel("Observed relative \n coral abundance ($\%$)", color = source2Col, fontproperties = font, fontsize = fsize+2, labelpad = 2)
     elif z == 1: # SEA
         part0.set_yticks(tcks) 
