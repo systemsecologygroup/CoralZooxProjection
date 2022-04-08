@@ -1,15 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import division
-
-from scipy import exp, e, sqrt, mean,var, ones, cumsum, random, sin, pi, std, log
-from scipy.stats import norm
-from numpy import amin, amax, meshgrid, arange, isnan, logical_not, interp, concatenate, floor, linspace, array, zeros, load
-from scipy.integrate import odeint
-from matplotlib import pyplot as plt
-from matplotlib.font_manager import FontProperties
-import numpy as np
-plt.switch_backend('agg')
-
 """File used to produce Figure 3 of manuscript"""
 
 #### Plotting data collected from ode solver #####
@@ -40,8 +28,8 @@ rawNum_GBR = arange(0.01, 0.1, 0.00005)
 rawNum_SEA = arange(0.01, 0.1, 0.00005)
 rawNum_CAR = arange(0.01, 0.1, 0.00005) 
 
-fsize = (16+10) #18 #22
-fsize2 = (16+10+2) #18
+fsize = (16+8) #18 #22
+fsize2 = (16+8) #18
 
 # Open Files and plot
 
@@ -57,7 +45,7 @@ Locations_title = ["Great Barrier Reef", "South East Asia", "Caribbean"]
 import matplotlib.colors as mcolors
 import matplotlib as mpl
  
-fig =plt.figure(figsize=(29, 13))  # (14, 20)
+fig =plt.figure(figsize=(30, 13+2))  # (14, 20)
 ax = plt.subplot(1, 1, 1)
 
     
@@ -125,7 +113,7 @@ for z in range(len(Locations)):
             sub1.plot(time0[list(time0).index(startTime):], CummulativeBl1+CummulativeBl2+CummulativeBl3, linewidth = 4, color = Color_list[v])#, label=RCP_title[v]+r"($1 \leq \Delta T_{model}\,<\,3$)")
 
         if count == 0:
-            sub1.set_ylabel("Bleaching \n (nr)", fontsize = fsize + 2)
+            sub1.set_ylabel("Bleaching \n (nr)", fontsize = fsize)
             sub1.text(startTime - 16, 800, Fig_lab[count], fontproperties=font, fontsize = fsize)
             sub1.tick_params(axis = "y", direction = "in", labelsize = fsize2)
             sub1.set_yticks((0, 200, 400, 600, 800, 1000))
@@ -201,49 +189,49 @@ for z in range(len(Locations)):
         sub1 = plt.subplot(4, 3, 1+count)
         #TraitTicks = array([-0.5, 0, 101-100, 102-100, 102.5-100])
         TraitTicks = array([-0.5, 0, 0.5, 1, 1.5, 2, 2.5])
-        plt.xticks([2010, 2020, 2030, 2040, 2050, 2060, 2070, 2080, 2090, 2100], ["", "", "", "", "", "", "", "", "", ""], fontsize = 10)
+        plt.xticks([2010, 2020, 2030, 2040, 2050, 2060, 2070, 2080, 2090, 2100], ["", "", "", "", "", "", "", "", "", ""])
         sub1.set_xlim((startTime, max(time0))) 
         part1 = sub1.twinx()
         if count == 3:
-            sub1.set_ylabel("Coral trait \n (% change)", fontsize = fsize + 2)
+            sub1.set_ylabel("Coral trait \n (% change)", fontsize = fsize)
             sub1.text(startTime - 16, 102.5-100, Fig_lab[count], fontproperties=font, fontsize = fsize) # forcing
         else:
             sub1.text(startTime - 5, 102.5-100, Fig_lab[count], fontproperties=font,  fontsize = fsize)
             
         sub4 = plt.subplot(4, 3, 4+count)
           
-        plt.xticks([2010, 2020, 2030, 2040, 2050, 2060, 2070, 2080, 2090, 2100], ["", "", "", "", "", "", "", "", "", ""], fontsize = 10)
+        plt.xticks([2010, 2020, 2030, 2040, 2050, 2060, 2070, 2080, 2090, 2100], ["", "", "", "", "", "", "", "", "", ""])
         part4 = sub4.twinx()
         #hostTicks = array([0, 20, 40, 60, 80, 100, 120]) - 100    
         hostTicks = array([0-100, 20-100, 40-100, 60-100, 80-100, 0, 120-100])  
         if count == 3:
-            sub4.set_ylabel("Coral abundance \n (% change)", fontsize = fsize + 2)
+            sub4.set_ylabel("Coral abundance \n (% change)", fontsize = fsize)
             sub4.text(startTime - 16, 120-100, Fig_lab[3+count],fontproperties=font, fontsize = fsize) # forcing
 
         else: 
             sub4.text(startTime - 5, 120-100, Fig_lab[3+count],fontproperties=font, fontsize = fsize) # forcing
     
         sub7 = plt.subplot(4, 3, 7+count)
-        plt.xticks([2010, 2020, 2030, 2040, 2050, 2060, 2070, 2080, 2090, 2100], rotation = 45, fontsize = fsize2)
+        plt.xticks([2010, 2020, 2030, 2040, 2050, 2060, 2070, 2080, 2090, 2100], rotation = 45, fontsize = fsize)
 
         Symbticks = array([0, 30, 60, 90, 120, 150, 180, 200]) - 100
         part7 = sub7.twinx()
         if count==3:
-            sub7.set_ylabel("Symbiont abundance \n \n (% change)", fontsize = fsize + 2)
+            sub7.set_ylabel("Symbiont \n abundance \n (% change)", fontsize = fsize)
             sub7.text(startTime - 16, 180-100, Fig_lab[6+count], fontproperties=font, fontsize = fsize) # forcing
         else:
             sub7.text(startTime - 5, 180-100, Fig_lab[6+count], fontproperties=font, fontsize = fsize) # forcing
                     
         
-        file2 = open("Results/CORAL-"+rcp+"-"+Locations[z]+".dat", "r")
+        file2 = open("Results_2/CORAL-"+rcp+"-"+Locations[z]+".dat", "r")
         HOSTSet1 = load(file2, allow_pickle = True)
         file2.close()
         
-        file3 = open("Results/TRAIT-"+rcp+"-"+Locations[z]+".dat", "r")
+        file3 = open("Results_2/TRAIT-"+rcp+"-"+Locations[z]+".dat", "r")
         TRAITSet1 = load(file3, allow_pickle = True)
         file3.close()
         
-        file4 =  open("Results/SYMB-"+rcp+"-"+Locations[z]+".dat", "r")
+        file4 =  open("Results_2/SYMB-"+rcp+"-"+Locations[z]+".dat", "r")
         SYMBSet1 = load(file4, allow_pickle = True)
         file4.close()
         
@@ -358,7 +346,7 @@ for z in range(len(Locations)):
         sub7.set_ylim((0-100, 180-100))
         part7.set_ylim((0-100, 180-100)) 
         sub7.set_xlim((startTime, max(time0))) 
-        sub7.set_xlabel("Years", fontsize=fsize2)  
+        sub7.set_xlabel("Years", fontsize=fsize)  
         
         
         ### Plot simulation without adaptation
@@ -383,10 +371,11 @@ for z in range(len(Locations)):
             HOST2 = HOSTSet1b
             SYMB2 = SYMBSet1b
             TRAIT2 = TRAITSet1b
-
-            Host2 = HOST2[0]
-            Trait2 = TRAIT2[0]
-            Symb2 = SYMB2[0]
+            
+            
+            Host2 = HOST[0]
+            Trait2 = TRAIT[0]
+            Symb2 = SYMB[0]
                         
             # save to csv
             #np.savetxt("Results-N-0-2010/Time-"+rcp+"-"+Locations[z]+"-%d.csv"%reg_N_index_true[z], time, delimiter = ",")
@@ -404,7 +393,7 @@ for z in range(len(Locations)):
             sub4.plot(time, 100*Host2/PastHost2 - 100, linewidth = 2, color = "black")
             sub7.plot(time, 100*Symb2/PastSymb2 - 100, linewidth = 2, color = "black")
             if z == 0:
-                sub1.legend()
+                sub1.legend(fontsize = 15, loc="upper left")
             
     count +=1 
 
@@ -422,5 +411,4 @@ hspace=0.175,
 wspace=0.175)
 
 plt.savefig("Figures/EPS/Fig3.eps", dpi= 600, bbox_inches = 'tight') 
-plt.savefig("Figures/PDF/Fig3.pdf", dpi= 600, bbox_inches = 'tight')    
-#plt.show()
+plt.savefig("Figures/PDF/Fig3.pdf", dpi= 600, bbox_inches = 'tight')   
